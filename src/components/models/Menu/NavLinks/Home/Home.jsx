@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import SmallCards from "../../../Widgets/SmallCards/SmallCards";
+import Cards from "../../../Widgets/Cards/Cards";
 import cssStyles from "./Home.module.scss";
 import { SVG } from "../../../Icons/Icons";
-import MediumCards from "../../../Widgets/MediumCards/MediumCards";
 const Home = () => {
     const [click, setClick] = useState(false);
 
@@ -20,7 +19,7 @@ const Home = () => {
             </div>
             <div className={cssStyles.HomeContainer}>
                 <div className={cssStyles.SmallCardsContainer}>
-                    <SmallCards
+                    <Cards
                         width={"100%"}
                         height={"97px"}
                         background={"#FFFFFF"}
@@ -28,7 +27,7 @@ const Home = () => {
                         text={"$682.5"}
                         icon={SVG[0].svg}
                     />
-                    <SmallCards
+                    <Cards
                         width={"100%"}
                         height={"97px"}
                         background={"#FFFFFF"}
@@ -36,42 +35,42 @@ const Home = () => {
                             <div onClick={() => setClick(!click)}>Click me</div>
                         }
                     />
-                    <SmallCards
+                    <Cards
                         width={"100%"}
                         height={"97px"}
                         background={"#FFFFFF"}
                         title={<div>{click && <div>Hi</div>}</div>}
                     />
-                    <SmallCards
+                    <Cards
                         width={"100%"}
                         height={"97px"}
                         background={"#FFFFFF"}
                     />
                 </div>
                 <div className={cssStyles.MediumCardsContainer}>
-                    <MediumCards
+                    <Cards
                         width={"100%"}
                         height={"345px"}
                         background={"#FFFFFF"}
                     />
-                    <MediumCards
+                    <Cards
                         width={"100%"}
                         height={"345px"}
                         background={"#FFFFFF"}
                     />
                 </div>
                 <div className={cssStyles.MediumCardsContainerSecond}>
-                    <MediumCards
+                    <Cards
                         width={"100%"}
                         height={"345px"}
                         background={"#FFFFFF"}
                     />
-                    <MediumCards
+                    <Cards
                         width={"100%"}
                         height={"345px"}
                         background={"#FFFFFF"}
                     />
-                    <MediumCards
+                    <Cards
                         width={"100%"}
                         height={"345px"}
                         background={"#FFFFFF"}
