@@ -1,0 +1,10 @@
+body {
+    margin: 0;
+    font-family: "DM Sans";
+}
+.Container {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    grid-template-areas: "sidebar content";
+    height: 100vh;
+}

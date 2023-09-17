@@ -1,0 +1,55 @@
+.SmallCardsContainer {
+    border-radius: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    justify-content: center;
+    &:hover {
+        background: var(
+            --gradients-gradient-style-1,
+            linear-gradient(135deg, #868cff 0%, #4318ff 100%)
+        );
+        cursor: pointer;
+    }
+}
+.SmallCardsTitleContainer {
+    display: flex;
+    flex-flow: wrap;
+    align-items: center;
+    padding: 10px;
+}
+.SmallCardsTitle {
+    font-family: DM Sans;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 28px;
+    letter-spacing: -0.32px;
+    color: #a3aed0;
+}
+.SmallCardsText {
+    font-family: DM Sans;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 28px;
+    letter-spacing: -0.32px;
+    color: #1b2559;
+}
+.SmallCardsIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.SmallCardsNumber {
+    color: var(--secondary-dark-grey-900, #1b2559);
+
+    /* Display Text/Extra-Small/ Bold */
+    font-family: DM Sans;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 32px; /* 133.333% */
+    letter-spacing: -0.48px;
+}
