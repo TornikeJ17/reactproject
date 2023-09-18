@@ -9,6 +9,7 @@
         text-decoration: none;
     }
 }
+
 .MenuLi{
     list-style: none;
     display: flex;
@@ -16,10 +17,10 @@
     padding: 10px;
     gap: 10px;
     span{
-        font-family: DM Sans;
+        font-family: "DM Sans", sans-serif;
         font-size: 16px;
         font-style: normal;
-        font-weight: 500;
+        font-weight: 600;
         line-height: 28px;
         letter-spacing: -0.32px;
         color: #A3AED0;
@@ -37,6 +38,43 @@
         }
         svg path{
             fill: #FFFFFF;
+        }
+        
+    }
+}
+.NavLinkActive {
+    background: #4318FF;
+    border-radius: 5px;
+    .MenuLi{
+        list-style: none;
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        gap: 10px;
+        span{
+            font-family: "DM Sans", sans-serif;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 28px;
+            letter-spacing: -0.32px;
+            color: #FFFFFF;
+        }
+        svg path{
+            fill: #FFFFFF;
+        }
+        &:hover{
+            background:#4318FF;
+            color: #FFFFFF;
+            border-radius: 5px;
+            cursor: pointer;
+            span{
+                color: #FFFFFF;
+            }
+            svg path{
+                fill: #FFFFFF;
+            }
+
         }
     }
 }

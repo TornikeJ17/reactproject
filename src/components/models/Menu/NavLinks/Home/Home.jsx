@@ -3,7 +3,7 @@ import Cards from "../../../Widgets/Cards/Cards";
 import cssStyles from "./Home.module.scss";
 import { SVG } from "../../../Icons/Icons";
 const Home = () => {
-    const [click, setClick] = useState(false);
+   
 
     useEffect(() => {});
     return (
@@ -22,58 +22,103 @@ const Home = () => {
                     <Cards
                         width={"100%"}
                         height={"97px"}
-                        background={"#FFFFFF"}
-                        title={"Spent this month"}
-                        text={"$682.5"}
-                        icon={SVG[0].svg}
-                    />
-                    <Cards
-                        width={"100%"}
-                        height={"97px"}
-                        background={"#FFFFFF"}
-                        title={
-                            <div onClick={() => setClick(!click)}>Click me</div>
+                        element={
+                            <div className={cssStyles.CardsContainer}>
+                                <div className={cssStyles.CardsTitleContainer}>
+                                    <div className={cssStyles.CardsTitle}>Earnings of Month</div>
+                                    <div className={cssStyles.CardsText}>$682.5</div>
+                                </div>
+                                <div className={cssStyles.CardsIcon}>{SVG[0].svg}</div>
+                            </div>
                         }
                     />
                     <Cards
                         width={"100%"}
                         height={"97px"}
-                        background={"#FFFFFF"}
-                        title={<div>{click && <div>Hi</div>}</div>}
+                        element={
+                            <div className={cssStyles.CardsContainer}>
+                                <div className={cssStyles.CardsTitleContainer}>
+                                    <div className={cssStyles.CardsTitle}>Products</div>
+                                    <div className={cssStyles.CardsText}>37</div>
+                                </div>
+                                <div className={cssStyles.CardsIcon}>{SVG[3].svg}</div>
+                            </div>
+                        }
                     />
                     <Cards
                         width={"100%"}
                         height={"97px"}
-                        background={"#FFFFFF"}
+                        element={
+                            <div className={cssStyles.CardsContainer}>
+                                <div className={cssStyles.CardsTitleContainer}>
+                                    <div className={cssStyles.CardsTitle}>New Clients</div>
+                                    <div className={cssStyles.CardsText}>7</div>
+                                </div>
+                                <div className={cssStyles.CardsIcon}>{SVG[1].svg}</div>
+                            </div>
+                        }
+                    />
+                    <Cards
+                        width={"100%"}
+                        height={"97px"}
+                        element={
+                            <div className={cssStyles.CardsContainer}>
+                                <div className={cssStyles.CardsTitleContainer}>
+                                    <div className={cssStyles.CardsTitle}>New Orders</div>
+                                    <div className={cssStyles.CardsText}>165</div>
+                                </div>
+                                <div className={cssStyles.CardsIcon}>{SVG[2].svg}</div>
+                            </div>
+                        }
                     />
                 </div>
                 <div className={cssStyles.MediumCardsContainer}>
                     <Cards
                         width={"100%"}
-                        height={"345px"}
                         background={"#FFFFFF"}
+                        element={
+                            <div>
+                                hello world
+                            </div>
+                        }
                     />
                     <Cards
                         width={"100%"}
                         height={"345px"}
-                        background={"#FFFFFF"}
+                        element={
+                            <div>
+                                hello world
+                            </div>
+                        }
                     />
                 </div>
                 <div className={cssStyles.MediumCardsContainerSecond}>
                     <Cards
                         width={"100%"}
                         height={"345px"}
-                        background={"#FFFFFF"}
+                        element={
+                            <div>
+                                hello world
+                            </div>
+                        }
                     />
                     <Cards
                         width={"100%"}
                         height={"345px"}
-                        background={"#FFFFFF"}
+                        element={
+                            <div>
+                                hello world
+                            </div>
+                        }
                     />
                     <Cards
                         width={"100%"}
                         height={"345px"}
-                        background={"#FFFFFF"}
+                        element={
+                            <div>
+                                hello world
+                            </div>
+                        }
                     />
                 </div>
             </div>

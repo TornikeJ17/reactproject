@@ -5,11 +5,7 @@ const Cards = ({
     width,
     height,
     color,
-    background,
-    title,
-    text,
-    number,
-    icon,
+    element,
 }) => {
     return (
         <div
@@ -17,19 +13,10 @@ const Cards = ({
             style={{
                 width: width,
                 height: height,
-                backgroundColor: background,
                 color: color,
             }}
         >
-            <div className={cssStyles.CardsTitleContainer}>
-                <div className={cssStyles.CardsTitle}>{title}</div>
-                {text?.length > 0 ? (
-                    <div className={cssStyles.CardsText}>{text}</div>
-                ) : (
-                    <div className={cssStyles.CardsText}>{number}</div>
-                )}
-            </div>
-            <div className={cssStyles.CardsIcon}>{icon}</div>
+            {element}
         </div>
     );
 };

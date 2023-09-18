@@ -1,11 +1,11 @@
 import React from "react";
 
-const Activity = () => {
+const Products = () => {
     return (
         <div>
-            <h1>Activity</h1>
+            <h1>Products</h1>
         </div>
     )
 }
 
-export default Activity
+export default Products

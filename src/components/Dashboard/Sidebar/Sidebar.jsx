@@ -25,6 +25,7 @@ const Sidebar = () => {
                 color={"#F4F7FE"}
             />
             <Menu />
+            <div className={cssStyles.SidebarEnd}>s</div>
         </div>
     )
 }

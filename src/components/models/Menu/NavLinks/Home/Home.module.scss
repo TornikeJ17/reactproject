@@ -48,3 +48,41 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
 }
+
+.CardsContainer {
+    border-radius: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+.CardsTitleContainer {
+    display: flex;
+    flex-flow: column;
+    padding: 10px;
+}
+.CardsTitle {
+    font-family: DM Sans;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 28px;
+    letter-spacing: -0.32px;
+    color: #a3aed0;
+}
+.CardsText {
+    font-family: DM Sans;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 28px;
+    letter-spacing: -0.32px;
+    color: #1b2559;
+}
+.CardsIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
