@@ -2,11 +2,12 @@ import React from "react";
 import cssStyles from "./Orders.module.scss";
 import Cards from "../../../Widgets/Cards/Cards";
 import { orderIcons } from "../../../Icons/Icons";
+import Breadcrumb from "../../../Widgets/Breadcrumb/Breadcrumb";
 
 const Orders = () => {
     return (
         <div className={cssStyles.ContainerOrders}>
-            <h1>Orders</h1>
+            <Breadcrumb />
             <div className={cssStyles.Blocks}>
                 <Cards
                     width={"100%"}
