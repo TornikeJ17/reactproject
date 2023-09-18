@@ -1,11 +1,79 @@
-﻿.ContainerOrders{
-  
+﻿.ContainerOrders {
+    display: grid;
+    gap: 20px;
 }
-.Blocks{
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 20px;
+.Blocks {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 20px;
 }
-.OrderIcons{
-  
+.OrderIcons {
+}
+.SecondBlock {
+    display: grid;
+}
+
+.OrderElementBlock {
+    display: grid;
+    grid-template-rows: 0.1fr 0.1fr 0.1fr;
+    align-items: center;
+    padding: 20px;
+    height: 100%;
+    gap: 8px;
+}
+.OrderElementTitle {
+    font-family: DM Sans;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 28px;
+    letter-spacing: -0.32px;
+    color: #a3aed0;
+}
+.OrderElementText {
+    font-family: DM Sans;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 28px;
+    letter-spacing: -0.32px;
+    color: #1b2559;
+}
+
+.gridtable {
+    display: grid;
+    grid-template-rows: repeat(8, 1fr);
+    padding: 20px;
+}
+.gridtableBlock {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+}
+.orderList {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+}
+.orderList div {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgb(244, 247, 254);
+    height: 79px;
+    justify-content: center;
+}
+.gridtable .header {
+    display: flex;
+    align-items: center;
+    height: 79px;
+    font-family: DM Sans;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 28px;
+    letter-spacing: -0.32px;
+    color: #a3aed0;
+    border-bottom: 1px solid rgb(244, 247, 254);
+    justify-content: center;
+}
+.gridtable .actions a {
+    margin: 0 5px;
 }
