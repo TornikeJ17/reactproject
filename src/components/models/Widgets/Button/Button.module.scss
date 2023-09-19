@@ -1,14 +1,16 @@
 .Button {
-    width: 168px;
-    height: 30px;
     border-radius: 8px;
     outline: none;
     border: none;
     cursor: pointer;
-    background-color: #4318ff;
     color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap:4px;
+    svg{
+        width: 20px;
+    }
+    path {
+        fill: #FFFFFF;
+    }
 }

@@ -3,15 +3,28 @@ import cssStyles from "./Orders.module.scss";
 import Cards from "../../../Widgets/Cards/Cards";
 import { orderIcons } from "../../../Icons/Icons";
 import Breadcrumb from "../../../Widgets/Breadcrumb/Breadcrumb";
+import {ordersItems} from "../../../../api/order";
+
+
+
+
+
+
 
 const Orders = () => {
+    console.log(ordersItems)
     return (
         <div className={cssStyles.ContainerOrders}>
-            <Breadcrumb />
+            <Cards
+                width={"10%"}
+                border={"10px"}
+                element={<div className={cssStyles.OrdersTitle}>Orders</div>}
+            />
             <div className={cssStyles.Blocks}>
                 <Cards
                     width={"100%"}
                     height={"150px"}
+                    border={"20px"}
                     element={
                         <div className={cssStyles.OrderElementBlock}>
                             <div>{orderIcons[0].icon}</div>
@@ -27,6 +40,7 @@ const Orders = () => {
                 <Cards
                     width={"100%"}
                     height={"150px"}
+                    border={"20px"}
                     element={
                         <div className={cssStyles.OrderElementBlock}>
                             <div>{orderIcons[1].icon}</div>
@@ -42,6 +56,7 @@ const Orders = () => {
                 <Cards
                     width={"100%"}
                     height={"150px"}
+                    border={"20px"}
                     element={
                         <div className={cssStyles.OrderElementBlock}>
                             <div>{orderIcons[2].icon}</div>
@@ -55,6 +70,7 @@ const Orders = () => {
                 <Cards
                     width={"100%"}
                     height={"150px"}
+                    border={"20px"}
                     element={
                         <div className={cssStyles.OrderElementBlock}>
                             <div>{orderIcons[3].icon}</div>
@@ -70,6 +86,7 @@ const Orders = () => {
                 <Cards
                     width={"100%"}
                     height={"800px"}
+                    border={"20px"}
                     element={
                         <div className={cssStyles.gridtable}>
                             <div className={cssStyles.gridtableBlock}>
@@ -84,105 +101,34 @@ const Orders = () => {
                                 <div className={cssStyles.header}>Rate</div>
                                 <div className={cssStyles.header}>Actions</div>
                             </div>
-
-                            <div className={cssStyles.orderList}>
-                                <div>#12345</div>
-                                <div>
-                                    <img
-                                        style={{
-                                            width: "70px",
-                                            height: "70px",
-                                        }}
-                                        src={
-                                            "https://shop-point.merku.love/assets/1-a5b55edd.webp"
-                                        }
-                                        alt="s"
-                                    />
-                                </div>
-                                <div>123-ABC</div>
-                                <div>Electronics</div>
-                                <div>Credit Card</div>
-                                <div>Processing</div>
-                                <div>4.5</div>
-                                <div className="actions">
-                                    <a href="#">View</a> | <a href="#">Edit</a>{" "}
-                                    | <a href="#">Delete</a>
-                                </div>
-                            </div>
-
-                            <div className={cssStyles.orderList}>
-                                <div>#12346</div>
-                                <div>
-                                    <img
-                                        style={{
-                                            width: "70px",
-                                            height: "70px",
-                                        }}
-                                        src={
-                                            "https://shop-point.merku.love/assets/1-a5b55edd.webp"
-                                        }
-                                        alt="s"
-                                    />
-                                </div>
-                                <div>124-BCD</div>
-                                <div>Home Appliance</div>
-                                <div>PayPal</div>
-                                <div>Shipped</div>
-                                <div>5.0</div>
-                                <div className="actions">
-                                    <a href="#">View</a> | <a href="#">Edit</a>{" "}
-                                    | <a href="#">Delete</a>
-                                </div>
-                            </div>
-                            <div className={cssStyles.orderList}>
-                                <div>#12345</div>
-                                <div>
-                                    <img
-                                        style={{
-                                            width: "70px",
-                                            height: "70px",
-                                        }}
-                                        src={
-                                            "https://shop-point.merku.love/assets/1-a5b55edd.webp"
-                                        }
-                                        alt="s"
-                                    />
-                                </div>
-                                <div>123-ABC</div>
-                                <div>Electronics</div>
-                                <div>Credit Card</div>
-                                <div>Processing</div>
-                                <div>4.5</div>
-                                <div className="actions">
-                                    <a href="#">View</a> | <a href="#">Edit</a>{" "}
-                                    | <a href="#">Delete</a>
-                                </div>
-                            </div>
-
-                            <div className={cssStyles.orderList}>
-                                <div>#12346</div>
-                                <div>
-                                    <img
-                                        style={{
-                                            width: "70px",
-                                            height: "70px",
-                                        }}
-                                        src={
-                                            "https://shop-point.merku.love/assets/1-a5b55edd.webp"
-                                        }
-                                        alt="s"
-                                    />
-                                </div>
-                                <div>124-BCD</div>
-                                <div>Home Appliance</div>
-                                <div>PayPal</div>
-                                <div>Shipped</div>
-                                <div>5.0</div>
-                                <div className="actions">
-                                    <a href="#">View</a> | <a href="#">Edit</a>{" "}
-                                    | <a href="#">Delete</a>
-                                </div>
-                            </div>
+                            {
+                                ordersItems.map(item => (
+                                    <div className={cssStyles.orderList}>
+                                        <div>#{item.id}</div>
+                                        <div>
+                                            <img
+                                                style={{
+                                                    width: "70px",
+                                                    height: "70px",
+                                                }}
+                                                src={
+                                                    item.icon
+                                                }
+                                                alt="s"
+                                            />
+                                        </div>
+                                        <div>{item.sku}</div>
+                                        <div>{item.category}</div>
+                                        <div>{item.payment}</div>
+                                        <div>{item.status}</div>
+                                        <div>{item.rate}</div>
+                                        <div className={cssStyles.actions}>
+                                            <span className={cssStyles.orderViewIcon}>{orderIcons[4].icon}</span>
+                                            <span className={cssStyles.orderRemoveIcon}>{orderIcons[5].icon}</span>
+                                        </div>
+                                    </div>
+                                ))
+                            }   
                         </div>
                     }
                 />

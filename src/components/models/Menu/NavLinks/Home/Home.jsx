@@ -22,6 +22,7 @@ const Home = () => {
                     <Cards
                         width={"100%"}
                         height={"97px"}
+                        border={"20px"}
                         element={
                             <div className={cssStyles.CardsContainer}>
                                 <div className={cssStyles.CardsTitleContainer}>
@@ -35,6 +36,7 @@ const Home = () => {
                     <Cards
                         width={"100%"}
                         height={"97px"}
+                        border={"20px"}
                         element={
                             <div className={cssStyles.CardsContainer}>
                                 <div className={cssStyles.CardsTitleContainer}>
@@ -48,6 +50,7 @@ const Home = () => {
                     <Cards
                         width={"100%"}
                         height={"97px"}
+                        border={"20px"}
                         element={
                             <div className={cssStyles.CardsContainer}>
                                 <div className={cssStyles.CardsTitleContainer}>
@@ -61,6 +64,7 @@ const Home = () => {
                     <Cards
                         width={"100%"}
                         height={"97px"}
+                        border={"20px"}
                         element={
                             <div className={cssStyles.CardsContainer}>
                                 <div className={cssStyles.CardsTitleContainer}>
@@ -76,6 +80,7 @@ const Home = () => {
                     <Cards
                         width={"100%"}
                         background={"#FFFFFF"}
+                        border={"20px"}
                         element={
                             <div>
                                 hello world
@@ -85,6 +90,7 @@ const Home = () => {
                     <Cards
                         width={"100%"}
                         height={"345px"}
+                        border={"20px"}
                         element={
                             <div>
                                 hello world
@@ -96,6 +102,7 @@ const Home = () => {
                     <Cards
                         width={"100%"}
                         height={"345px"}
+                        border={"20px"}
                         element={
                             <div>
                                 hello world
@@ -105,6 +112,7 @@ const Home = () => {
                     <Cards
                         width={"100%"}
                         height={"345px"}
+                        border={"20px"}
                         element={
                             <div>
                                 hello world
@@ -114,6 +122,7 @@ const Home = () => {
                     <Cards
                         width={"100%"}
                         height={"345px"}
+                        border={"20px"}
                         element={
                             <div>
                                 hello world

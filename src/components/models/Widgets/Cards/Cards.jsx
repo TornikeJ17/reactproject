@@ -6,6 +6,7 @@ const Cards = ({
     height,
     color,
     element,
+    border
 }) => {
     return (
         <div
@@ -14,6 +15,7 @@ const Cards = ({
                 width: width,
                 height: height,
                 color: color,
+                borderRadius: border
             }}
         >
             {element}

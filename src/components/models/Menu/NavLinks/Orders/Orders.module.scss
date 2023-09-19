@@ -2,6 +2,14 @@
     display: grid;
     gap: 20px;
 }
+.OrdersTitle{
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+    padding: 10px;
+}
 .Blocks {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -74,6 +82,17 @@
     border-bottom: 1px solid rgb(244, 247, 254);
     justify-content: center;
 }
-.gridtable .actions a {
-    margin: 0 5px;
+.gridtable .actions  {
+    gap: 10px;
+    cursor:pointer;
+    .orderViewIcon{
+         path{
+            fill: #3b3f4cb8;
+        }
+    }
+    .orderRemoveIcon{
+        path{
+            fill: #3b3f4cb8;
+        }
+    }
 }

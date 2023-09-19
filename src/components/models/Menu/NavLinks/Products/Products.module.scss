@@ -1,0 +1,65 @@
+﻿.Container{
+    display: grid;
+    gap: 20px;
+}
+.ProductItemContainer{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+    text-align: center;
+}
+.ProductsTitle{
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+    padding: 10px;
+}
+
+.OrderElementBlock{
+    display: grid;
+    justify-content: center;
+    gap: 4px;
+    position: relative;
+    cursor: pointer;
+  
+         &:hover{
+             .ProductsButtonsContainer{
+                 transform: translateY(0);
+                 opacity: 1;
+                 cursor: pointer;
+                 bottom: -10px;
+             }
+        }
+    
+}
+.OrderElementTitle{
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 60px;
+}
+.OrderElementText{
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 60px;
+    
+}
+.ProductsButtonsContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    position:absolute;
+    bottom: -50px;
+    right: 60px;
+    transition: bottom 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+    transform: translateY(20px);
+    opacity: 0;
+}
