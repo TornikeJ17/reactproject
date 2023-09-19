@@ -1,5 +1,38 @@
-.Content{
+.Content {
     grid-area: content;
     background-color: #f5f7ff;
     padding: 30px;
+    display: grid;
+    gap: 20px;
+}
+.Welcome {
+    color: var(--secondary-grey-900, #2b3674);
+
+    /* Display Text/Small/Display Small (Bold) */
+    font-family: DM Sans;
+    font-size: 34px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 42px; /* 123.529% */
+    letter-spacing: -0.68px;
+}
+.WelcomeBlock {
+    display: grid;
+    align-items: center;
+}
+.WelcomeName {
+    color: var(--secondary-grey-700, #707eae);
+
+    /* Body Text/Small/Body Medium (Bold) */
+    font-family: DM Sans;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px; /* 171.429% */
+    letter-spacing: -0.28px;
+}
+.WelcomeContainer {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 20px;
 }

@@ -3,16 +3,10 @@ import cssStyles from "./Orders.module.scss";
 import Cards from "../../../Widgets/Cards/Cards";
 import { orderIcons } from "../../../Icons/Icons";
 import Breadcrumb from "../../../Widgets/Breadcrumb/Breadcrumb";
-import {ordersItems} from "../../../../api/order";
-
-
-
-
-
-
+import { ordersItems } from "../../../../api/order";
 
 const Orders = () => {
-    console.log(ordersItems)
+    console.log(ordersItems);
     return (
         <div className={cssStyles.ContainerOrders}>
             <Cards
@@ -87,6 +81,7 @@ const Orders = () => {
                     width={"100%"}
                     height={"800px"}
                     border={"20px"}
+                    overflow={"auto"}
                     element={
                         <div className={cssStyles.gridtable}>
                             <div className={cssStyles.gridtableBlock}>
@@ -101,34 +96,40 @@ const Orders = () => {
                                 <div className={cssStyles.header}>Rate</div>
                                 <div className={cssStyles.header}>Actions</div>
                             </div>
-                            {
-                                ordersItems.map(item => (
-                                    <div className={cssStyles.orderList}>
-                                        <div>#{item.id}</div>
-                                        <div>
-                                            <img
-                                                style={{
-                                                    width: "70px",
-                                                    height: "70px",
-                                                }}
-                                                src={
-                                                    item.icon
-                                                }
-                                                alt="s"
-                                            />
-                                        </div>
-                                        <div>{item.sku}</div>
-                                        <div>{item.category}</div>
-                                        <div>{item.payment}</div>
-                                        <div>{item.status}</div>
-                                        <div>{item.rate}</div>
-                                        <div className={cssStyles.actions}>
-                                            <span className={cssStyles.orderViewIcon}>{orderIcons[4].icon}</span>
-                                            <span className={cssStyles.orderRemoveIcon}>{orderIcons[5].icon}</span>
-                                        </div>
+                            {ordersItems.map((item) => (
+                                <div className={cssStyles.orderList}>
+                                    <div>#{item.id}</div>
+                                    <div>
+                                        <img
+                                            style={{
+                                                width: "70px",
+                                                height: "70px",
+                                            }}
+                                            src={item.icon}
+                                            alt="s"
+                                        />
                                     </div>
-                                ))
-                            }   
+                                    <div>{item.sku}</div>
+                                    <div>{item.category}</div>
+                                    <div>{item.payment}</div>
+                                    <div>{item.status}</div>
+                                    <div>{item.rate}</div>
+                                    <div className={cssStyles.actions}>
+                                        <span
+                                            className={cssStyles.orderViewIcon}
+                                        >
+                                            {orderIcons[4].icon}
+                                        </span>
+                                        <span
+                                            className={
+                                                cssStyles.orderRemoveIcon
+                                            }
+                                        >
+                                            {orderIcons[5].icon}
+                                        </span>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     }
                 />

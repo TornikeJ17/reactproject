@@ -1,13 +1,7 @@
 import React from "react";
 import cssStyles from "./Cards.module.scss";
 
-const Cards = ({
-    width,
-    height,
-    color,
-    element,
-    border
-}) => {
+const Cards = ({ width, height, color, element, border, overflow }) => {
     return (
         <div
             className={cssStyles.CardsContainer}
@@ -15,7 +9,8 @@ const Cards = ({
                 width: width,
                 height: height,
                 color: color,
-                borderRadius: border
+                borderRadius: border,
+                overflowY: overflow,
             }}
         >
             {element}
