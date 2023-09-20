@@ -1,6 +1,6 @@
 ﻿.Container {
     display: grid;
-    gap: 20px;
+    grid-template-rows: 0.5fr 0.5fr 7fr 1fr;
 }
 .ProductItemContainer {
     display: grid;
@@ -15,6 +15,11 @@
     font-weight: 700;
     font-size: 18px;
     padding: 10px;
+}
+.ProductEditContainer{
+    a{
+        text-decoration: none;
+    }
 }
 
 .OrderElementBlock {
@@ -56,7 +61,7 @@
     justify-content: center;
     gap: 20px;
     position: absolute;
-    bottom: -50px;
+    bottom: -5px;
     transition: bottom 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
     transform: translateY(20px);
     opacity: 0;

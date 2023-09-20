@@ -1,12 +1,21 @@
-import React from "react";
+import React, {useState,useEffect} from "react";
 import cssStyles from "./Orders.module.scss";
 import Cards from "../../../Widgets/Cards/Cards";
 import { orderIcons } from "../../../Icons/Icons";
 import Breadcrumb from "../../../Widgets/Breadcrumb/Breadcrumb";
 import { ordersItems } from "../../../../api/order";
 
+
 const Orders = () => {
-    console.log(ordersItems);
+    const [colors,setColors] = useState([]);
+    useEffect(() => {
+        setColors({
+            0:"#2D00F4",
+            1:"#009275",
+            2:"#FF3E3E",
+            3:"#A1A1A1",
+        })
+    })
     return (
         <div className={cssStyles.ContainerOrders}>
             <Cards
@@ -112,7 +121,7 @@ const Orders = () => {
                                     <div>{item.sku}</div>
                                     <div>{item.category}</div>
                                     <div>{item.payment}</div>
-                                    <div>{item.status}</div>
+                                    <div><span style={{background: colors[3]}}>{item.status}</span></div>
                                     <div>{item.rate}</div>
                                     <div className={cssStyles.actions}>
                                         <span

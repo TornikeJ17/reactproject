@@ -1,0 +1,12 @@
+﻿.Input{
+  height: var(--element-height);
+  padding: 0 20px;
+  background: var(--input-bg);
+  border-radius: 8px;
+  border: 1px solid var(--input-border);
+  width: 100%;
+  transition: all var(--transition);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}

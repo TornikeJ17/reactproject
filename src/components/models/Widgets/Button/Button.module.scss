@@ -9,8 +9,13 @@
     align-items: center;
     svg{
         width: 20px;
+        path {
+            fill: transparent;
+        }
     }
-    path {
-        fill: #FFFFFF;
-    }
+   a{
+       text-decoration: none;
+       color: #FFFFFF;
+   }
+   
 }

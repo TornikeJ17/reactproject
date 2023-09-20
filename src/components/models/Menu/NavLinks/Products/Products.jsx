@@ -1,22 +1,67 @@
-import React from "react";
+import React,{useState} from "react";
 import Cards from "../../../Widgets/Cards/Cards";
 import {ordersItems} from "../../../../api/order";
 import cssStyles from './Products.module.scss'
 import Button from "../../../Widgets/Button/Button";
 import {buttonIcons} from "../../../Icons/Icons";
+import {Link} from "react-router-dom";
 
 const Products = () => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 18;
+    
+    const totalPages = Math.ceil(ordersItems.length / itemsPerPage);
+    
+    const nextPage = () => {
+        setCurrentPage((prevPage) =>{
+            if(prevPage === totalPages){
+                return prevPage
+            } else{
+                return prevPage + 1
+            }
+        })
+    }
+    
+    const prevPage = () => {
+        setCurrentPage((prevPage) =>{
+            if(prevPage === 1){
+                return prevPage
+            } else{
+                return prevPage - 1
+            }
+        });
+    }
+    const currentItems = ordersItems.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    )
     return (
         <div className={cssStyles.Container}>
-            <Cards 
-                width={"10%"}
-                border={"10px"}
-                element={<div className={cssStyles.ProductsTitle}>Products</div>}
-            />
+            <div>
+                <Cards
+                    width={"10%"}
+                    border={"10px"}
+                    height={"44px"}
+                    element={<div className={cssStyles.ProductsTitle}>Products</div>}
+                />
+               
+            </div>
+            <div className={cssStyles.ProductEditContainer}>
+                <Link to={"/product-editor"}>
+                    <Button
+                        title={"Add new product"}
+                        icon={buttonIcons[2].icon}
+                        gap={"8px"}
+                        height={"30px"}
+                        background={"#00BA9D"}
+                        padding={"20px"}
+                    />
+                </Link>
+            </div>
           <div className={cssStyles.ProductItemContainer}>
-              {ordersItems.map(item => (
+              {currentItems.map((item,index) => (
                   <Cards
-                      key={item.id}
+                      key={index}
                       width={"100%"}
                       height={"250px"}
                       border={"20px"}
@@ -24,12 +69,10 @@ const Products = () => {
                           <div className={cssStyles.OrderElementBlock}>
                            <div>
                                <img src={item.icon} style={{
-                                   width: "130px",
-                                   height:"100px",
+                                   width: "40%",
+                                   height:"40%",
                                    aspectRatio: "1/1",
                                    objectFit: "contain",
-
-
                                }} alt={"s"}/>
                            </div>
                               <div className={cssStyles.OrderElementTitle}>
@@ -55,11 +98,21 @@ const Products = () => {
                                   />
                               </div>
                           </div>
-                          
                       }
                   />
               ))}
+              
           </div>
+            <div>
+                <Button
+                    title={"Prev"}
+                    onClick={prevPage}
+                />
+                <Button
+                    title={"Next"}
+                    onClick={nextPage}
+                />
+            </div>
         </div>
     )
 }
