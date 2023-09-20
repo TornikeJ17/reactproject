@@ -1,12 +1,16 @@
 ﻿.Container {
     display: grid;
-    grid-template-rows: 0.5fr 0.5fr 7fr 1fr;
+    grid-template-rows: 0.5fr 0.4fr 10fr 1fr;
 }
 .ProductItemContainer {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 20px;
     text-align: center;
+}
+.ProductIMGBlock {
+    width: 150px;
+    height: 150px;
 }
 .ProductsTitle {
     display: grid;
@@ -16,8 +20,8 @@
     font-size: 18px;
     padding: 10px;
 }
-.ProductEditContainer{
-    a{
+.ProductEditContainer {
+    a {
         text-decoration: none;
     }
 }

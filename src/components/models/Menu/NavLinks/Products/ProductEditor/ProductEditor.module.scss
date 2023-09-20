@@ -1,131 +1,152 @@
-﻿.Container{
-  display: grid;
-  grid-template-rows: 1fr 10fr;
+﻿.Container {
+    display: grid;
+    grid-template-rows: 1fr 10fr;
 }
 .ProductsTitle {
-  display: grid;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 18px;
-  padding: 10px;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+    padding: 10px;
 }
-.ProductEditorContainer{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  padding: 20px;
-  gap: 16px;
+.ProductEditorContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 20px;
+    gap: 16px;
 }
-.ProductEditorTitle{
-  font-weight: 700;
-  font-size: 20px;
+.BackButton {
+    display: flex;
+    justify-content: end;
+    a {
+        text-decoration: none;
+        color: #3b3f4c;
+        display: flex;
+        align-items: center;
+    }
 }
-.firstBlockGrid{
-  display: grid;
-  gap: 20px;
+.ProductEditorTitle {
+    font-weight: 700;
+    font-size: 20px;
 }
-.ImagesContainer{
-  display: grid;
-  grid-template-columns: 2fr 2fr 1fr;
-  gap: 20px;
-  height: 250px;
+.firstBlockGrid {
+    display: flex;
+    flex-flow: column;
+    gap: 13px;
 }
-.ImagesBlock{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
-  div{
-    width: 100%;
-    height: 100%;
-    position:relative;
-    svg{
-      position:absolute;
-      top:40%;
-      lefT: 47%;
-    }
-    input{
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border: 1px dashed #e2e1e1;
-      border-radius: 10px;
-      background: #f9f9f9;
-      cursor: pointer;
-      i{
-        display: none;
-      }
-    }
-    input[type="file"]{
-      display: grid;
-      color: transparent;
-    }
-    input[type="file" i]:focus-visible{
-      outline: none
-    }
-    input[type="file"]::file-selector-button{
-      display: none;
-    }
-
-    input[type='file']::after {
-      content: 'Browse image';
-      position: absolute;
-      top:54%;
-      left: 35%;
-      color:#9C9B9B;
-      font-size: 14px;
-      font-weight: 600;
-    }
-  }
-  
+.ImagesContainer {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr;
+    gap: 20px;
+    height: 250px;
 }
-.ImagesBlockSmall{
-  display: grid;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  div{
+.ImagesBlock {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 138px;
-    max-width: 100%;
-    height: 100%;
-    div{
-      width: 100%;
-      height: 100%;
-      position:relative;
-      svg{
-        position:absolute;
-        top:30%;
-        lefT: 43%;
-      }
-      input{
+    border-radius: 10px;
+    div {
         width: 100%;
         height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border: 1px dashed #e2e1e1; 
-        border-radius: 10px;
-        background: #f9f9f9;
-        color: transparent;
-        cursor: pointer;
-      }
-      input[type="file"]::file-selector-button{
-        display: none;
-      }
-      input[type='file']::after {
-        content: 'Browse image';
-        position: absolute;
-        top:60%;
-        left: 20%;
-        color:#9C9B9B;
-        font-size: 14px;
-        font-weight: 600;
-      }
+        position: relative;
+        svg {
+            position: absolute;
+            top: 40%;
+            left: 47%;
+        }
+        input {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px dashed #e2e1e1;
+            border-radius: 10px;
+            background: #f9f9f9;
+            cursor: pointer;
+            i {
+                display: none;
+            }
+        }
+        input[type="file"] {
+            display: grid;
+            color: transparent;
+        }
+        input[type="file" i]:focus-visible {
+            outline: none;
+        }
+        input[type="file"]::file-selector-button {
+            display: none;
+        }
+
+        input[type="file"]::after {
+            content: "Browse image";
+            position: absolute;
+            top: 54%;
+            left: 35%;
+            color: #9c9b9b;
+            font-size: 14px;
+            font-weight: 600;
+        }
     }
-  }
+}
+.ImagesBlockSmall {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 138px;
+        max-width: 100%;
+        height: 100%;
+        div {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            svg {
+                position: absolute;
+                top: 30%;
+                left: 43%;
+            }
+            input {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 1px dashed #e2e1e1;
+                border-radius: 10px;
+                background: #f9f9f9;
+                color: transparent;
+                cursor: pointer;
+            }
+            input[type="file"]::file-selector-button {
+                display: none;
+            }
+            input[type="file"]::after {
+                content: "Browse image";
+                position: absolute;
+                top: 60%;
+                left: 20%;
+                color: #9c9b9b;
+                font-size: 14px;
+                font-weight: 600;
+            }
+        }
+    }
+}
+.ProductEditorInputsBlock {
+    width: 100%;
+    display: grid;
+    align-items: center;
+    gap: 10px;
+}
+.imgProduct {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
 }
