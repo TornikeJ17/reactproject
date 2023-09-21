@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Cards from "../../../Widgets/Cards/Cards";
 import cssStyles from "./Home.module.scss";
-import { SVG } from "../../../Icons/Icons";
+import {buttonIcons, SVG} from "../../../Icons/Icons";
+import Man from '../../../../img/Man.png'
+import Button from "../../../Widgets/Button/Button";
 const Home = () => {
     useEffect(() => {});
     return (
@@ -90,6 +92,7 @@ const Home = () => {
                 <div className={cssStyles.MediumCardsContainer}>
                     <Cards
                         width={"100%"}
+                        height={"345px"}
                         background={"#FFFFFF"}
                         border={"20px"}
                         element={<div>hello world</div>}
@@ -98,7 +101,33 @@ const Home = () => {
                         width={"100%"}
                         height={"345px"}
                         border={"20px"}
-                        element={<div>hello world</div>}
+                        element={
+                        <div className={cssStyles.ProfileBlock}>
+                            <div className={cssStyles.ProfileIMG}>
+                                <img src={Man} alt="man" />
+                                <div>
+                                    <span className={cssStyles.ProfileName}>Tornike Jmukhadze</span>
+                                    <span className={cssStyles.ProfileStatus}>Admin</span>
+                                    <span className={cssStyles.ProfileDate}>last visit 21/09/23</span>
+                                </div>
+                            </div>
+                            <div className={cssStyles.ProfileButtonBlock}>
+                                <Button 
+                                    width={"100%"}
+                                    height={"50px"}
+                                    background={"#00BA9D"}
+                                    title={"Profile page"}
+                                />
+                                <Button
+                                    width={"100%"}
+                                    height={"50px"}
+                                    background={"#b0b0b0"}
+                                    title={"Log Out"}
+                                />
+                            </div>
+                        </div>
+                    }
+                        
                     />
                 </div>
                 <div className={cssStyles.MediumCardsContainerSecond}>

@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 const Products = () => {
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 18;
+    const itemsPerPage = 8;
 
     const totalPages = Math.ceil(ordersItems.length / itemsPerPage);
 
@@ -64,7 +64,7 @@ const Products = () => {
                     <Cards
                         key={index}
                         width={"100%"}
-                        height={"300px"}
+                        height={"342.5px"}
                         border={"20px"}
                         element={
                             <div className={cssStyles.OrderElementBlock}>

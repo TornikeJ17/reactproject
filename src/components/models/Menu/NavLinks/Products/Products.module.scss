@@ -1,6 +1,7 @@
 ﻿.Container {
     display: grid;
-    grid-template-rows: 0.5fr 0.4fr 10fr 1fr;
+    grid-template-rows: 0fr 0fr 10fr 0fr;
+    gap: 20px;
 }
 .ProductItemContainer {
     display: grid;

@@ -1,9 +1,9 @@
 .MainContainer {
     display: grid;
-    gap: 20px;
 }
 .HomeContainer {
     display: grid;
+    grid-template-rows: 0fr 0fr 1fr;
     gap: 20px;
 }
 .SmallCardsContainer {
@@ -58,4 +58,46 @@
     align-items: center;
     justify-content: center;
     padding: 20px;
+}
+.ProfileBlock{
+    display: grid;
+    padding: 20px;
+    grid-template-rows: 5fr 1fr;
+}
+.ProfileIMG{
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    align-items: center;
+    img{
+        width: 150px;
+    }
+    div{
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        gap: 10px;
+    }
+}
+.ProfileName{
+    font-size: 28px;
+    font-weight: 700;
+}
+.ProfileStatus{
+    font-size: 14px;
+    font-weight: 700;
+    background: linear-gradient(90deg, #E46565 0%, #FF3E3E 100%);
+    padding: 5px;
+    border-radius: 8px;
+    color: #FFF;
+}
+.ProfileDate{
+    font-size: 14px;
+    font-weight: 600;
+}
+.ProfileButtonBlock{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 100%;
+    align-items: end;
+    gap: 20px;
 }

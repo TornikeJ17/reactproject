@@ -1,5 +1,6 @@
 ﻿import React,{useRef} from "react";
-import './Images.module.scss'
+import cssStyles from './Images.module.scss'
+
 const Images = ({ icon, onChange,id }) => {
     const fileInputRef = useRef(null);
     
@@ -10,7 +11,7 @@ const Images = ({ icon, onChange,id }) => {
     }
     return (
         <div>
-            <span onClick={handleClick}>{icon}</span>
+            <span className={cssStyles.span} onClick={handleClick}>{icon}</span>
             <input
                 type="file"
                 accept="image/*"

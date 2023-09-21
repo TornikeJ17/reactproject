@@ -4,10 +4,12 @@ import Cards from "../../../Widgets/Cards/Cards";
 import { orderIcons } from "../../../Icons/Icons";
 import Breadcrumb from "../../../Widgets/Breadcrumb/Breadcrumb";
 import { ordersItems } from "../../../../api/order";
+import Modal from "../../../Widgets/Modal/Modal";
 
 
 const Orders = () => {
     const [colors,setColors] = useState([]);
+    const [open,setOpen] = useState(false);
     useEffect(() => {
         setColors({
             0:"#2D00F4",
@@ -16,6 +18,9 @@ const Orders = () => {
             3:"#A1A1A1",
         })
     })
+    const handleModal = () => {
+        setOpen(!open);
+    }
     return (
         <div className={cssStyles.ContainerOrders}>
             <Cards
@@ -133,6 +138,7 @@ const Orders = () => {
                                             className={
                                                 cssStyles.orderRemoveIcon
                                             }
+                                            onClick={handleModal}
                                         >
                                             {orderIcons[5].icon}
                                         </span>
@@ -143,6 +149,7 @@ const Orders = () => {
                     }
                 />
             </div>
+            {open && <Modal isOpen={open} onClose={() => setOpen(!open)} children={<div>Product remove</div>}/>}
         </div>
     );
 };
