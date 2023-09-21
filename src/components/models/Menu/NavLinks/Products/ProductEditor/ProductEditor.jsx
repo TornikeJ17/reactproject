@@ -9,13 +9,13 @@ import { Input, Textarea } from "../../../../Widgets/Input/Input";
 import { Link } from "react-router-dom";
 
 const ProductEditor = () => {
-    const [selectImage, setSelectImage] = useState({});
+    const [selectedImages, setSelectedImages] = useState([]);
 
     const handleImageChange = (e, index) => {
         if (e.target.files && e.target.files[0]) {
             const reader = new FileReader();
             reader.onload = (e) => {
-                setSelectImage((prev) => ({
+                setSelectedImages((prev) => ({
                     ...prev,
                     [index]: e.target.result,
                 }));
@@ -23,26 +23,32 @@ const ProductEditor = () => {
             reader.readAsDataURL(e.target.files[0]);
         }
     };
+const handleImageRemove = (index) => {
+    setSelectedImages((prev) => ({
+        ...prev,
+        [index]: null,
+    }));
+}
+
     const renderImageBlock = (index) => (
         <div className={cssStyles.ImagesBlock}>
-            <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => handleImageChange(e, index)}
-                style={{ display: "none" }}
-                ref={(input) => input && input.click()}
-            />
-            {selectImage ? (
-                <img
-                    className={cssStyles.imgProduct}
-                    src={selectImage}
-                    alt="Selected"
-                />
+            {selectedImages[index] ? (
+                <div className={cssStyles.SelectedImageBlock}>
+                    <img className={cssStyles.imgProduct} src={selectedImages[index]} alt="Selected" />
+                    <span className={cssStyles.removeButtonIMG} onClick={() => handleImageRemove(index)}>{buttonIcons[5].icon}</span>
+                </div>
             ) : (
-                <Images icon={buttonIcons[3].icon} />
+                <Images
+                    icon={buttonIcons[3].icon}
+                    onChange={(e) => handleImageChange(e, index)}
+                    id={`image-input-${index}`}
+                />
             )}
         </div>
     );
+    const array = []
+    array.push([selectedImages])
+    console.log(selectedImages)
     return (
         <div className={cssStyles.Container}>
             <div>
@@ -83,8 +89,8 @@ const ProductEditor = () => {
                                         {renderImageBlock(1)}
                                     </div>
                                     <div className={cssStyles.ImagesBlockSmall}>
-                                        <div>{renderImageBlock(2)}</div>
-                                        <div>{renderImageBlock(3)}</div>
+                                        {renderImageBlock(2)}
+                                        {renderImageBlock(3)}
                                     </div>
                                 </div>
                                 <Label title={"Description"} />

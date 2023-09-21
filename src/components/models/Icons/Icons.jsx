@@ -786,4 +786,20 @@ export const buttonIcons = [
             </svg>
         ),
     },
+    {
+        id: 6,
+        name: "x",
+        icon: (
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="10" cy="10" r="10" fill="url(#paint0_linear_50_44)"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M7.5093 7.5093C7.61726 7.40134 7.7923 7.40134 7.90026 7.5093L10.285 9.89403L12.6697 7.5093C12.7777 7.40134 12.9527 7.40134 13.0607 7.5093C13.1687 7.61726 13.1687 7.7923 13.0607 7.90026L10.676 10.285L13.0607 12.6697C13.1687 12.7777 13.1687 12.9527 13.0607 13.0607C12.9527 13.1687 12.7777 13.1687 12.6697 13.0607L10.285 10.676L7.90026 13.0607C7.7923 13.1687 7.61726 13.1687 7.5093 13.0607C7.40134 12.9527 7.40134 12.7777 7.5093 12.6697L9.89403 10.285L7.5093 7.90026C7.40134 7.7923 7.40134 7.61726 7.5093 7.5093Z" fill="white"/>
+                <defs>
+                    <linearGradient id="paint0_linear_50_44" x1="0" y1="0" x2="20" y2="20" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#868CFF"/>
+                        <stop offset="1" stop-color="#4318FF"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+        ),
+    }
 ];
