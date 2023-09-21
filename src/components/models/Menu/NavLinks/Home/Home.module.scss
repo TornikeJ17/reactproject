@@ -59,45 +59,48 @@
     justify-content: center;
     padding: 20px;
 }
-.ProfileBlock{
+.ProfileBlock {
     display: grid;
     padding: 20px;
     grid-template-rows: 5fr 1fr;
 }
-.ProfileIMG{
+.ProfileIMG {
     display: grid;
     grid-template-columns: 1fr 3fr;
     align-items: center;
-    img{
+    img {
         width: 150px;
     }
-    div{
+    div {
         display: flex;
         flex-flow: column;
         align-items: center;
         gap: 10px;
     }
 }
-.ProfileName{
+.ProfileName {
     font-size: 28px;
     font-weight: 700;
 }
-.ProfileStatus{
+.ProfileStatus {
     font-size: 14px;
     font-weight: 700;
-    background: linear-gradient(90deg, #E46565 0%, #FF3E3E 100%);
+    background: linear-gradient(90deg, #e46565 0%, #ff3e3e 100%);
     padding: 5px;
     border-radius: 8px;
-    color: #FFF;
+    color: #fff;
 }
-.ProfileDate{
+.ProfileDate {
     font-size: 14px;
     font-weight: 600;
 }
-.ProfileButtonBlock{
+.ProfileButtonBlock {
     display: grid;
     grid-template-columns: 1fr 1fr;
     height: 100%;
     align-items: end;
     gap: 20px;
+    a {
+        text-decoration: none;
+    }
 }

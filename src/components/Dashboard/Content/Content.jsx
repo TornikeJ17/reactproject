@@ -10,15 +10,16 @@ import Customers from "../../models/Menu/NavLinks/Customers/Customers";
 import Settings from "../../models/Menu/NavLinks/Settings/Settings";
 import Cards from "../../models/Widgets/Cards/Cards";
 import ProductEditor from "../../models/Menu/NavLinks/Products/ProductEditor/ProductEditor";
+import Profile from "../../models/Profile/Profile";
 const Content = () => {
     return (
         <div className={cssStyles.Content}>
-           
             <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/profile" element={<Profile />} />
                 <Route path="/orders" element={<Orders />} />
                 <Route path="/products" element={<Products />} />
-                <Route path="/product-editor" element={<ProductEditor/>} />
+                <Route path="/product-editor" element={<ProductEditor />} />
                 <Route path="/statistics" element={<Statistics />} />
                 <Route path="/schedules" element={<Schedules />} />
                 <Route path="/customers" element={<Customers />} />
