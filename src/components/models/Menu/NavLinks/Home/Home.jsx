@@ -126,6 +126,7 @@ const Home = () => {
                                             width={"100%"}
                                             height={"50px"}
                                             background={"#00BA9D"}
+                                            icon={buttonIcons[7].icon}
                                             title={"Profile page"}
                                         />
                                     </Link>
@@ -133,6 +134,7 @@ const Home = () => {
                                         width={"100%"}
                                         height={"50px"}
                                         background={"#b0b0b0"}
+                                        icon={buttonIcons[6].icon}
                                         title={"Log Out"}
                                     />
                                 </div>

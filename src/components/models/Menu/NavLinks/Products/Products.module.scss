@@ -13,6 +13,12 @@
     width: 150px;
     height: 150px;
 }
+.ClickCard{
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
 .ProductsTitle {
     display: grid;
     align-items: center;
@@ -65,8 +71,6 @@
     align-items: center;
     justify-content: center;
     gap: 20px;
-    position: absolute;
-    bottom: -5px;
     transition: bottom 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
     transform: translateY(20px);
     opacity: 0;

@@ -52,6 +52,8 @@
     display: grid;
     grid-template-rows: repeat(8, 1fr);
     padding: 20px;
+    height: 700px;
+    overflow: scroll;
 }
 .gridtableBlock {
     display: grid;
@@ -95,4 +97,14 @@
             fill: #3b3f4cb8;
         }
     }
+}
+.StatusColor{
+    background: rgb(161, 161, 161);
+    padding: 5px;
+    border-radius: 8px;
+    color: #FFF;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

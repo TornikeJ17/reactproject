@@ -1,0 +1,25 @@
+﻿.starContainer {
+  display: inline-flex;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+
+  span {
+    font-size: 24px;
+    margin-right: 4px; // Space between stars
+    color: grey; // Default color for inactive stars
+    transition: color 0.2s ease-in-out;
+
+    &:last-child {
+      margin-right: 0; // Remove space for the last star
+    }
+  }
+
+  &.active,
+  &:hover {
+    color: gold; // Color for active and hovered stars
+
+    span {
+      color: gold;
+    }
+  }
+}

@@ -11,6 +11,7 @@ import Settings from "../../models/Menu/NavLinks/Settings/Settings";
 import Cards from "../../models/Widgets/Cards/Cards";
 import ProductEditor from "../../models/Menu/NavLinks/Products/ProductEditor/ProductEditor";
 import Profile from "../../models/Profile/Profile";
+import ProductPage from "../../models/Menu/NavLinks/Products/ProductPage/ProductPage";
 const Content = () => {
     return (
         <div className={cssStyles.Content}>
@@ -20,6 +21,7 @@ const Content = () => {
                 <Route path="/orders" element={<Orders />} />
                 <Route path="/products" element={<Products />} />
                 <Route path="/product-editor" element={<ProductEditor />} />
+                <Route path="/products/:id" element={<ProductPage />} />
                 <Route path="/statistics" element={<Statistics />} />
                 <Route path="/schedules" element={<Schedules />} />
                 <Route path="/customers" element={<Customers />} />

@@ -6,8 +6,8 @@
         sku:"123456789",
         category:"phone",
         payment:"PayPal",
-        status:"Completed",
-        rate:"4.5",
+        status:0,
+        rate:"2",
         price:"700"
         
     },
@@ -18,8 +18,8 @@
         sku:"123456789",
         category:"phone",
         payment:"PayPal",
-        status:"Completed",
-        rate:"4.5",
+        status:0,
+        rate:"4",
         price:"700"
         
     },
@@ -30,8 +30,8 @@
         sku:"123456789",
         category:"phone",
         payment:"PayPal",
-        status:"Completed",
-        rate:"4.5",
+        status:0,
+        rate:"3",
         price:"700"
         
     },
@@ -42,7 +42,7 @@
         sku:"123456789",
         category:"phone",
         payment:"PayPal",
-        status:"Confirmed",
+        status:1,
         rate:"4.5",
         price:"700"
         
@@ -54,8 +54,8 @@
         sku:"123456789",
         category:"phone",
         payment:"PayPal",
-        status:"Confirmed",
-        rate:"4.5",
+        status:1,
+        rate:"5",
         price:"700"
         
     },
@@ -66,8 +66,8 @@
         sku:"123456789",
         category:"phone",
         payment:"PayPal",
-        status:"Confirmed",
-        rate:"4.5",
+        status:1,
+        rate:"4",
         price:"700"
         
     },
@@ -78,8 +78,8 @@
         sku:"123456789",
         category:"phone",
         payment:"PayPal",
-        status:"Canceled",
-        rate:"4.5",
+        status:2,
+        rate:"4",
         price:"700"
         
     },
@@ -90,8 +90,8 @@
         sku:"123456789",
         category:"phone",
         payment:"PayPal",
-        status:"Canceled",
-        rate:"4.5",
+        status:2,
+        rate:"3",
         price:"700"
         
     },
@@ -102,7 +102,7 @@
         sku:"123456789",
         category:"phone",
         payment:"PayPal",
-        status:"Refunded",
+        status:3,
         rate:"4.5",
         price:"700"
         
@@ -114,125 +114,125 @@
         sku:"123456789",
         category:"phone",
         payment:"PayPal",
-        status:"Refunded",
+        status:3,
         rate:"4.5",
         price:"700"
         
     },
     {
-        id: 1,
+        id: 11,
         name: "hadphone",
         icon:"https://shop-point.merku.love/assets/1-a5b55edd.webp",
         sku:"123456789",
         category:"phone",
         payment:"PayPal",
-        status:"Completed",
+        status:0,
         rate:"4.5",
         price:"700"
         
     },
     {
-        id: 2,
+        id: 12,
         name: "hadphone",
         icon:"https://shop-point.merku.love/assets/1-a5b55edd.webp",
         sku:"123456789",
         category:"phone",
         payment:"PayPal",
-        status:"Completed",
+        status:0,
         rate:"4.5",
         price:"700"
         
     },
     {
-        id: 3,
+        id: 13,
         name: "hadphone",
         icon:"https://shop-point.merku.love/assets/1-a5b55edd.webp",
         sku:"123456789",
         category:"phone",
         payment:"PayPal",
-        status:"Completed",
+        status:0,
+        rate:"2",
+        price:"700"
+        
+    },
+    {
+        id: 14,
+        name: "hadphone",
+        icon:"https://shop-point.merku.love/assets/1-a5b55edd.webp",
+        sku:"123456789",
+        category:"phone",
+        payment:"PayPal",
+        status:1,
+        rate:"3",
+        price:"700"
+        
+    },
+    {
+        id: 15,
+        name: "hadphone",
+        icon:"https://shop-point.merku.love/assets/1-a5b55edd.webp",
+        sku:"123456789",
+        category:"phone",
+        payment:"PayPal",
+        status:1,
+        rate:"3",
+    },
+    {
+        id: 16,
+        name: "hadphone",
+        icon:"https://shop-point.merku.love/assets/1-a5b55edd.webp",
+        sku:"123456789",
+        category:"phone",
+        payment:"PayPal",
+        status:1,
         rate:"4.5",
         price:"700"
         
     },
     {
-        id: 4,
+        id: 17,
         name: "hadphone",
         icon:"https://shop-point.merku.love/assets/1-a5b55edd.webp",
         sku:"123456789",
         category:"phone",
         payment:"PayPal",
-        status:"Confirmed",
+        status:2,
         rate:"4.5",
         price:"700"
         
     },
     {
-        id: 5,
+        id: 18,
         name: "hadphone",
         icon:"https://shop-point.merku.love/assets/1-a5b55edd.webp",
         sku:"123456789",
         category:"phone",
         payment:"PayPal",
-        status:"Confirmed",
-        rate:"4.5",
+        status:2,
+        rate:"1",
+        price:"700"
+        
     },
     {
-        id: 6,
+        id: 19,
         name: "hadphone",
         icon:"https://shop-point.merku.love/assets/1-a5b55edd.webp",
         sku:"123456789",
         category:"phone",
         payment:"PayPal",
-        status:"Confirmed",
+        status:3,
         rate:"4.5",
         price:"700"
         
     },
     {
-        id: 7,
+        id: 20,
         name: "hadphone",
         icon:"https://shop-point.merku.love/assets/1-a5b55edd.webp",
         sku:"123456789",
         category:"phone",
         payment:"PayPal",
-        status:"Canceled",
-        rate:"4.5",
-        price:"700"
-        
-    },
-    {
-        id: 8,
-        name: "hadphone",
-        icon:"https://shop-point.merku.love/assets/1-a5b55edd.webp",
-        sku:"123456789",
-        category:"phone",
-        payment:"PayPal",
-        status:"Canceled",
-        rate:"4.5",
-        price:"700"
-        
-    },
-    {
-        id: 9,
-        name: "hadphone",
-        icon:"https://shop-point.merku.love/assets/1-a5b55edd.webp",
-        sku:"123456789",
-        category:"phone",
-        payment:"PayPal",
-        status:"Refunded",
-        rate:"4.5",
-        price:"700"
-        
-    },
-    {
-        id: 10,
-        name: "hadphone",
-        icon:"https://shop-point.merku.love/assets/1-a5b55edd.webp",
-        sku:"123456789",
-        category:"phone",
-        payment:"PayPal",
-        status:"Refunded",
+        status:3,
         rate:"4.5",
         price:"700"
     }
