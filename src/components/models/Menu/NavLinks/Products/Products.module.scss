@@ -13,7 +13,7 @@
     width: 150px;
     height: 150px;
 }
-.ClickCard{
+.ClickCard {
     width: 100%;
     display: flex;
     flex-flow: column;
@@ -28,6 +28,10 @@
     padding: 10px;
 }
 .ProductEditContainer {
+    display: grid;
+    grid-template-columns: 7fr 1fr;
+    gap: 20px;
+
     a {
         text-decoration: none;
     }

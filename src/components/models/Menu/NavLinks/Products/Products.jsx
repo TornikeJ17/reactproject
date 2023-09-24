@@ -4,17 +4,17 @@ import { ordersItems } from "../../../../api/order";
 import cssStyles from "./Products.module.scss";
 import Button from "../../../Widgets/Button/Button";
 import { buttonIcons } from "../../../Icons/Icons";
-import {Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Products = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 8;
     const totalPages = Math.ceil(ordersItems.length / itemsPerPage);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const productPage = (id) => {
-        navigate(`/products/${id}`)
-    }
+        navigate(`/products/${id}`);
+    };
     const nextPage = () => {
         setCurrentPage((prevPage) => {
             if (prevPage === totalPages) {
@@ -51,6 +51,15 @@ const Products = () => {
                 />
             </div>
             <div className={cssStyles.ProductEditContainer}>
+                <Cards
+                    width={"100%"}
+                    border={"8px"}
+                    element={
+                        <div>
+                            <div>saf</div>
+                        </div>
+                    }
+                />
                 <Link to={"/product-editor"}>
                     <Button
                         title={"Add new product"}
@@ -71,26 +80,31 @@ const Products = () => {
                         border={"20px"}
                         element={
                             <div className={cssStyles.OrderElementBlock}>
-                             <div className={cssStyles.ClickCard} onClick={() => productPage(item.id)}>
-                                 <div className={cssStyles.ProductIMGBlock}>
-                                     <img
-                                         src={item.icon}
-                                         style={{
-                                             width: "100%",
-                                             height: "100%",
-                                             aspectRatio: "1/1",
-                                             objectFit: "contain",
-                                         }}
-                                         alt={"s"}
-                                     />
-                                 </div>
-                                 <div className={cssStyles.OrderElementTitle}>
-                                     {item.name}
-                                 </div>
-                                 <div className={cssStyles.OrderElementText}>
-                                     ${item.price}
-                                 </div>
-                             </div>
+                                <div
+                                    className={cssStyles.ClickCard}
+                                    onClick={() => productPage(item.id)}
+                                >
+                                    <div className={cssStyles.ProductIMGBlock}>
+                                        <img
+                                            src={item.icon}
+                                            style={{
+                                                width: "100%",
+                                                height: "100%",
+                                                aspectRatio: "1/1",
+                                                objectFit: "contain",
+                                            }}
+                                            alt={"s"}
+                                        />
+                                    </div>
+                                    <div
+                                        className={cssStyles.OrderElementTitle}
+                                    >
+                                        {item.name}
+                                    </div>
+                                    <div className={cssStyles.OrderElementText}>
+                                        ${item.price}
+                                    </div>
+                                </div>
                                 <div
                                     className={
                                         cssStyles.ProductsButtonsContainer

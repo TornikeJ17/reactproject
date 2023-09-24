@@ -1,7 +1,11 @@
-﻿import React, { useState } from 'react';
-import styles from './StarRating.module.scss';
+﻿import React, { useState } from "react";
+import styles from "./StarRating.module.scss";
 
-const StarRating = ({ totalStars = 5, initialRating = 0, onRate = rating => {} }) => {
+const StarRating = ({
+    totalStars = 5,
+    initialRating = 0,
+    onRate = (rating) => {},
+}) => {
     const [rating, setRating] = useState(initialRating);
     const [hoverRating, setHoverRating] = useState(0);
 
@@ -23,7 +27,9 @@ const StarRating = ({ totalStars = 5, initialRating = 0, onRate = rating => {} }
             {[...Array(totalStars)].map((_, index) => (
                 <div
                     key={index}
-                    className={`${styles.starContainer} ${(hoverRating || rating) > index ? styles.active : ''}`}
+                    className={`${styles.starContainer} ${
+                        (hoverRating || rating) > index ? styles.active : ""
+                    }`}
                     onClick={() => handleStarClick(index)}
                     onMouseOver={() => handleStarMouseOver(index)}
                     onMouseLeave={handleStarMouseLeave}
