@@ -11,6 +11,7 @@ const Products = () => {
     const itemsPerPage = 8;
     const totalPages = Math.ceil(ordersItems.length / itemsPerPage);
     const navigate = useNavigate();
+    const maxPageNumbersToShow = 2;
 
     const productPage = (id) => {
         navigate(`/products/${id}`);
@@ -34,6 +35,8 @@ const Products = () => {
             }
         });
     };
+    const startIndex = Math.max(1, currentPage - Math.floor(maxPageNumbersToShow / 2));
+    const endIndex = Math.min(startIndex + maxPageNumbersToShow - 1, totalPages);
     const currentItems = ordersItems.slice(
         (currentPage - 1) * itemsPerPage,
         currentPage * itemsPerPage
@@ -126,8 +129,19 @@ const Products = () => {
                     />
                 ))}
             </div>
-            <div>
+            <div className={cssStyles.pageNumbersButton}>
                 <Button title={"Prev"} onClick={prevPage} />
+                {Array.from({ length: endIndex - startIndex + 1 }).map(
+                    (_, index) => (
+                        <Button
+                            key={startIndex + index}
+                            title={(startIndex + index).toString()}
+                            onClick={() => setCurrentPage(startIndex + index)}
+                            primary={currentPage === startIndex + index}
+                            iconOnly
+                        />
+                    )
+                )}
                 <Button title={"Next"} onClick={nextPage} />
             </div>
         </div>

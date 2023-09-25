@@ -79,3 +79,8 @@
     transform: translateY(20px);
     opacity: 0;
 }
+.pageNumbersButton{
+    display: flex;
+    justify-content: space-between;
+    width: 20%;
+}

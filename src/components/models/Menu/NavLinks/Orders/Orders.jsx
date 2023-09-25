@@ -11,6 +11,7 @@ import Dropdown from "../../../Widgets/Dropdown/Dropdown";
 
 const Orders = () => {
     const [selectStatus, setSelectStatus] = useState(null);
+    const [selectCategory,setSelectCategory] = useState(null);
     const [colors, setColors] = useState([
         { id: "#2D00F4" },
         { id: "#009275" },
@@ -21,12 +22,19 @@ const Orders = () => {
 
     const orderOptions = [
         { id: "all", name: "All" },
-        { id: 0, name: "Confirmed" },
-        { id: 1, name: "Pending" },
+        { id: 0, name: "Completed" },
+        { id: 1, name: "Confirmed" },
         { id: 3, name: "Refunded" },
         { id: 2, name: "Canceled" },
     ];
-
+    const categoryOptions = [
+        { id: "all", name: "All" },
+        { id: "Earrings", name: "Earrings" },
+        { id: "Rings", name: "Rings" },
+        { id: "Necklace", name: "Necklace" },
+        { id: "Bracelets", name: "Bracelets" },
+    ]
+    
     const handleModal = () => {
         setOpen(!open);
     };
@@ -37,6 +45,18 @@ const Orders = () => {
             setSelectStatus(Number(e.target.value));
         }
     };
+    const handleDropdownCategory = (e) => {
+        if(e.target.value === "all"){
+            setSelectCategory(null);
+        } else {
+            setSelectCategory(e.target.value);
+        }
+    }
+    const handleClear = () => {
+        setSelectStatus(null);
+        setSelectCategory(null);
+    }
+    console.log(selectCategory)
     return (
         <div className={cssStyles.ContainerOrders}>
             <Cards
@@ -113,11 +133,20 @@ const Orders = () => {
                     border={"20px"}
                     element={
                         <div>
-                            <div>
+                            <div className={cssStyles.OrderFilterContainer}>
+                                <Button onClick={handleClear} width={150} height={40} title={"safaaf"} />
+                                
                                 <Dropdown
                                     select={selectStatus}
                                     options={orderOptions}
                                     onChange={handleDropdown}
+                                    width={150}
+                                />
+                                <Dropdown
+                                    select={selectCategory}
+                                    options={categoryOptions}
+                                    onChange={handleDropdownCategory}
+                                    width={150}
                                 />
                             </div>
                             <div className={cssStyles.gridtable}>
@@ -146,8 +175,8 @@ const Orders = () => {
                                 {ordersItems
                                     .filter(
                                         (f) =>
-                                            selectStatus === null ||
-                                            f.status === selectStatus
+                                            (selectStatus === null || f.status === selectStatus) &&
+                                            (selectCategory === null || f.category === selectCategory)
                                     )
                                     .map((item) => {
                                         const statusColor = colors[item.status]
