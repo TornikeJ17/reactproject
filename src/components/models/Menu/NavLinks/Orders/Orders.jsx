@@ -8,10 +8,28 @@ import Modal from "../../../Widgets/Modal/Modal";
 import StarRating from "../../../Widgets/StarRating/StarRating";
 import Button from "../../../Widgets/Button/Button";
 import Dropdown from "../../../Widgets/Dropdown/Dropdown";
+import Pagination from "../../../Widgets/Pagination/Pagination";
 
 const Orders = () => {
     const [selectStatus, setSelectStatus] = useState(null);
-    const [selectCategory,setSelectCategory] = useState(null);
+    const [selectCategory, setSelectCategory] = useState(null);
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const itemsPerPage = 7;
+
+    const totalPages = Math.ceil(ordersItems.length / itemsPerPage);
+
+    const maxPageNumbersToShow = 5;
+
+    const startIndex = Math.max(
+        1,
+        currentPage - Math.floor(maxPageNumbersToShow / 2)
+    );
+    const endIndex = Math.min(
+        startIndex + maxPageNumbersToShow - 1,
+        totalPages
+    );
+
     const [colors, setColors] = useState([
         { id: "#2D00F4" },
         { id: "#009275" },
@@ -33,8 +51,8 @@ const Orders = () => {
         { id: "Rings", name: "Rings" },
         { id: "Necklace", name: "Necklace" },
         { id: "Bracelets", name: "Bracelets" },
-    ]
-    
+    ];
+
     const handleModal = () => {
         setOpen(!open);
     };
@@ -46,17 +64,35 @@ const Orders = () => {
         }
     };
     const handleDropdownCategory = (e) => {
-        if(e.target.value === "all"){
+        if (e.target.value === "all") {
             setSelectCategory(null);
         } else {
             setSelectCategory(e.target.value);
         }
-    }
-    const handleClear = () => {
-        setSelectStatus(null);
-        setSelectCategory(null);
-    }
-    console.log(selectCategory)
+    };
+    const nextPage = () => {
+        setCurrentPage((prevPage) => {
+            if (prevPage === totalPages) {
+                return prevPage;
+            } else {
+                return prevPage + 1;
+            }
+        });
+    };
+
+    const prevPage = () => {
+        setCurrentPage((prevPage) => {
+            if (prevPage === 1) {
+                return prevPage;
+            } else {
+                return prevPage - 1;
+            }
+        });
+    };
+    const currentItems = ordersItems.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
     return (
         <div className={cssStyles.ContainerOrders}>
             <Cards
@@ -132,10 +168,8 @@ const Orders = () => {
                     height={"800px"}
                     border={"20px"}
                     element={
-                        <div>
+                        <div className={cssStyles.OrderHeightBlock}>
                             <div className={cssStyles.OrderFilterContainer}>
-                                <Button onClick={handleClear} width={150} height={40} title={"safaaf"} />
-                                
                                 <Dropdown
                                     select={selectStatus}
                                     options={orderOptions}
@@ -172,11 +206,13 @@ const Orders = () => {
                                         Actions
                                     </div>
                                 </div>
-                                {ordersItems
+                                {currentItems
                                     .filter(
                                         (f) =>
-                                            (selectStatus === null || f.status === selectStatus) &&
-                                            (selectCategory === null || f.category === selectCategory)
+                                            (selectStatus === null ||
+                                                f.status === selectStatus) &&
+                                            (selectCategory === null ||
+                                                f.category === selectCategory)
                                     )
                                     .map((item) => {
                                         const statusColor = colors[item.status]
@@ -263,10 +299,15 @@ const Orders = () => {
                                         );
                                     })}
                             </div>
-                            <div>
-                                <Button />
-                                <Button />
-                            </div>
+                            <Pagination
+                                onPrev={prevPage}
+                                onPrevTitle={"Prev"}
+                                onNext={nextPage}
+                                onNextTitle={"Next"}
+                                startIndex={startIndex}
+                                endIndex={endIndex}
+                                setCurrentPage={setCurrentPage}
+                            />
                         </div>
                     }
                 />

@@ -5,13 +5,14 @@ import cssStyles from "./Products.module.scss";
 import Button from "../../../Widgets/Button/Button";
 import { buttonIcons } from "../../../Icons/Icons";
 import { Link, useNavigate } from "react-router-dom";
+import Pagination from "../../../Widgets/Pagination/Pagination";
 
 const Products = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 8;
     const totalPages = Math.ceil(ordersItems.length / itemsPerPage);
     const navigate = useNavigate();
-    const maxPageNumbersToShow = 2;
+    const maxPageNumbersToShow = 5;
 
     const productPage = (id) => {
         navigate(`/products/${id}`);
@@ -35,8 +36,14 @@ const Products = () => {
             }
         });
     };
-    const startIndex = Math.max(1, currentPage - Math.floor(maxPageNumbersToShow / 2));
-    const endIndex = Math.min(startIndex + maxPageNumbersToShow - 1, totalPages);
+    const startIndex = Math.max(
+        1,
+        currentPage - Math.floor(maxPageNumbersToShow / 2)
+    );
+    const endIndex = Math.min(
+        startIndex + maxPageNumbersToShow - 1,
+        totalPages
+    );
     const currentItems = ordersItems.slice(
         (currentPage - 1) * itemsPerPage,
         currentPage * itemsPerPage
@@ -129,21 +136,15 @@ const Products = () => {
                     />
                 ))}
             </div>
-            <div className={cssStyles.pageNumbersButton}>
-                <Button title={"Prev"} onClick={prevPage} />
-                {Array.from({ length: endIndex - startIndex + 1 }).map(
-                    (_, index) => (
-                        <Button
-                            key={startIndex + index}
-                            title={(startIndex + index).toString()}
-                            onClick={() => setCurrentPage(startIndex + index)}
-                            primary={currentPage === startIndex + index}
-                            iconOnly
-                        />
-                    )
-                )}
-                <Button title={"Next"} onClick={nextPage} />
-            </div>
+            <Pagination
+                onPrev={prevPage}
+                onPrevTitle={"Prev"}
+                onNext={nextPage}
+                onNextTitle={"Next"}
+                startIndex={startIndex}
+                endIndex={endIndex}
+                setCurrentPage={setCurrentPage}
+            />
         </div>
     );
 };
