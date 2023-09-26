@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import cssStyles from "./Orders.module.scss";
 import Cards from "../../../Widgets/Cards/Cards";
-import { orderIcons } from "../../../Icons/Icons";
+import {buttonIcons, orderIcons} from "../../../Icons/Icons";
 import Breadcrumb from "../../../Widgets/Breadcrumb/Breadcrumb";
 import { ordersItems } from "../../../../api/order";
 import Modal from "../../../Widgets/Modal/Modal";
@@ -301,12 +301,13 @@ const Orders = () => {
                             </div>
                             <Pagination
                                 onPrev={prevPage}
-                                onPrevTitle={"Prev"}
+                                onPrevTitle={buttonIcons[8].icon}
                                 onNext={nextPage}
-                                onNextTitle={"Next"}
+                                onNextTitle={buttonIcons[9].icon}
                                 startIndex={startIndex}
                                 endIndex={endIndex}
                                 setCurrentPage={setCurrentPage}
+                                currentPage={currentPage}
                             />
                         </div>
                     }

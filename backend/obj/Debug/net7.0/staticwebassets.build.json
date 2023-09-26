@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "PFxBavXuqthvIUB6iD0q0IeYOrBa6S4D5tiCZBL7pLE=",
+  "Hash": "HX6ficzv19oMjs+48x9R0MAgXXTD+s4DDOGZGHSfex8=",
   "Source": "backend",
   "BasePath": "_content/backend",
   "Mode": "Default",
@@ -16,40 +16,6 @@
     }
   ],
   "Assets": [
-    {
-      "Identity": "C:\\works\\reactproject\\backend\\obj\\Debug\\net7.0\\scopedcss\\bundle\\backend.styles.css",
-      "SourceId": "backend",
-      "SourceType": "Computed",
-      "ContentRoot": "C:\\works\\reactproject\\backend\\obj\\Debug\\net7.0\\scopedcss\\bundle\\",
-      "BasePath": "_content/backend",
-      "RelativePath": "backend.styles.css",
-      "AssetKind": "All",
-      "AssetMode": "CurrentProject",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "ScopedCss",
-      "AssetTraitValue": "ApplicationBundle",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\works\\reactproject\\backend\\obj\\Debug\\net7.0\\scopedcss\\bundle\\backend.styles.css"
-    },
-    {
-      "Identity": "C:\\works\\reactproject\\backend\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\backend.bundle.scp.css",
-      "SourceId": "backend",
-      "SourceType": "Computed",
-      "ContentRoot": "C:\\works\\reactproject\\backend\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\",
-      "BasePath": "_content/backend",
-      "RelativePath": "backend.bundle.scp.css",
-      "AssetKind": "All",
-      "AssetMode": "Reference",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "ScopedCss",
-      "AssetTraitValue": "ProjectBundle",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\works\\reactproject\\backend\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\backend.bundle.scp.css"
-    },
     {
       "Identity": "C:\\works\\reactproject\\backend\\wwwroot\\css\\site.css",
       "SourceId": "backend",

@@ -822,5 +822,23 @@ export const buttonIcons = [
             </svg>
 
         )
+    },
+    {
+        id:9,
+        name:"chevron-left",
+        icon:(
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15 18L9 12L15 6" stroke="#1A1E21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        )
+    },
+    {
+        id:10,
+        name:"chevron-right",
+        icon:(
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 18L15 12L9 6" stroke="#1A1E21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        )
     }
 ];

@@ -138,12 +138,13 @@ const Products = () => {
             </div>
             <Pagination
                 onPrev={prevPage}
-                onPrevTitle={"Prev"}
+                onPrevTitle={buttonIcons[8].icon}
                 onNext={nextPage}
-                onNextTitle={"Next"}
+                onNextTitle={buttonIcons[9].icon}
                 startIndex={startIndex}
                 endIndex={endIndex}
                 setCurrentPage={setCurrentPage}
+                currentPage={currentPage}
             />
         </div>
     );

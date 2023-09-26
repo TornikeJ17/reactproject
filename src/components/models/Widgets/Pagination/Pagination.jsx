@@ -14,7 +14,7 @@ const Pagination = ({
 }) => {
     return (
         <div className={cssStyles.pageNumbersButton}>
-            <Button onClick={onPrev} title={onPrevTitle} />
+            <Button onClick={onPrev} title={onPrevTitle} width={20} height={30} />
             {Array.from({ length: endIndex - startIndex + 1 }).map(
                 (_, index) => (
                     <Button
@@ -22,11 +22,12 @@ const Pagination = ({
                         title={(startIndex + index).toString()}
                         onClick={() => setCurrentPage(startIndex + index)}
                         primary={currentPage === startIndex + index}
-                        iconOnly
+                        width={20}
+                        height={30}
                     />
                 )
             )}
-            <Button onClick={onNext} title={onNextTitle} />
+            <Button onClick={onNext} title={onNextTitle} width={20} height={30}/>
         </div>
     );
 };

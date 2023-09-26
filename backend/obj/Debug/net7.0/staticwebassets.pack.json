@@ -1,10 +1,6 @@
 {
   "Files": [
     {
-      "Id": "C:\\works\\reactproject\\backend\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\backend.bundle.scp.css",
-      "PackagePath": "staticwebassets\\backend.bundle.scp.css"
-    },
-    {
       "Id": "C:\\works\\reactproject\\backend\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
