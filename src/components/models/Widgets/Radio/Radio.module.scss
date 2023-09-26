@@ -1,0 +1,63 @@
+﻿.RadioContainer {
+  display: flex;
+  gap: 20px;
+}
+
+.RadioItemBlock {
+  display: flex;
+  flex-flow: column;
+  label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    span {
+      display: flex;
+      width: 55px;
+      height: 35px;
+      background: #fff;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+      border: 1px solid #f1f1f1;
+    }
+  }
+}
+
+.hidden {
+  display: none; 
+}
+
+.RadioImage {
+  object-fit: contain;
+  width: 48px;
+  height: 28px;
+  margin: auto;
+}
+
+.radio {
+  width: 14px !important;
+  height: 14px !important;
+  border-radius: 50% !important;
+  position: relative;
+  transition: border-color var(--transition);
+}
+
+.radio::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #0a53be;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  opacity: 0; 
+  transition: opacity var(--transition);
+}
+
+.hidden:checked ~ label .radio::after {
+  opacity: 1;
+}

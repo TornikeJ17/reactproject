@@ -7,9 +7,21 @@ import Images from "../../../../Widgets/Images/Images";
 import { buttonIcons } from "../../../../Icons/Icons";
 import { Input, Textarea } from "../../../../Widgets/Input/Input";
 import { Link } from "react-router-dom";
+import Button from "../../../../Widgets/Button/Button";
+import Radio from "../../../../Widgets/Radio/Radio";
 
 const ProductEditor = () => {
     const [selectedImages, setSelectedImages] = useState([]);
+    const  radioItems = [
+        {
+            id: 0,
+            name: "https://shop-point.merku.love/assets/mc-8847c9c4.svg",
+        },
+        {
+            id: 1,
+            name: "https://shop-point.merku.love/assets/visa-b8e4f9fc.svg",
+        }
+    ]
 
     const handleImageChange = (e, index) => {
         if (e.target.files && e.target.files[0]) {
@@ -107,6 +119,13 @@ const handleImageRemove = (index) => {
                                 <Input />
                                 <Label title={"Product Name"} />
                                 <Input />
+                                <Label title={"Payment Methods"} />
+                                <Radio radioItem={radioItems} />
+                                
+                            </div>
+                            <div>
+                                <Button />
+                                <Button />
                             </div>
                         </div>
                     }
