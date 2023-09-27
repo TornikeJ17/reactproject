@@ -1,7 +1,7 @@
 import React from "react";
 import cssStyles from "./Button.module.scss";
 
-const Button = ({ icon, title, width,height,background,padding,gap, onClick,primary }) => {
+const Button = ({ icon, title, width,height,background,padding,gap, onClick,primary,color}) => {
     console.log(primary)
     return (
         <button 
@@ -13,7 +13,7 @@ const Button = ({ icon, title, width,height,background,padding,gap, onClick,prim
                 background: primary ? "#4318FF" : background,
                 padding:padding,
                 gap:gap,
-                color:primary ? "#FFF" : "#1a1e21"
+                color:primary ? color : color 
             }}
         >
             <div>{icon}</div>

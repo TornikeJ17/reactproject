@@ -24,6 +24,7 @@ const Pagination = ({
                         primary={currentPage === startIndex + index}
                         width={20}
                         height={30}
+                        color={currentPage === startIndex + index ? "white" : "black"}
                     />
                 )
             )}
