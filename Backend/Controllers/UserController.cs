@@ -18,7 +18,7 @@ namespace Backend.Controllers
         [HttpGet("/")]
         public IActionResult Index()
         {
-            return Ok("Welcome to API");
+            return Ok("amis dedas sheveci");
         }
         [HttpGet]
         [Route("user-list")]

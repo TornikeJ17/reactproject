@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "wKdQ7LETIfvUPPqxJ6Wrk8SW87PMd+IAzk+7pBv0ML99O3+iNMLpLxUqA6cUVKrdCFk9DJPWSGObGWtHtV25dQ==",
+  "dgSpecHash": "nPQoKBRtd7KWdwdlelovt1/lefEt3PlPISiWjkGAzjfrxQZ6DjpcHP1XqYDO+Ry8FUcZbzAPnQpHWOAQGcgwHA==",
   "success": true,
   "projectFilePath": "/Users/tornikejmukhadze/reactproject/Backend/Backend.csproj",
   "expectedPackageFiles": [
@@ -71,9 +71,9 @@
     "/Users/tornikejmukhadze/.nuget/packages/system.text.json/7.0.0/system.text.json.7.0.0.nupkg.sha512",
     "/Users/tornikejmukhadze/.nuget/packages/system.threading.tasks.extensions/4.5.4/system.threading.tasks.extensions.4.5.4.nupkg.sha512",
     "/Users/tornikejmukhadze/.nuget/packages/system.windows.extensions/6.0.0/system.windows.extensions.6.0.0.nupkg.sha512",
+    "/Users/tornikejmukhadze/.nuget/packages/microsoft.netcore.app.ref/7.0.9/microsoft.netcore.app.ref.7.0.9.nupkg.sha512",
     "/Users/tornikejmukhadze/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.9/microsoft.aspnetcore.app.ref.7.0.9.nupkg.sha512",
-    "/Users/tornikejmukhadze/.nuget/packages/microsoft.netcore.app.host.osx-arm64/7.0.9/microsoft.netcore.app.host.osx-arm64.7.0.9.nupkg.sha512",
-    "/Users/tornikejmukhadze/.nuget/packages/microsoft.netcore.app.ref/7.0.9/microsoft.netcore.app.ref.7.0.9.nupkg.sha512"
+    "/Users/tornikejmukhadze/.nuget/packages/microsoft.netcore.app.host.osx-arm64/7.0.9/microsoft.netcore.app.host.osx-arm64.7.0.9.nupkg.sha512"
   ],
   "logs": []
 }
