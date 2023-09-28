@@ -1,14 +1,14 @@
 ﻿using Backend.Modules;
 using Microsoft.EntityFrameworkCore;
 
-namespace Backend.Data;
-
-public class ApplicationDbContext : DbContext
+namespace Backend.Data
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-        : base(options)
+    public class ApplicationDbContext : DbContext
     {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
+        {
+        }
+        public DbSet<TodoItem> TodoItems { get; set; }
     }
-
-    public DbSet<TodoItem> TodoItems => Set<TodoItem>();
 }
