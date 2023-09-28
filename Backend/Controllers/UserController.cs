@@ -15,11 +15,6 @@ namespace Backend.Controllers
         {
             _context = applicationDbContext;
         }
-        [HttpGet("/")]
-        public IActionResult Index()
-        {
-            return Ok("amis dedas sheveci");
-        }
         [HttpGet]
         [Route("user-list")]
         public async Task<IActionResult> GetAsync()
