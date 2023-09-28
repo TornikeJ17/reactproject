@@ -1,16 +1,34 @@
+using System;
 using Backend.Data;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add database configuration (replace with your connection string)
+// Add services to the container.
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer("DefaultConnection"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddControllers();
 
-// Set up Swagger
+// CORS setup
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        builder =>
+        {
+            builder
+                .WithOrigins("https://opal7.azurewebsites.net")
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+        });
+});
+
+// Set up Swagger (if desired for local development)
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -35,7 +53,7 @@ builder.Services.AddSwaggerGen(options =>
 
 var app = builder.Build();
 
-// Middleware
+// Middleware Configuration
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage(); // For detailed error information
@@ -44,6 +62,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("AllowAll"); // Ensure this is before app.UseEndpoints()
 app.UseAuthorization();
 app.MapControllers();
 

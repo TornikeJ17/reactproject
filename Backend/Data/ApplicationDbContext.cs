@@ -1,5 +1,5 @@
-﻿using Backend.Modules;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Models;
 
 namespace Backend.Data
 {
@@ -9,6 +9,6 @@ namespace Backend.Data
             : base(options)
         {
         }
-        public DbSet<TodoItem> TodoItems { get; set; }
+        public DbSet<User> User { get; set; }
     }
 }
