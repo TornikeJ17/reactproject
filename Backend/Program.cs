@@ -1,10 +1,5 @@
-using System;
 using Backend.Data;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,7 +17,7 @@ builder.Services.AddCors(options =>
         builder =>
         {
             builder
-                .AllowAnyOrigin()
+                .WithOrigins("https://opal-database.azurewebsites.net; http://localhost:5279;http://localhost:3000;")
                 .AllowAnyMethod()
                 .AllowAnyHeader();
         });
@@ -35,7 +30,7 @@ builder.Services.AddSwaggerGen(options =>
     options.SwaggerDoc("v1", new OpenApiInfo
     {
         Version = "v1",
-        Title = "ToDo API",
+        Title = "Opal API",
         Description = "An ASP.NET Core Web API for managing ToDo items",
         TermsOfService = new Uri("https://example.com/terms"),
         Contact = new OpenApiContact
