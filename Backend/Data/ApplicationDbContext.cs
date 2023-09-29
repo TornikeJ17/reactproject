@@ -10,5 +10,8 @@ namespace Backend.Data
         {
         }
         public DbSet<User> User { get; set; }
+        public DbSet<Product> Product { get; set; }
+        public DbSet<Image> Image { get; set; }
+        public DbSet<ProductCreateRequest> ProductCreateRequest { get; set; }
     }
 }

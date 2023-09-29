@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Routes, Route } from "react-router-dom";
 import cssStyles from "./Content.module.scss";
 import Home from "../../models/Menu/NavLinks/Home/Home";
@@ -12,7 +12,18 @@ import Cards from "../../models/Widgets/Cards/Cards";
 import ProductEditor from "../../models/Menu/NavLinks/Products/ProductEditor/ProductEditor";
 import Profile from "../../models/Profile/Profile";
 import ProductPage from "../../models/Menu/NavLinks/Products/ProductPage/ProductPage";
+import {UserApi} from "../../api/api";
 const Content = () => {
+    const [data,setData]= React.useState([]);
+
+    const getData = async () => {
+        const response = await UserApi();
+        setData(response);
+        console.log(data)
+    }
+useEffect(() => {
+    getData();
+}, []);
     return (
         <div className={cssStyles.Content}>
             <Routes>

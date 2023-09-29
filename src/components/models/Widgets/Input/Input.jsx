@@ -1,10 +1,10 @@
 ﻿import React from "react";
 import cssStyles from "./Input.module.scss";
 
-const Input = () => {
-    return <input className={cssStyles.Input} />;
+const Input = ({onChange}) => {
+    return <input className={cssStyles.Input} onChange={onChange} />;
 };
-const Textarea = () => {
-    return <textarea className={cssStyles.Textarea}></textarea>;
+const Textarea = ({onChange}) => {
+    return <textarea className={cssStyles.Textarea} onChange={onChange}></textarea>;
 };
 export { Input, Textarea };
