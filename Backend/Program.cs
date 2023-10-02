@@ -51,6 +51,7 @@ var app = builder.Build();
 // Middleware Configuration
 if (app.Environment.IsDevelopment())
 {
+    app.UseStaticFiles();
     app.UseDeveloperExceptionPage(); // For detailed error information
     app.UseSwagger();
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ToDo API v1"));

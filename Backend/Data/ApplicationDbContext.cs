@@ -9,9 +9,15 @@ namespace Backend.Data
             : base(options)
         {
         }
-        public DbSet<User> User { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Product>()
+                .Property((e) => e.ImagePaths)
+                .HasConversion(
+                    v => string.Join(",", v),
+                    v => v.Split(",", StringSplitOptions.RemoveEmptyEntries));
+        }
         public DbSet<Product> Product { get; set; }
-        public DbSet<Image> Image { get; set; }
-        public DbSet<ProductCreateRequest> ProductCreateRequest { get; set; }
     }
 }

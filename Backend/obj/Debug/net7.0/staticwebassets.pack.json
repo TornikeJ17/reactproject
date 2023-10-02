@@ -1,32 +1,12 @@
 {
   "Files": [
     {
-      "Id": "C:\\works\\reactproject\\Backend\\wwwroot\\images\\products\\15b353c9-4203-4f01-90b3-5d67aa2d1fd3.png",
-      "PackagePath": "staticwebassets\\images\\products\\15b353c9-4203-4f01-90b3-5d67aa2d1fd3.png"
+      "Id": "C:\\works\\reactproject\\Backend\\wwwroot\\images\\products\\4ff87f19-c8a6-4ef8-99a1-4ca1de15552f.png",
+      "PackagePath": "staticwebassets\\images\\products\\4ff87f19-c8a6-4ef8-99a1-4ca1de15552f.png"
     },
     {
-      "Id": "C:\\works\\reactproject\\Backend\\wwwroot\\images\\products\\18eba4c2-749a-45f5-95ca-699491549f89.png",
-      "PackagePath": "staticwebassets\\images\\products\\18eba4c2-749a-45f5-95ca-699491549f89.png"
-    },
-    {
-      "Id": "C:\\works\\reactproject\\Backend\\wwwroot\\images\\products\\191ca644-b097-43b3-9a3b-2a622f5e8602.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\191ca644-b097-43b3-9a3b-2a622f5e8602.jpg"
-    },
-    {
-      "Id": "C:\\works\\reactproject\\Backend\\wwwroot\\images\\products\\4cf2224f-fb7b-4691-a516-d24c91a858e6.png",
-      "PackagePath": "staticwebassets\\images\\products\\4cf2224f-fb7b-4691-a516-d24c91a858e6.png"
-    },
-    {
-      "Id": "C:\\works\\reactproject\\Backend\\wwwroot\\images\\products\\941cb1e3-a34d-44e3-93f0-f2f16f9861d6.png",
-      "PackagePath": "staticwebassets\\images\\products\\941cb1e3-a34d-44e3-93f0-f2f16f9861d6.png"
-    },
-    {
-      "Id": "C:\\works\\reactproject\\Backend\\wwwroot\\images\\products\\f1d4d600-2486-40f9-bcff-721b40fab73c.png",
-      "PackagePath": "staticwebassets\\images\\products\\f1d4d600-2486-40f9-bcff-721b40fab73c.png"
-    },
-    {
-      "Id": "C:\\works\\reactproject\\Backend\\wwwroot\\images\\products\\ff45b147-9b68-45de-83ff-6ff7b7e64616.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\ff45b147-9b68-45de-83ff-6ff7b7e64616.jpg"
+      "Id": "C:\\works\\reactproject\\Backend\\wwwroot\\images\\products\\af092a35-7138-48a4-9b32-2ca82a548e6d.png",
+      "PackagePath": "staticwebassets\\images\\products\\af092a35-7138-48a4-9b32-2ca82a548e6d.png"
     },
     {
       "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.Backend.Microsoft.AspNetCore.StaticWebAssets.props",

@@ -23,15 +23,15 @@ namespace Backend.Controllers
 
         [HttpGet]
         [Route("product-list")]
-        public async Task<IActionResult> GetAsync()
+        public async Task<IActionResult> GetProducts()
         {
-            var products = await _context.Product.Include(p => p.Image).ToListAsync(); // Including Images while fetching
+            var products = await _context.Product.ToListAsync();
             return Ok(products);
         }
 
         [HttpPost]
         [Route("product-create")]
-        public async Task<IActionResult> PostAsync([FromForm] ProductCreateRequest request)
+        public async Task<IActionResult> PostAsync([FromForm] Product request)
         {
             var product = new Product 
             {
@@ -40,14 +40,15 @@ namespace Backend.Controllers
                 Price = request.Price,
                 SKU = request.SKU,
                 Description = request.Description,
+                Image = request.Image != null ? new List<IFormFile>(request.Image) : new List<IFormFile>(),
+                ImagePaths = new List<string>(),
                 StockStatus = request.StockStatus,
                 Payment = request.Payment,
                 // You can leave Images uninitialized here as we'll be adding to it below
             };
-
-            if (request.Images != null)
+            if (request.Image != null)
             {
-                foreach (var formFile in request.Images)
+                foreach (var formFile in request.Image)
                 {
                     if (formFile.Length > 0)
                     {
@@ -59,12 +60,10 @@ namespace Backend.Controllers
 
                         using var stream = new FileStream(filePath, FileMode.Create);
                         await formFile.CopyToAsync(stream);
-
-                        product.Image.Add(new Image { ImageUrl = filePath });
+                        product.ImagePaths.Add(filePath);
                     }
                 }
             }
-
             _context.Product.Add(product);
             await _context.SaveChangesAsync();
 
