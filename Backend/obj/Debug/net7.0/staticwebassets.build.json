@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "mPm+YhETB9ln69tSbsWIGF8jE0XRITsyVEphYg/npCU=",
+  "Hash": "ytK5zbRdD09DKH7JgGlgeLcXxqDqsv8YkHDeps0nQNI=",
   "Source": "Backend",
   "BasePath": "_content/Backend",
   "Mode": "Default",
@@ -8,47 +8,51 @@
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [
     {
-      "Name": "Backend\\wwwroot",
+      "Name": "Backend/wwwroot",
       "Source": "Backend",
-      "ContentRoot": "C:\\works\\reactproject\\Backend\\wwwroot\\",
+      "ContentRoot": "/Users/tornikejmukhadze/reactproject/Backend/wwwroot/",
       "BasePath": "_content/Backend",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\works\\reactproject\\Backend\\wwwroot\\images\\products\\4ff87f19-c8a6-4ef8-99a1-4ca1de15552f.png",
+      "Identity": "/Users/tornikejmukhadze/reactproject/Backend/wwwroot/images/products/4ff87f19-c8a6-4ef8-99a1-4ca1de15552f.png",
       "SourceId": "Backend",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\works\\reactproject\\Backend\\wwwroot\\",
+      "ContentRoot": "/Users/tornikejmukhadze/reactproject/Backend/wwwroot/",
       "BasePath": "_content/Backend",
       "RelativePath": "images/products/4ff87f19-c8a6-4ef8-99a1-4ca1de15552f.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\products\\4ff87f19-c8a6-4ef8-99a1-4ca1de15552f.png"
+      "OriginalItemSpec": "wwwroot/images/products/4ff87f19-c8a6-4ef8-99a1-4ca1de15552f.png"
     },
     {
-      "Identity": "C:\\works\\reactproject\\Backend\\wwwroot\\images\\products\\af092a35-7138-48a4-9b32-2ca82a548e6d.png",
+      "Identity": "/Users/tornikejmukhadze/reactproject/Backend/wwwroot/images/products/af092a35-7138-48a4-9b32-2ca82a548e6d.png",
       "SourceId": "Backend",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\works\\reactproject\\Backend\\wwwroot\\",
+      "ContentRoot": "/Users/tornikejmukhadze/reactproject/Backend/wwwroot/",
       "BasePath": "_content/Backend",
       "RelativePath": "images/products/af092a35-7138-48a4-9b32-2ca82a548e6d.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\products\\af092a35-7138-48a4-9b32-2ca82a548e6d.png"
+      "OriginalItemSpec": "wwwroot/images/products/af092a35-7138-48a4-9b32-2ca82a548e6d.png"
     }
   ]
 }
