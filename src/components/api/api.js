@@ -10,13 +10,20 @@ const UserApi = async () => {
     }
 };
 
-const productCreateApi = async (create) => {
+const productCreateApi = async (productCreate) => {
     try {
         const response = await axios.post(
             API_URL + "Product/product-create",
-            create
+            productCreate,
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }
         );
-        return response.data;
+        console.log(productCreate)
+        console.log(response)
+        return response;
     } catch (error) {
         console.log(error);
     }

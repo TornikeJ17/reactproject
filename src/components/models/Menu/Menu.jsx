@@ -4,7 +4,6 @@ import { Icons } from "../Icons/Icons";
 import { NavLink } from "react-router-dom";
 
 const Menu = () => {
-    console.log(Icons)
     return (
         <div className={cssStyles.MenuContainer}>
             <ul className={cssStyles.MenuUl}>
@@ -21,7 +20,6 @@ const Menu = () => {
                     </li>
                 </NavLink>
                 ))}
-                
             </ul>
         </div>
     )

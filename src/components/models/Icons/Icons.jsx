@@ -847,9 +847,11 @@ export const radioItems = [
     {
         id: 0,
         name: "https://shop-point.merku.love/assets/mc-8847c9c4.svg",
+        payment: "mastercard",
     },
     {
         id: 1,
         name: "https://shop-point.merku.love/assets/visa-b8e4f9fc.svg",
+        payment: "visa",
     }
 ]

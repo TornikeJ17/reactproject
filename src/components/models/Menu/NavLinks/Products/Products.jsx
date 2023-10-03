@@ -1,21 +1,21 @@
 import React, { useState } from "react";
 import Cards from "../../../Widgets/Cards/Cards";
-import { ordersItems } from "../../../../api/order";
+import { ordersItems, } from "../../../../api/order";
 import cssStyles from "./Products.module.scss";
 import Button from "../../../Widgets/Button/Button";
 import { buttonIcons } from "../../../Icons/Icons";
 import { Link, useNavigate } from "react-router-dom";
 import Pagination from "../../../Widgets/Pagination/Pagination";
 
-const Products = () => {
+const Products = ({products}) => {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 8;
-    const totalPages = Math.ceil(ordersItems.length / itemsPerPage);
+    const totalPages = Math.ceil(products.length / itemsPerPage);
     const navigate = useNavigate();
     const maxPageNumbersToShow = 5;
 
     const productPage = (id) => {
-        navigate(`/products/${id}`);
+        navigate("/products/" + id, { state: { productId: id } });
     };
     const nextPage = () => {
         setCurrentPage((prevPage) => {
@@ -44,7 +44,7 @@ const Products = () => {
         startIndex + maxPageNumbersToShow - 1,
         totalPages
     );
-    const currentItems = ordersItems.slice(
+    const currentItems = products.slice(
         (currentPage - 1) * itemsPerPage,
         currentPage * itemsPerPage
     );
@@ -92,19 +92,22 @@ const Products = () => {
                             <div className={cssStyles.OrderElementBlock}>
                                 <div
                                     className={cssStyles.ClickCard}
-                                    onClick={() => productPage(item.id)}
+                                    onClick={() => productPage(item.productId)}
                                 >
                                     <div className={cssStyles.ProductIMGBlock}>
-                                        <img
-                                            src={item.icon}
-                                            style={{
-                                                width: "100%",
-                                                height: "100%",
-                                                aspectRatio: "1/1",
-                                                objectFit: "contain",
-                                            }}
-                                            alt={"s"}
-                                        />
+                                        {item.imagePaths?.map((image) => 
+                                            <img 
+                                                src={`http://localhost:5279${image.slice(7)}`}
+                                                style={{
+                                                    width: "100%",
+                                                    height: "100%",
+                                                    aspectRatio: "1/1",
+                                                    objectFit: "contain",
+                                                }}
+                                                alt={"s"}
+                                            />
+                                        )}
+                                      
                                     </div>
                                     <div
                                         className={cssStyles.OrderElementTitle}

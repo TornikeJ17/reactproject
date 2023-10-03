@@ -24,33 +24,22 @@ const Content = () => {
     useEffect(() => {
         getData(data);
     }, []);
+    console.log(data)
     return (
         <div className={cssStyles.Content}>
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/orders" element={<Orders />} />
-                <Route path="/products" element={<Products />} />
+                <Route path="/products" element={<Products products={data} />} />
                 <Route path="/product-editor" element={<ProductEditor />} />
-                <Route path="/products/:id" element={<ProductPage />} />
+                <Route path="/products/:id" element={<ProductPage products={data} />} />
                 <Route path="/statistics" element={<Statistics />} />
                 <Route path="/schedules" element={<Schedules />} />
                 <Route path="/customers" element={<Customers />} />
                 <Route path="/settings" element={<Settings />} />
                 <Route path="*" element={<div>error 404</div>} />
             </Routes>
-            <div>
-                {data.map((item, index) => (
-                    <div key={index}>
-                        <div>{item.productName}</div>
-                        <img src={item.imagePaths} />
-                        <img
-                            src="/images/products/af092a35-7138-48a4-9b32-2ca82a548e6d.png"
-                            alt="Product Image"
-                        />
-                    </div>
-                ))}
-            </div>
         </div>
     );
 };

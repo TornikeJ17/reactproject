@@ -13,25 +13,37 @@ import {productCreateApi} from "../../../../../api/api";
 import axios from "axios";
 
 const ProductEditor = () => {
-    const [productCreate, setProductCreate] = useState({});
     const [selectedImages, setSelectedImages] = useState([]);
+    const [productCreate, setProductCreate] = useState({
+        ProductName: "",
+        Category: "",
+        Price: "",
+        SKU: "",
+        Description: "",
+        ImagePaths: [],
+        StockPaths: "",
+        Payment: ""
+    });
 
 
     const handleImageChange = (e, index) => {
         if (e.target.files && e.target.files[0]) {
+            const file = e.target.files[0];
             const reader = new FileReader();
             reader.onload = (e) => {
-              setSelectedImages(prev => {
-                  const updateImages = [...prev];
-                  updateImages[index] = e.target.result;
-                  return updateImages
-              })
-                setProductCreate(prev => ({
-                    ...prev,
-                   image: e.target.result
-                }));
+                setSelectedImages(prevImages => {
+                    const updatedImages = [...prevImages];
+                    updatedImages[index] = e.target.result; // For displaying on UI
+                    return updatedImages;
+                });
             };
-            reader.readAsDataURL(e.target.files[0]);
+            reader.readAsDataURL(file);
+
+            setProductCreate(prev => {
+                const updatedData = {...prev};
+                updatedData.ImagePaths[index] = file; // Store the file for FormData
+                return updatedData;
+            });
         }
     };
     const handleImageRemove = (index) => {
@@ -65,14 +77,36 @@ const ProductEditor = () => {
     );
     const array = []
     array.push([selectedImages])
-
     const postProduct = async (e) => {
         e.preventDefault();
-        const data = await productCreateApi(productCreate);
-        console.log(data);
-        return data;
-    }
-    console.log(productCreate)
+        const formData = new FormData();
+        formData.append("ProductName", productCreate.ProductName);
+        formData.append("Category", productCreate.Category);
+        formData.append("Price", productCreate.Price);
+        formData.append("SKU", productCreate.SKU);
+        formData.append("Description", productCreate.Description);
+        formData.append("Image", productCreate.Image);
+        formData.append("ImagePaths", productCreate.ImagePaths);
+        formData.append("StockStatus", productCreate.StockStatus);
+        formData.append("Payment", productCreate.Payment);
+        selectedImages.forEach((imageFile, index) => {
+            if (imageFile) {
+                formData.append(`Image`, imageFile);
+            }
+        });
+        productCreate.ImagePaths.forEach((imageFile, index) => {
+            if (imageFile) {
+                formData.append(`Image`, imageFile);
+            }
+        });
+        console.log(productCreate.ImagePaths)
+        try {
+            const response = await productCreateApi(formData);
+            return response
+        } catch (error) {
+            console.error("Error creating product:", error);
+        }
+    };
     return (
         <div className={cssStyles.Container}>
             <div>
@@ -118,21 +152,21 @@ const ProductEditor = () => {
                                     </div>
                                 </div>
                                 <Label title={"Description"} />
-                                <Textarea onChange={(e) => setProductCreate({...productCreate, description: e.target.value})}/>
+                                <Textarea onChange={(e) => setProductCreate({...productCreate, Description: e.target.value})}/>
                             </div>
                             <div className={cssStyles.ProductEditorInputsBlock}>
                                 <Label title={"Product Name"} />
-                                <Input onChange={(e) => setProductCreate({...productCreate, productName: e.target.value})} />
+                                <Input onChange={(e) => setProductCreate({...productCreate, ProductName: e.target.value})} />
                                 <Label title={"Category"} />
-                                <Input onChange={(e) => setProductCreate({...productCreate, category: e.target.value})} />
+                                <Input onChange={(e) => setProductCreate({...productCreate, Category: e.target.value})} />
                                 <Label title={"Price"} />
-                                <Input onChange={(e) => setProductCreate({...productCreate, price: e.target.value})} />
+                                <Input onChange={(e) => setProductCreate({...productCreate, Price: e.target.value})} />
                                 <Label title={"SKU"} />
-                                <Input onChange={ (e) => setProductCreate({...productCreate, sku: e.target.value})}/>
+                                <Input onChange={ (e) => setProductCreate({...productCreate, SKU: e.target.value})}/>
                                 <Label title={"Stock Status"} />
-                                <Input onChange={() => setProductCreate({...productCreate, stockStatus: "In Stock"})}/>
+                                <Input onChange={(e) => setProductCreate({...productCreate, StockStatus: e.target.value})}/>
                                 <Label title={"Payment Methods"} />
-                                <Radio radioItem={radioItems} />
+                                <Radio radioItem={radioItems} onChange={(e) => setProductCreate({...productCreate, Payment: e.target.value})}/>
                                 <div className={cssStyles.ProductEditorButtonsBlock}>
                                     <Button
                                         title={"Save to Drafts"}
