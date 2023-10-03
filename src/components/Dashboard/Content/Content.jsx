@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import cssStyles from "./Content.module.scss";
 import Home from "../../models/Menu/NavLinks/Home/Home";
@@ -12,18 +12,18 @@ import Cards from "../../models/Widgets/Cards/Cards";
 import ProductEditor from "../../models/Menu/NavLinks/Products/ProductEditor/ProductEditor";
 import Profile from "../../models/Profile/Profile";
 import ProductPage from "../../models/Menu/NavLinks/Products/ProductPage/ProductPage";
-import {UserApi} from "../../api/api";
+import { UserApi } from "../../api/api";
 const Content = () => {
-    const [data,setData]= React.useState([]);
+    const [data, setData] = React.useState([]);
 
     const getData = async () => {
         const response = await UserApi();
         setData(response);
-        console.log(data)
-    }
-useEffect(() => {
-    getData();
-}, []);
+        console.log(data);
+    };
+    useEffect(() => {
+        getData(data);
+    }, []);
     return (
         <div className={cssStyles.Content}>
             <Routes>
@@ -39,6 +39,18 @@ useEffect(() => {
                 <Route path="/settings" element={<Settings />} />
                 <Route path="*" element={<div>error 404</div>} />
             </Routes>
+            <div>
+                {data.map((item, index) => (
+                    <div key={index}>
+                        <div>{item.productName}</div>
+                        <img src={item.imagePaths} />
+                        <img
+                            src="/images/products/af092a35-7138-48a4-9b32-2ca82a548e6d.png"
+                            alt="Product Image"
+                        />
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };
