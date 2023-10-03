@@ -14,11 +14,13 @@ namespace Backend.Controllers
     public class ProductController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _environment;
         private const string ImageDirectory = "wwwroot/images/products"; // Path to where you want to save images
 
-        public ProductController(ApplicationDbContext applicationDbContext)
+        public ProductController(ApplicationDbContext applicationDbContext, IWebHostEnvironment environment)
         {
             _context = applicationDbContext;
+            _environment = environment;
         }
 
         [HttpGet]
@@ -40,7 +42,6 @@ namespace Backend.Controllers
                 Price = request.Price,
                 SKU = request.SKU,
                 Description = request.Description,
-                Image = request.Image != null ? new List<IFormFile>(request.Image) : new List<IFormFile>(),
                 ImagePaths = new List<string>(),
                 StockStatus = request.StockStatus,
                 Payment = request.Payment,

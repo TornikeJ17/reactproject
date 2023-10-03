@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ytK5zbRdD09DKH7JgGlgeLcXxqDqsv8YkHDeps0nQNI=",
+  "Hash": "bNqzzT58G2PRwDhN04iWMraB2LJtKykHIcEfDcHwgkk=",
   "Source": "Backend",
   "BasePath": "_content/Backend",
   "Mode": "Default",
@@ -16,6 +16,25 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "/Users/tornikejmukhadze/reactproject/Backend/wwwroot/images/.DS_Store",
+      "SourceId": "Backend",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/tornikejmukhadze/reactproject/Backend/wwwroot/",
+      "BasePath": "_content/Backend",
+      "RelativePath": "images/.DS_Store",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/images/.DS_Store"
+    },
     {
       "Identity": "/Users/tornikejmukhadze/reactproject/Backend/wwwroot/images/products/4ff87f19-c8a6-4ef8-99a1-4ca1de15552f.png",
       "SourceId": "Backend",

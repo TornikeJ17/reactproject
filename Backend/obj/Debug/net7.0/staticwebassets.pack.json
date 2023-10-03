@@ -1,6 +1,10 @@
 {
   "Files": [
     {
+      "Id": "/Users/tornikejmukhadze/reactproject/Backend/wwwroot/images/.DS_Store",
+      "PackagePath": "staticwebassets/images/.DS_Store"
+    },
+    {
       "Id": "/Users/tornikejmukhadze/reactproject/Backend/wwwroot/images/products/4ff87f19-c8a6-4ef8-99a1-4ca1de15552f.png",
       "PackagePath": "staticwebassets/images/products/4ff87f19-c8a6-4ef8-99a1-4ca1de15552f.png"
     },
