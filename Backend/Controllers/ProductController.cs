@@ -45,7 +45,6 @@ namespace Backend.Controllers
                 ImagePaths = new List<string>(),
                 StockStatus = request.StockStatus,
                 Payment = request.Payment,
-                // You can leave Images uninitialized here as we'll be adding to it below
             };
             if (request.Image != null)
             {
@@ -56,7 +55,6 @@ namespace Backend.Controllers
                         var fileName = Guid.NewGuid().ToString() + Path.GetExtension(formFile.FileName);
                         var filePath = Path.Combine(ImageDirectory, fileName);
 
-                        // Ensure the directory exists
                         Directory.CreateDirectory(ImageDirectory);
 
                         using var stream = new FileStream(filePath, FileMode.Create);
@@ -83,7 +81,6 @@ namespace Backend.Controllers
                 return NotFound("Product not found");
             }
 
-            // Update fields
             existingProduct.ProductName = request.ProductName;
             existingProduct.Category = request.Category;
             existingProduct.Price = request.Price;
@@ -92,11 +89,9 @@ namespace Backend.Controllers
             existingProduct.StockStatus = request.StockStatus;
             existingProduct.Payment = request.Payment;
 
-            // Handle image update if new images are provided
             if (request.Image != null && request.Image.Count > 0)
             {
-                // Remove existing images from server and from the product's ImagePaths list
-                // (This assumes you want to replace all images. Adjust as needed.)
+             
                 foreach (var imagePath in existingProduct.ImagePaths)
                 {
                     System.IO.File.Delete(imagePath);

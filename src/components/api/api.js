@@ -28,5 +28,14 @@ const productCreateApi = async (productCreate) => {
         console.log(error);
     }
 };
+const productDelete = async (productId) => {
+    const url = API_URL + "Product/product-delete?id=" + productId;
+    console.log("Deleting product with URL:", url);
 
-export { UserApi, productCreateApi };
+    try {
+        await axios.delete(url);
+    } catch (error) {
+        console.error("Error deleting product:", error.response.data);
+    }
+}
+export { UserApi, productCreateApi, productDelete };

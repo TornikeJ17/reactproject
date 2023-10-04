@@ -28,7 +28,7 @@ const Content = () => {
     return (
         <div className={cssStyles.Content}>
             <Routes>
-                <Route path="/" element={<Home />} />
+                <Route path="/" element={<Home products={data} />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/orders" element={<Orders />} />
                 <Route path="/products" element={<Products products={data} />} />

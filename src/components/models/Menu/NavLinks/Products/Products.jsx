@@ -6,6 +6,7 @@ import Button from "../../../Widgets/Button/Button";
 import { buttonIcons } from "../../../Icons/Icons";
 import { Link, useNavigate } from "react-router-dom";
 import Pagination from "../../../Widgets/Pagination/Pagination";
+import {productDelete} from "../../../../api/api";
 
 const Products = ({products}) => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -48,6 +49,9 @@ const Products = ({products}) => {
         (currentPage - 1) * itemsPerPage,
         currentPage * itemsPerPage
     );
+    const deleteProduct = async (id) => {
+        await productDelete(id);
+    }
     return (
         <div className={cssStyles.Container}>
             <div>
@@ -74,7 +78,7 @@ const Products = ({products}) => {
                     <Button
                         title={"Add new product"}
                         icon={buttonIcons[2].icon}
-                        gap={"8px"}
+                        gap={"6px"}
                         height={"30px"}
                         background={"#00BA9D"}
                         padding={"20px"}
@@ -107,7 +111,6 @@ const Products = ({products}) => {
                                                 alt={"s"}
                                             />
                                         )}
-                                      
                                     </div>
                                     <div
                                         className={cssStyles.OrderElementTitle}
@@ -132,6 +135,7 @@ const Products = ({products}) => {
                                         icon={buttonIcons[1].icon}
                                         background={"#FF3E3E"}
                                         width={"50px"}
+                                        onClick={() => deleteProduct(item.productId)}
                                     />
                                 </div>
                             </div>
