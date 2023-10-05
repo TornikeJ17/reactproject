@@ -20,7 +20,7 @@ const productCreateApi = async (productCreate) => {
                     'Content-Type': 'multipart/form-data'
                 }
             }
-        );
+        )
         console.log(productCreate)
         console.log(response)
         return response;

@@ -101,11 +101,12 @@ const ProductEditor = () => {
         });
         console.log(productCreate.ImagePaths)
         try {
-            const response = await productCreateApi(formData);
+            const response = await productCreateApi(formData).then(() => window.location.href = "/products");
             return response
         } catch (error) {
             console.error("Error creating product:", error);
         }
+        
     };
     return (
         <div className={cssStyles.Container}>

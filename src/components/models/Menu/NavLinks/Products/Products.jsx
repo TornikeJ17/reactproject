@@ -7,6 +7,7 @@ import { buttonIcons } from "../../../Icons/Icons";
 import { Link, useNavigate } from "react-router-dom";
 import Pagination from "../../../Widgets/Pagination/Pagination";
 import {productDelete} from "../../../../api/api";
+import Modal from "../../../Widgets/Modal/Modal";
 
 const Products = ({products}) => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -14,6 +15,8 @@ const Products = ({products}) => {
     const totalPages = Math.ceil(products.length / itemsPerPage);
     const navigate = useNavigate();
     const maxPageNumbersToShow = 5;
+    const [deleteProductModal, setDeleteProductModal] = useState(false);
+    const [deleteProductId, setDeleteProductId] = useState(null);
 
     const productPage = (id) => {
         navigate("/products/" + id, { state: { productId: id } });
@@ -49,8 +52,13 @@ const Products = ({products}) => {
         (currentPage - 1) * itemsPerPage,
         currentPage * itemsPerPage
     );
-    const deleteProduct = async (id) => {
-        await productDelete(id);
+    const deleteProduct = async (closeModal) => {
+        await productDelete(deleteProductId);
+        setDeleteProductModal(closeModal)
+    }
+    const deleteModal = (e) => {
+        setDeleteProductModal(!deleteProductModal);
+        setDeleteProductId(e)
     }
     return (
         <div className={cssStyles.Container}>
@@ -135,9 +143,10 @@ const Products = ({products}) => {
                                         icon={buttonIcons[1].icon}
                                         background={"#FF3E3E"}
                                         width={"50px"}
-                                        onClick={() => deleteProduct(item.productId)}
+                                        onClick={() => deleteModal(item.productId)}
                                     />
                                 </div>
+                               
                             </div>
                         }
                     />
@@ -153,6 +162,19 @@ const Products = ({products}) => {
                 setCurrentPage={setCurrentPage}
                 currentPage={currentPage}
             />
+            {deleteProductModal && (
+                <Modal
+                    isOpen={deleteProductModal}
+                    onClose={() => setDeleteProductModal(!deleteProductModal)}
+                    children={
+                        <div>
+                            <h4>Are you sure you want to delete product?</h4>
+                            <button onClick={(e) => deleteProduct(!deleteProductModal)}>Yes</button>
+                            <button onClick={() => setDeleteProductModal(!deleteProductModal)}>No</button>
+                        </div>
+                    }
+                />
+            )}
         </div>
     );
 };

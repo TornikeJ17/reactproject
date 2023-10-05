@@ -163,7 +163,7 @@ const ProductPage = ({products}) => {
                                     <Label title={"Category"} />
                                     <div>{item.category}</div>
                                     <Label title={"Price"} />
-                                    <div>{item.price}$</div>
+                                    <div>${item.price}</div>
                                     <Label title={"SKU"} />
                                     <div>{item.sku}</div>
                                     <Label title={"Stock Status"} />
