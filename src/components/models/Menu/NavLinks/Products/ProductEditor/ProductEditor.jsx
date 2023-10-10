@@ -4,12 +4,12 @@ import "./ProductEditor.module.scss";
 import Cards from "../../../../Widgets/Cards/Cards";
 import Label from "../../../../Widgets/Label/Label";
 import Images from "../../../../Widgets/Images/Images";
-import {buttonIcons, radioItems} from "../../../../Icons/Icons";
+import { buttonIcons, radioItems } from "../../../../Icons/Icons";
 import { Input, Textarea } from "../../../../Widgets/Input/Input";
 import { Link } from "react-router-dom";
 import Button from "../../../../Widgets/Button/Button";
 import Radio from "../../../../Widgets/Radio/Radio";
-import {productCreateApi} from "../../../../../api/api";
+import { productCreateApi } from "../../../../../api/api";
 import axios from "axios";
 
 const ProductEditor = () => {
@@ -22,16 +22,15 @@ const ProductEditor = () => {
         Description: "",
         ImagePaths: [],
         StockPaths: "",
-        Payment: ""
+        Payment: "",
     });
-
 
     const handleImageChange = (e, index) => {
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0];
             const reader = new FileReader();
             reader.onload = (e) => {
-                setSelectedImages(prevImages => {
+                setSelectedImages((prevImages) => {
                     const updatedImages = [...prevImages];
                     updatedImages[index] = e.target.result; // For displaying on UI
                     return updatedImages;
@@ -39,32 +38,41 @@ const ProductEditor = () => {
             };
             reader.readAsDataURL(file);
 
-            setProductCreate(prev => {
-                const updatedData = {...prev};
+            setProductCreate((prev) => {
+                const updatedData = { ...prev };
                 updatedData.ImagePaths[index] = file; // Store the file for FormData
                 return updatedData;
             });
         }
     };
     const handleImageRemove = (index) => {
-        setSelectedImages(prev => {
+        setSelectedImages((prev) => {
             const updatedImages = [...prev];
             updatedImages[index] = null;
             return updatedImages;
         });
-        setProductCreate(prev => {
+        setProductCreate((prev) => {
             const updatedProductCreate = { ...prev };
             delete updatedProductCreate[`image${index}`];
             return updatedProductCreate;
         });
-    }
+    };
 
     const renderImageBlock = (index) => (
         <div className={cssStyles.ImagesBlock}>
             {selectedImages[index] ? (
                 <div className={cssStyles.SelectedImageBlock}>
-                    <img className={cssStyles.imgProduct} src={selectedImages[index]} alt="Selected" />
-                    <span className={cssStyles.removeButtonIMG} onClick={() => handleImageRemove(index)}>{buttonIcons[5].icon}</span>
+                    <img
+                        className={cssStyles.imgProduct}
+                        src={selectedImages[index]}
+                        alt="Selected"
+                    />
+                    <span
+                        className={cssStyles.removeButtonIMG}
+                        onClick={() => handleImageRemove(index)}
+                    >
+                        {buttonIcons[5].icon}
+                    </span>
                 </div>
             ) : (
                 <Images
@@ -75,8 +83,8 @@ const ProductEditor = () => {
             )}
         </div>
     );
-    const array = []
-    array.push([selectedImages])
+    const array = [];
+    array.push([selectedImages]);
     const postProduct = async (e) => {
         e.preventDefault();
         const formData = new FormData();
@@ -99,20 +107,19 @@ const ProductEditor = () => {
                 formData.append(`Image`, imageFile);
             }
         });
-        console.log(productCreate.ImagePaths)
+        console.log(productCreate.ImagePaths);
         try {
-            const response = await productCreateApi(formData).then(() => window.location.href = "/products");
-            return response
+            const response = await productCreateApi(formData);
+            return response;
         } catch (error) {
             console.error("Error creating product:", error);
         }
-        
     };
     return (
         <div className={cssStyles.Container}>
             <div>
                 <Cards
-                    width={"10%"}
+                    width={"15%"}
                     height={"44px"}
                     element={
                         <div className={cssStyles.ProductsTitle}>
@@ -128,7 +135,10 @@ const ProductEditor = () => {
                     height={"100%"}
                     border={"20px"}
                     element={
-                        <form onSubmit={postProduct} className={cssStyles.ProductEditorContainer}>
+                        <form
+                            onSubmit={postProduct}
+                            className={cssStyles.ProductEditorContainer}
+                        >
                             <div className={cssStyles.ProductEditorTitle}>
                                 Product Settings
                             </div>
@@ -153,22 +163,76 @@ const ProductEditor = () => {
                                     </div>
                                 </div>
                                 <Label title={"Description"} />
-                                <Textarea onChange={(e) => setProductCreate({...productCreate, Description: e.target.value})}/>
+                                <Textarea
+                                    onChange={(e) =>
+                                        setProductCreate({
+                                            ...productCreate,
+                                            Description: e.target.value,
+                                        })
+                                    }
+                                />
                             </div>
                             <div className={cssStyles.ProductEditorInputsBlock}>
                                 <Label title={"Product Name"} />
-                                <Input onChange={(e) => setProductCreate({...productCreate, ProductName: e.target.value})} />
+                                <Input
+                                    onChange={(e) =>
+                                        setProductCreate({
+                                            ...productCreate,
+                                            ProductName: e.target.value,
+                                        })
+                                    }
+                                />
                                 <Label title={"Category"} />
-                                <Input onChange={(e) => setProductCreate({...productCreate, Category: e.target.value})} />
+                                <Input
+                                    onChange={(e) =>
+                                        setProductCreate({
+                                            ...productCreate,
+                                            Category: e.target.value,
+                                        })
+                                    }
+                                />
                                 <Label title={"Price"} />
-                                <Input onChange={(e) => setProductCreate({...productCreate, Price: e.target.value})} />
+                                <Input
+                                    onChange={(e) =>
+                                        setProductCreate({
+                                            ...productCreate,
+                                            Price: e.target.value,
+                                        })
+                                    }
+                                />
                                 <Label title={"SKU"} />
-                                <Input onChange={ (e) => setProductCreate({...productCreate, SKU: e.target.value})}/>
+                                <Input
+                                    onChange={(e) =>
+                                        setProductCreate({
+                                            ...productCreate,
+                                            SKU: e.target.value,
+                                        })
+                                    }
+                                />
                                 <Label title={"Stock Status"} />
-                                <Input onChange={(e) => setProductCreate({...productCreate, StockStatus: e.target.value})}/>
+                                <Input
+                                    onChange={(e) =>
+                                        setProductCreate({
+                                            ...productCreate,
+                                            StockStatus: e.target.value,
+                                        })
+                                    }
+                                />
                                 <Label title={"Payment Methods"} />
-                                <Radio radioItem={radioItems} onChange={(e) => setProductCreate({...productCreate, Payment: e.target.value})}/>
-                                <div className={cssStyles.ProductEditorButtonsBlock}>
+                                <Radio
+                                    radioItem={radioItems}
+                                    onChange={(e) =>
+                                        setProductCreate({
+                                            ...productCreate,
+                                            Payment: e.target.value,
+                                        })
+                                    }
+                                />
+                                <div
+                                    className={
+                                        cssStyles.ProductEditorButtonsBlock
+                                    }
+                                >
                                     <Button
                                         title={"Save to Drafts"}
                                         width={"30%"}
@@ -184,7 +248,6 @@ const ProductEditor = () => {
                                     />
                                 </div>
                             </div>
-
                         </form>
                     }
                 />

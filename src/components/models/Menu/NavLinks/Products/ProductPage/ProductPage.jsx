@@ -1,20 +1,20 @@
-﻿import React, {useState} from "react";
-import {Link, useLocation} from "react-router-dom";
-import {ordersItems} from "../../../../../api/order";
+﻿import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { ordersItems } from "../../../../../api/order";
 import cssStyles from "../ProductEditor/ProductEditor.module.scss";
 import Cards from "../../../../Widgets/Cards/Cards";
-import {buttonIcons, radioItems} from "../../../../Icons/Icons";
+import { buttonIcons, radioItems } from "../../../../Icons/Icons";
 import Label from "../../../../Widgets/Label/Label";
-import {Input, Textarea} from "../../../../Widgets/Input/Input";
+import { Input, Textarea } from "../../../../Widgets/Input/Input";
 import Radio from "../../../../Widgets/Radio/Radio";
 import Button from "../../../../Widgets/Button/Button";
 import Images from "../../../../Widgets/Images/Images";
-import {productCreateApi} from "../../../../../api/api";
-import {CCarousel ,CCarouselItem,CImage } from "@coreui/react"
-import '@coreui/coreui/dist/css/coreui.min.css'
-const ProductPage = ({products}) => {
+import { productCreateApi } from "../../../../../api/api";
+import { CCarousel, CCarouselItem, CImage } from "@coreui/react";
+import "@coreui/coreui/dist/css/coreui.min.css";
+const ProductPage = ({ products }) => {
     const location = useLocation();
-    console.log(products)
+    console.log(products);
     const [selectedImages, setSelectedImages] = useState([]);
     const [productCreate, setProductCreate] = useState({
         ProductName: "",
@@ -24,16 +24,15 @@ const ProductPage = ({products}) => {
         Description: "",
         ImagePaths: [],
         StockPaths: "",
-        Payment: ""
+        Payment: "",
     });
-
 
     const handleImageChange = (e, index) => {
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0];
             const reader = new FileReader();
             reader.onload = (e) => {
-                setSelectedImages(prevImages => {
+                setSelectedImages((prevImages) => {
                     const updatedImages = [...prevImages];
                     updatedImages[index] = e.target.result; // For displaying on UI
                     return updatedImages;
@@ -41,32 +40,41 @@ const ProductPage = ({products}) => {
             };
             reader.readAsDataURL(file);
 
-            setProductCreate(prev => {
-                const updatedData = {...prev};
+            setProductCreate((prev) => {
+                const updatedData = { ...prev };
                 updatedData.ImagePaths[index] = file; // Store the file for FormData
                 return updatedData;
             });
         }
     };
     const handleImageRemove = (index) => {
-        setSelectedImages(prev => {
+        setSelectedImages((prev) => {
             const updatedImages = [...prev];
             updatedImages[index] = null;
             return updatedImages;
         });
-        setProductCreate(prev => {
+        setProductCreate((prev) => {
             const updatedProductCreate = { ...prev };
             delete updatedProductCreate[`image${index}`];
             return updatedProductCreate;
         });
-    }
+    };
 
     const renderImageBlock = (index) => (
         <div className={cssStyles.ImagesBlock}>
             {selectedImages[index] ? (
                 <div className={cssStyles.SelectedImageBlock}>
-                    <img className={cssStyles.imgProduct} src={selectedImages[index]} alt="Selected" />
-                    <span className={cssStyles.removeButtonIMG} onClick={() => handleImageRemove(index)}>{buttonIcons[5].icon}</span>
+                    <img
+                        className={cssStyles.imgProduct}
+                        src={selectedImages[index]}
+                        alt="Selected"
+                    />
+                    <span
+                        className={cssStyles.removeButtonIMG}
+                        onClick={() => handleImageRemove(index)}
+                    >
+                        {buttonIcons[5].icon}
+                    </span>
                 </div>
             ) : (
                 <Images
@@ -77,8 +85,8 @@ const ProductPage = ({products}) => {
             )}
         </div>
     );
-    const array = []
-    array.push([selectedImages])
+    const array = [];
+    array.push([selectedImages]);
     const postProduct = async (e) => {
         e.preventDefault();
         const formData = new FormData();
@@ -101,20 +109,20 @@ const ProductPage = ({products}) => {
                 formData.append(`Image`, imageFile);
             }
         });
-        console.log(productCreate.ImagePaths)
+        console.log(productCreate.ImagePaths);
         try {
             const response = await productCreateApi(formData);
-            return response
+            return response;
         } catch (error) {
             console.error("Error creating product:", error);
         }
     };
-    console.log(products)
-    return(
+    console.log(products);
+    return (
         <div className={cssStyles.Container}>
             <div>
                 <Cards
-                    width={"10%"}
+                    width={"15%"}
                     height={"44px"}
                     element={
                         <div className={cssStyles.ProductsTitle}>
@@ -125,75 +133,114 @@ const ProductPage = ({products}) => {
                 />
             </div>
             <div>
-                {products.map((item, index) => item.productId === location.state.productId && (
-                    <Cards
-                        width={"100%"}
-                        height={"100%"}
-                        border={"20px"}
-                        element={
-                            <form onSubmit={postProduct} className={cssStyles.ProductEditorContainer}>
-                                <div className={cssStyles.ProductEditorTitle}>
-                                    Product Settings
-                                </div>
-                                <div className={cssStyles.BackButton}>
-                                    <Link to={"/products"}>
-                                        {buttonIcons[4].icon}
-                                        <span>Back</span>
-                                    </Link>
-                                </div>
-                                <div className={cssStyles.firstBlockGrid}>
-                                    <Label title={"Product Images"} />
-                                    <div className={cssStyles.ImagesContainer}>
-                                            <CCarousel  transition="crossfade">
-                                            {item.imagePaths?.map((image) =>
-                                                <CCarouselItem>
-                                                <CImage style={{
-                                                    width: "400px",
-                                                }}  src={`http://localhost:5279${image.slice(7)}`}  />
-                                                </CCarouselItem>
-                                            )}
-                                            </CCarousel>
+                {products.map(
+                    (item, index) =>
+                        item.productId === location.state.productId && (
+                            <Cards
+                                width={"100%"}
+                                height={"100%"}
+                                border={"20px"}
+                                element={
+                                    <form
+                                        onSubmit={postProduct}
+                                        className={
+                                            cssStyles.ProductEditorContainer
+                                        }
+                                    >
+                                        <div
+                                            className={
+                                                cssStyles.ProductEditorTitle
+                                            }
+                                        >
+                                            Product Settings
                                         </div>
-                                    <Label title={"Description"} />
-                                    <div>{item.description}</div>
-                                </div>
-                                <div className={cssStyles.ProductEditorInputsBlock}>
-                                    <Label title={"Product Name"} />
-                                    <div>{item.productName}</div>
-                                    <Label title={"Category"} />
-                                    <div>{item.category}</div>
-                                    <Label title={"Price"} />
-                                    <div>${item.price}</div>
-                                    <Label title={"SKU"} />
-                                    <div>{item.sku}</div>
-                                    <Label title={"Stock Status"} />
-                                    <div>{item.stockStatus}</div>
-                                    <Label title={"Payment Methods"} />
-                                    <Radio radioItem={radioItems} value={item.payment} />
-                                    <div className={cssStyles.ProductEditorButtonsBlock}>
-                                        <Button
-                                            title={"Save to Drafts"}
-                                            width={"30%"}
-                                            primary={false}
-                                            background={"rgb(176, 176, 176)"}
-                                        />
-                                        <Button
-                                            type={"submit"}
-                                            title={"Publish Product"}
-                                            width={"30%"}
-                                            primary={false}
-                                            background={"rgb(0, 186, 157)"}
-                                        />
-                                    </div>
-                                </div>
-
-                            </form>
-                        }
-                    />
-                ))}
+                                        <div className={cssStyles.BackButton}>
+                                            <Link to={"/products"}>
+                                                {buttonIcons[4].icon}
+                                                <span>Back</span>
+                                            </Link>
+                                        </div>
+                                        <div
+                                            className={cssStyles.firstBlockGrid}
+                                        >
+                                            <Label title={"Product Images"} />
+                                            <div
+                                                className={
+                                                    cssStyles.ImagesContainer
+                                                }
+                                            >
+                                                <CCarousel transition="crossfade">
+                                                    {item.imagePaths?.map(
+                                                        (image) => (
+                                                            <CCarouselItem>
+                                                                <CImage
+                                                                    style={{
+                                                                        width: "400px",
+                                                                    }}
+                                                                    src={`http://localhost:5279${image.slice(
+                                                                        7
+                                                                    )}`}
+                                                                />
+                                                            </CCarouselItem>
+                                                        )
+                                                    )}
+                                                </CCarousel>
+                                            </div>
+                                            <Label title={"Description"} />
+                                            <div>{item.description}</div>
+                                        </div>
+                                        <div
+                                            className={
+                                                cssStyles.ProductEditorInputsBlock
+                                            }
+                                        >
+                                            <Label title={"Product Name"} />
+                                            <div>{item.productName}</div>
+                                            <Label title={"Category"} />
+                                            <div>{item.category}</div>
+                                            <Label title={"Price"} />
+                                            <div>${item.price}</div>
+                                            <Label title={"SKU"} />
+                                            <div>{item.sku}</div>
+                                            <Label title={"Stock Status"} />
+                                            <div>{item.stockStatus}</div>
+                                            <Label title={"Payment Methods"} />
+                                            <Radio
+                                                radioItem={radioItems}
+                                                value={item.payment}
+                                            />
+                                            <div
+                                                className={
+                                                    cssStyles.ProductEditorButtonsBlock
+                                                }
+                                            >
+                                                <Button
+                                                    title={"Save to Drafts"}
+                                                    width={"30%"}
+                                                    primary={false}
+                                                    background={
+                                                        "rgb(176, 176, 176)"
+                                                    }
+                                                />
+                                                <Button
+                                                    type={"submit"}
+                                                    title={"Publish Product"}
+                                                    width={"30%"}
+                                                    primary={false}
+                                                    background={
+                                                        "rgb(0, 186, 157)"
+                                                    }
+                                                />
+                                            </div>
+                                        </div>
+                                    </form>
+                                }
+                            />
+                        )
+                )}
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default ProductPage
+export default ProductPage;

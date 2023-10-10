@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import cssStyles from "./Content.module.scss";
 import Home from "../../models/Menu/NavLinks/Home/Home";
@@ -12,28 +12,50 @@ import Cards from "../../models/Widgets/Cards/Cards";
 import ProductEditor from "../../models/Menu/NavLinks/Products/ProductEditor/ProductEditor";
 import Profile from "../../models/Profile/Profile";
 import ProductPage from "../../models/Menu/NavLinks/Products/ProductPage/ProductPage";
-import { UserApi } from "../../api/api";
+import useRequestDataProvider from "../../api/useRequestDataProvider";
 const Content = () => {
-    const [data, setData] = React.useState([]);
+    const [data, setData] = useState([]);
+    const { UserApi, productDelete, loading, refetch } =
+        useRequestDataProvider();
 
-    const getData = async () => {
-        const response = await UserApi();
-        setData(response);
-        console.log(data);
-    };
     useEffect(() => {
-        getData(data);
-    }, []);
-    console.log(data)
+        const fetchData = async () => {
+            try {
+                const response = await UserApi();
+                setData(response);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+        fetchData();
+    }, []); // Dependency array includes refreshData so effect re-runs when it changes
+
     return (
         <div className={cssStyles.Content}>
             <Routes>
-                <Route path="/" element={<Home products={data} />} />
+                <Route
+                    path="/"
+                    element={<Home products={data} loading={loading} />}
+                />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/orders" element={<Orders />} />
-                <Route path="/products" element={<Products products={data} />} />
+                <Route
+                    path="/products"
+                    element={
+                        <Products
+                            products={data}
+                            loading={loading}
+                            productDelete={productDelete}
+                            setProducts={setData}
+                            refetch={refetch}
+                        />
+                    }
+                />
                 <Route path="/product-editor" element={<ProductEditor />} />
-                <Route path="/products/:id" element={<ProductPage products={data} />} />
+                <Route
+                    path="/products/:id"
+                    element={<ProductPage products={data} />}
+                />
                 <Route path="/statistics" element={<Statistics />} />
                 <Route path="/schedules" element={<Schedules />} />
                 <Route path="/customers" element={<Customers />} />

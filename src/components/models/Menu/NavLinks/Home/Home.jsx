@@ -5,7 +5,7 @@ import { buttonIcons, SVG } from "../../../Icons/Icons";
 import Man from "../../../../img/Man.png";
 import Button from "../../../Widgets/Button/Button";
 import { Link } from "react-router-dom";
-const Home = ({products}) => {
+const Home = ({ products, loading }) => {
     useEffect(() => {});
     return (
         <div className={cssStyles.MainContainer}>
@@ -42,7 +42,11 @@ const Home = ({products}) => {
                                         Products
                                     </div>
                                     <div className={cssStyles.CardsText}>
-                                        {products.map(item => item.productId).length}
+                                        {loading
+                                            ? "Loading..."
+                                            : products.map(
+                                                  (item) => item.productId
+                                              ).length}
                                     </div>
                                 </div>
                                 <div className={cssStyles.CardsIcon}>

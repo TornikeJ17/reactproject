@@ -17,12 +17,12 @@ const productCreateApi = async (productCreate) => {
             productCreate,
             {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
+                    "Content-Type": "multipart/form-data",
+                },
             }
-        )
-        console.log(productCreate)
-        console.log(response)
+        );
+        console.log(productCreate);
+        console.log(response);
         return response;
     } catch (error) {
         console.log(error);
@@ -37,5 +37,5 @@ const productDelete = async (productId) => {
     } catch (error) {
         console.error("Error deleting product:", error.response.data);
     }
-}
+};
 export { UserApi, productCreateApi, productDelete };
