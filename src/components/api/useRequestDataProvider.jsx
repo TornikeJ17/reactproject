@@ -17,7 +17,6 @@ const useRequestDataProvider = () => {
             console.log(error);
         }
     };
-    const refetch = UserApi;
     const productCreateApi = async (productCreate) => {
         try {
             const response = await axios.post(
@@ -53,7 +52,6 @@ const useRequestDataProvider = () => {
         UserApi,
         productCreateApi,
         productDelete,
-        refetch,
     };
 };
 

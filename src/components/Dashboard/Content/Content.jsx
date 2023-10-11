@@ -29,7 +29,10 @@ const Content = () => {
         };
         fetchData();
     }, []); // Dependency array includes refreshData so effect re-runs when it changes
-
+    const addNewProduct = (newProduct) => {
+        setData(prevProducts => [...prevProducts,newProduct])
+    }
+  
     return (
         <div className={cssStyles.Content}>
             <Routes>
@@ -51,7 +54,7 @@ const Content = () => {
                         />
                     }
                 />
-                <Route path="/product-editor" element={<ProductEditor />} />
+                <Route path="/product-editor" element={<ProductEditor addNewProduct={addNewProduct}/>} />
                 <Route
                     path="/products/:id"
                     element={<ProductPage products={data} />}

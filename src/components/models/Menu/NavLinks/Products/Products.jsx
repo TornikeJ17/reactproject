@@ -12,7 +12,6 @@ const Products = ({
     setProducts,
     productDelete,
     loading,
-    refetch,
 }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 8;
@@ -20,15 +19,11 @@ const Products = ({
     const navigate = useNavigate();
     const maxPageNumbersToShow = 5;
 
-    useEffect(() => {
-        setProducts((prevState) => {
-            console.log(prevState);
-        });
-        console.log(products);
-    }, []);
     const productPage = (id) => {
         navigate("/products/" + id, { state: { productId: id } });
     };
+    
+  
     const nextPage = () => {
         setCurrentPage((prevPage) => {
             if (prevPage === totalPages) {
@@ -49,8 +44,9 @@ const Products = ({
         });
     };
     const handleDelete = async (id) => {
-        await productDelete(id);
-        refetch();
+      await productDelete(id)
+        const updateProducts = products.filter((item) => item.productId !== id);
+        setProducts(updateProducts)
     };
     const startIndex = Math.max(
         1,
@@ -64,11 +60,12 @@ const Products = ({
         (currentPage - 1) * itemsPerPage,
         currentPage * itemsPerPage
     );
+    console.log(products);
     return (
         <div className={cssStyles.Container}>
             <div>
                 <Cards
-                    width={"15%"}
+                    width={"200px"}
                     border={"10px"}
                     height={"44px"}
                     element={
@@ -90,7 +87,7 @@ const Products = ({
                     <Button
                         title={"Add new product"}
                         icon={buttonIcons[2].icon}
-                        gap={"8px"}
+                        gap={"6px"}
                         height={"30px"}
                         background={"#00BA9D"}
                         padding={"20px"}

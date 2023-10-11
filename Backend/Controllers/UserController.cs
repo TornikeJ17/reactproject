@@ -36,7 +36,6 @@ public class UserController : Controller
                 PhoneNumber = request.PhoneNumber,
                 Address = request.Address,
                 Token = Guid.NewGuid().ToString(),
-                Image = request.Image,
                 ImagePaths = new List<string>(),
                 Gender = request.Gender,
                 DateOfBirth = request.DateOfBirth,

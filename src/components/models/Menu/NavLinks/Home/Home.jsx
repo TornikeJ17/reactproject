@@ -44,7 +44,7 @@ const Home = ({ products, loading }) => {
                                     <div className={cssStyles.CardsText}>
                                         {loading
                                             ? "Loading..."
-                                            : products.map(
+                                            : products?.map(
                                                   (item) => item.productId
                                               ).length}
                                     </div>

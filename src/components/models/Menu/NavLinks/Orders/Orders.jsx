@@ -96,7 +96,7 @@ const Orders = () => {
     return (
         <div className={cssStyles.ContainerOrders}>
             <Cards
-                width={"10%"}
+                width={"200px"}
                 border={"10px"}
                 element={<div className={cssStyles.OrdersTitle}>Orders</div>}
             />

@@ -6,13 +6,13 @@ import Label from "../../../../Widgets/Label/Label";
 import Images from "../../../../Widgets/Images/Images";
 import { buttonIcons, radioItems } from "../../../../Icons/Icons";
 import { Input, Textarea } from "../../../../Widgets/Input/Input";
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import Button from "../../../../Widgets/Button/Button";
 import Radio from "../../../../Widgets/Radio/Radio";
 import { productCreateApi } from "../../../../../api/api";
 import axios from "axios";
 
-const ProductEditor = () => {
+const ProductEditor = ({addNewProduct}) => {
     const [selectedImages, setSelectedImages] = useState([]);
     const [productCreate, setProductCreate] = useState({
         ProductName: "",
@@ -24,6 +24,7 @@ const ProductEditor = () => {
         StockPaths: "",
         Payment: "",
     });
+    const navigate = useNavigate();
 
     const handleImageChange = (e, index) => {
         if (e.target.files && e.target.files[0]) {
@@ -85,6 +86,7 @@ const ProductEditor = () => {
     );
     const array = [];
     array.push([selectedImages]);
+    
     const postProduct = async (e) => {
         e.preventDefault();
         const formData = new FormData();
@@ -110,6 +112,8 @@ const ProductEditor = () => {
         console.log(productCreate.ImagePaths);
         try {
             const response = await productCreateApi(formData);
+            addNewProduct(response.data)
+            navigate("/products");
             return response;
         } catch (error) {
             console.error("Error creating product:", error);
@@ -119,7 +123,7 @@ const ProductEditor = () => {
         <div className={cssStyles.Container}>
             <div>
                 <Cards
-                    width={"15%"}
+                    width={"200px"}
                     height={"44px"}
                     element={
                         <div className={cssStyles.ProductsTitle}>
