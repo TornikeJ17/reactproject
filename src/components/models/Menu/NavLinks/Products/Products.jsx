@@ -119,7 +119,7 @@ const Products = ({
                                         >
                                             {item.imagePaths?.map((image) => (
                                                 <img
-                                                    src={`http://localhost:5279${image.slice(
+                                                    src={`http://localhost:5279${image.ImagePaths?.slice(
                                                         7
                                                     )}`}
                                                     style={{

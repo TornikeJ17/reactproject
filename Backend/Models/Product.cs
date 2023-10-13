@@ -14,7 +14,7 @@ public class Product
     [NotMapped]
     public List<IFormFile>? Image { get; set; }
     [NotMapped]
-    public ICollection<string>? ImagePaths { get; set; } 
+    public ICollection<ImageFile>? ImagePaths { get; set; } 
     public string? StockStatus { get; set; }
     public string? Payment { get; set; }
 }

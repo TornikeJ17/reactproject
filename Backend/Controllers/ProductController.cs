@@ -42,7 +42,7 @@ namespace Backend.Controllers
                 Price = request.Price,
                 SKU = request.SKU,
                 Description = request.Description,
-                ImagePaths = new List<string>(),
+                ImagePaths = new List<ImageFile>(),
                 StockStatus = request.StockStatus,
                 Payment = request.Payment,
             };
@@ -59,7 +59,7 @@ namespace Backend.Controllers
 
                         using var stream = new FileStream(filePath, FileMode.Create);
                         await formFile.CopyToAsync(stream);
-                        product.ImagePaths.Add(filePath);
+                        product.ImagePaths.Add(new ImageFile { ImagePaths = filePath });
                     }
                 }
             }
@@ -94,16 +94,16 @@ namespace Backend.Controllers
              
                 foreach (var imagePath in existingProduct.ImagePaths)
                 {
-                    System.IO.File.Delete(imagePath);
+                    System.IO.File.Delete(imagePath.ImagePaths);
                 }
                 existingProduct.ImagePaths.Clear();
-                List<string> updatedImagePaths = new List<string>(existingProduct.ImagePaths);
+                //List<string> updatedImagePaths = new List<string>(existingProduct.ImagePaths);
                 
-                foreach (var imagePath in updatedImagePaths)
-                {
-                    System.IO.File.Delete(imagePath);
-                }
-                updatedImagePaths.Clear();
+                //foreach (var imagePath in updatedImagePaths)
+                //{
+                //    System.IO.File.Delete(imagePath);
+                //}
+                //updatedImagePaths.Clear();
                 foreach (var formFile in request.Image)
                 {
                     if (formFile.Length > 0)
@@ -116,10 +116,10 @@ namespace Backend.Controllers
 
                         using var stream = new FileStream(filePath, FileMode.Create);
                         await formFile.CopyToAsync(stream);
-                        existingProduct.ImagePaths.Add(filePath);
+                        existingProduct.ImagePaths.Add(new ImageFile { ImagePaths = filePath });
                     }
                 }
-                existingProduct.ImagePaths = updatedImagePaths;
+                //existingProduct.ImagePaths = updatedImagePaths;
             }
 
             // Save changes
@@ -150,7 +150,7 @@ namespace Backend.Controllers
                 {
                     try
                     {
-                        System.IO.File.Delete(imagePath);
+                        System.IO.File.Delete(imagePath.ImagePaths);
                     }
                     catch (Exception ex)
                     {

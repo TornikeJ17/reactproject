@@ -36,7 +36,7 @@ public class UserController : Controller
                 PhoneNumber = request.PhoneNumber,
                 Address = request.Address,
                 Token = Guid.NewGuid().ToString(),
-                ImagePaths = new List<string>(),
+                ImagePaths = new List<ImageFile>(),
                 Gender = request.Gender,
                 DateOfBirth = request.DateOfBirth,
                 Country = request.Country,
@@ -56,7 +56,7 @@ public class UserController : Controller
 
                         using var stream = new FileStream(filePath, FileMode.Create);
                         await formFile.CopyToAsync(stream);
-                        newUser.ImagePaths.Add(filePath);
+                        newUser.ImagePaths.Add(new ImageFile { ImagePaths = filePath});
 
                     }
                 }

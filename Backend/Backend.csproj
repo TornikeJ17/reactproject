@@ -25,8 +25,11 @@
     </ItemGroup>
     <ItemGroup>
       <Folder Include="wwwroot\images\" />
-      <Folder Include="wwwroot\images\products\" />
-      <Folder Include="wwwroot\images\Users\" />
+    </ItemGroup>
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\images\products\07776c22-7b5f-4452-b62f-4bda7a3b7a6e.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\products\15227156-b766-42bc-9f5d-2c29b7d509ac.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\products\b9bbba41-4a47-42fa-afcd-30ca0610bce1.png" />
     </ItemGroup>
 
 

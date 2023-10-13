@@ -14,8 +14,7 @@ public class User
     public string? Token { get; set; }
     [NotMapped]
     public List<IFormFile>? Image { get; set; }
-    [NotMapped]
-    public ICollection<string>? ImagePaths { get; set; }
+    public ICollection<ImageFile>? ImagePaths { get; set; }
     public string? Gender { get; set; }
     public string? DateOfBirth { get; set; }
     public string? Country { get; set; }

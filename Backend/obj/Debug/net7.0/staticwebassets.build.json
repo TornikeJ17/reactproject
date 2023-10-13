@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "/BdFcaA0qIAwDd76luvxPNySyJ93LmTMOdTkEqhbxW8=",
+  "Hash": "cpX0QuVSvwcTmfL9UMRsg22UZk9WDJyz9t4eFMSxTyo=",
   "Source": "Backend",
   "BasePath": "_content/Backend",
   "Mode": "Default",
@@ -15,57 +15,5 @@
       "Pattern": "**"
     }
   ],
-  "Assets": [
-    {
-      "Identity": "C:\\works\\reactproject\\Backend\\wwwroot\\images\\products\\b0748145-b54c-44f8-b6a6-51169b2e54d4.jpg",
-      "SourceId": "Backend",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\works\\reactproject\\Backend\\wwwroot\\",
-      "BasePath": "_content/Backend",
-      "RelativePath": "images/products/b0748145-b54c-44f8-b6a6-51169b2e54d4.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\products\\b0748145-b54c-44f8-b6a6-51169b2e54d4.jpg"
-    },
-    {
-      "Identity": "C:\\works\\reactproject\\Backend\\wwwroot\\images\\products\\dc29415f-b190-44ff-bf80-e6a4e53ed941.png",
-      "SourceId": "Backend",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\works\\reactproject\\Backend\\wwwroot\\",
-      "BasePath": "_content/Backend",
-      "RelativePath": "images/products/dc29415f-b190-44ff-bf80-e6a4e53ed941.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\products\\dc29415f-b190-44ff-bf80-e6a4e53ed941.png"
-    },
-    {
-      "Identity": "C:\\works\\reactproject\\Backend\\wwwroot\\images\\products\\dd094e48-9ad9-4558-98ee-289eb2df2b0f.png",
-      "SourceId": "Backend",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\works\\reactproject\\Backend\\wwwroot\\",
-      "BasePath": "_content/Backend",
-      "RelativePath": "images/products/dd094e48-9ad9-4558-98ee-289eb2df2b0f.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\products\\dd094e48-9ad9-4558-98ee-289eb2df2b0f.png"
-    }
-  ]
+  "Assets": []
 }
