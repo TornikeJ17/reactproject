@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react";
 import cssStyles from "./Orders.module.scss";
 import Cards from "../../../Widgets/Cards/Cards";
-import {buttonIcons, orderIcons} from "../../../Icons/Icons";
-import Breadcrumb from "../../../Widgets/Breadcrumb/Breadcrumb";
+import { buttonIcons, orderIcons } from "../../../Icons/Icons";
 import { ordersItems } from "../../../../api/order";
-import Modal from "../../../Widgets/Modal/Modal";
 import StarRating from "../../../Widgets/StarRating/StarRating";
-import Button from "../../../Widgets/Button/Button";
 import Dropdown from "../../../Widgets/Dropdown/Dropdown";
-import Pagination from "../../../Widgets/Pagination/Pagination";
 
 const Orders = () => {
     const [selectStatus, setSelectStatus] = useState(null);
@@ -95,11 +91,6 @@ const Orders = () => {
     );
     return (
         <div className={cssStyles.ContainerOrders}>
-            <Cards
-                width={"200px"}
-                border={"10px"}
-                element={<div className={cssStyles.OrdersTitle}>Orders</div>}
-            />
             <div className={cssStyles.Blocks}>
                 <Cards
                     width={"100%"}
@@ -299,27 +290,10 @@ const Orders = () => {
                                         );
                                     })}
                             </div>
-                            <Pagination
-                                onPrev={prevPage}
-                                onPrevTitle={buttonIcons[8].icon}
-                                onNext={nextPage}
-                                onNextTitle={buttonIcons[9].icon}
-                                startIndex={startIndex}
-                                endIndex={endIndex}
-                                setCurrentPage={setCurrentPage}
-                                currentPage={currentPage}
-                            />
                         </div>
                     }
                 />
             </div>
-            {open && (
-                <Modal
-                    isOpen={open}
-                    onClose={() => setOpen(!open)}
-                    children={<div>Product remove</div>}
-                />
-            )}
         </div>
     );
 };

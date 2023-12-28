@@ -1,22 +1,24 @@
 ﻿.Container {
     display: grid;
-    grid-template-rows: 0fr 0fr 10fr 0fr;
+    grid-template-rows: 0fr 0fr;
     gap: 20px;
 }
 .ProductItemContainer {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
     text-align: center;
+    :global .p-tabview-nav-content {
+        border-radius: 10px 10px 0 0;
+    }
 }
 .ProductIMGBlock {
-    width: 150px;
-    height: 150px;
+    width: 100%;
 }
 .ClickCard {
-    width: 100%;
-    display: flex;
-    flex-flow: column;
+    display: grid;
+    grid-template-rows: 3fr 0fr 0fr;
+    justify-content: center;
     align-items: center;
 }
 .ProductsTitle {
@@ -29,7 +31,7 @@
 }
 .ProductEditContainer {
     display: grid;
-    grid-template-columns: 7fr 1fr;
+    grid-template-columns: 7fr 1.1fr;
     gap: 20px;
 
     a {
@@ -38,11 +40,9 @@
 }
 
 .OrderElementBlock {
-    display: flex;
-    flex-flow: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+    display: grid;
+    grid-template-rows: 4fr 1fr;
+    height: 100%;
     cursor: pointer;
 
     &:hover {
@@ -55,6 +55,9 @@
     }
 }
 .OrderElementTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 18px;
     font-weight: 600;
     text-align: center;
@@ -78,4 +81,12 @@
     transition: bottom 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
     transform: translateY(20px);
     opacity: 0;
+}
+
+.ProductImg {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1/1;
+    object-fit: fill;
+    border-radius: 10px 10px 0 0;
 }

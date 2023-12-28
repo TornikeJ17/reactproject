@@ -1,80 +1,78 @@
-.MenuContainer{
+.MenuContainer {
 }
-.MenuUl{
+.MenuUl {
     display: flex;
     flex-flow: column;
     gap: 10px;
     padding: 30px;
-    a{
+    a {
         text-decoration: none;
     }
 }
 
-.MenuLi{
+.MenuLi {
     list-style: none;
     display: flex;
     align-items: center;
     padding: 10px;
     gap: 10px;
-    span{
+    span {
         font-family: "DM Sans", sans-serif;
         font-size: 16px;
         font-style: normal;
         font-weight: 600;
         line-height: 28px;
         letter-spacing: -0.32px;
-        color: #A3AED0;
+        color: #a3aed0;
     }
-    svg path{
-        fill: #A3AED0;
+    svg path {
+        fill: #a3aed0;
     }
-    &:hover{
-        background:#4318FF;
-        color: #FFFFFF;
+    &:hover {
+        background: #0891b2;
+        color: #ffffff;
         border-radius: 5px;
         cursor: pointer;
-        span{
-            color: #FFFFFF;
+        span {
+            color: #ffffff;
         }
-        svg path{
-            fill: #FFFFFF;
+        svg path {
+            fill: #ffffff;
         }
-        
     }
 }
 .NavLinkActive {
-    background: #4318FF;
+    background: #06b6d4;
     border-radius: 5px;
-    .MenuLi{
+    .MenuLi {
         list-style: none;
         display: flex;
         align-items: center;
         padding: 10px;
         gap: 10px;
-        span{
+        span {
             font-family: "DM Sans", sans-serif;
             font-size: 16px;
             font-style: normal;
             font-weight: 600;
             line-height: 28px;
             letter-spacing: -0.32px;
-            color: #FFFFFF;
+            color: #ffffff;
         }
-        svg path{
-            fill: #FFFFFF;
+        svg path {
+            fill: #ffffff;
         }
-        &:hover{
-            background:#4318FF;
-            color: #FFFFFF;
+        &:hover {
+            background: #0891b2;
+            color: #ffffff;
             border-radius: 5px;
             cursor: pointer;
-            span{
-                color: #FFFFFF;
+            span {
+                color: #ffffff;
             }
-            svg path{
-                fill: #FFFFFF;
+            svg path {
+                fill: #ffffff;
             }
-
         }
     }
 }

@@ -16,6 +16,7 @@
     grid-template-columns: 2fr 1fr;
     gap: 20px;
 }
+
 .MediumCardsContainerSecond {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -29,6 +30,15 @@
     align-items: center;
     justify-content: center;
     height: 100%;
+}
+.Chart {
+    background: #fff !important;
+    height: 350px;
+    border-radius: 20px;
+    canvas {
+        width: 100% !important;
+        height: 100% !important;
+    }
 }
 .CardsTitleContainer {
     display: flex;
@@ -100,10 +110,10 @@
     height: 100%;
     align-items: end;
     gap: 20px;
-    button{
+    button {
         font-weight: 600;
         gap: 2px;
-        svg{
+        svg {
             width: 24px;
         }
     }

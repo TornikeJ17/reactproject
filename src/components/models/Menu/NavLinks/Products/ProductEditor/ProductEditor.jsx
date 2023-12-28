@@ -2,137 +2,141 @@
 import cssStyles from "./ProductEditor.module.scss";
 import "./ProductEditor.module.scss";
 import Cards from "../../../../Widgets/Cards/Cards";
-import Label from "../../../../Widgets/Label/Label";
 import Images from "../../../../Widgets/Images/Images";
 import { buttonIcons, radioItems } from "../../../../Icons/Icons";
-import { Input, Textarea } from "../../../../Widgets/Input/Input";
-import {Link, useNavigate} from "react-router-dom";
-import Button from "../../../../Widgets/Button/Button";
-import Radio from "../../../../Widgets/Radio/Radio";
-import { productCreateApi } from "../../../../../api/api";
-import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import useRequestDataProvider from "../../../../../api/useRequestDataProvider";
+import { Editor } from "primereact/editor";
+import { FileUpload } from "primereact/fileupload";
+import { Panel } from "primereact/panel";
+import { InputSwitch } from "primereact/inputswitch";
+import { InputText } from "primereact/inputtext";
+import { Button } from "primereact/button";
+import { Dropdown } from "primereact/dropdown";
 
-const ProductEditor = ({addNewProduct}) => {
+const ProductEditor = ({ addNewProduct }) => {
+    const { productCreateApi } = useRequestDataProvider();
     const [selectedImages, setSelectedImages] = useState([]);
+    const [publishShow, setPublishShow] = useState(false);
     const [productCreate, setProductCreate] = useState({
+        UserId: "1",
+        Id: "",
         ProductName: "",
-        Category: "",
-        Price: "",
-        SKU: "",
-        Description: "",
-        ImagePaths: [],
-        StockPaths: "",
-        Payment: "",
+        ProductPrice: "",
+        ProductCode: "",
+        ProductSKU: "",
+        ProductDescription: null,
+        ProductPublish: null,
+        ProductTags: null,
+        ProductCategory: null,
+        inStock: false,
+        ImageUrls: [],
     });
     const navigate = useNavigate();
 
-    const handleImageChange = (e, index) => {
-        if (e.target.files && e.target.files[0]) {
-            const file = e.target.files[0];
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                setSelectedImages((prevImages) => {
-                    const updatedImages = [...prevImages];
-                    updatedImages[index] = e.target.result; // For displaying on UI
-                    return updatedImages;
-                });
-            };
-            reader.readAsDataURL(file);
+    const backButton = () => {};
+    //dropdown
 
-            setProductCreate((prev) => {
-                const updatedData = { ...prev };
-                updatedData.ImagePaths[index] = file; // Store the file for FormData
-                return updatedData;
-            });
-        }
-    };
-    const handleImageRemove = (index) => {
-        setSelectedImages((prev) => {
-            const updatedImages = [...prev];
-            updatedImages[index] = null;
-            return updatedImages;
-        });
-        setProductCreate((prev) => {
-            const updatedProductCreate = { ...prev };
-            delete updatedProductCreate[`image${index}`];
-            return updatedProductCreate;
-        });
-    };
+    const productPublish = [
+        { name: "Draft", code: 0 },
+        { name: "Published", code: 1 },
+    ];
+    const productTagsDropdown = [
+        { name: "New", code: 0 },
+        { name: "Trending", code: 1 },
+        { name: "Sale", code: 2 },
+        { name: "Discounted", code: 3 },
+    ];
+    const productCategoryDropdown = [
+        { name: "Rings", code: 0 },
+        { name: "Earrings", code: 1 },
+        { name: "Necklaces", code: 2 },
+        { name: "Bracelets", code: 3 },
+        { name: "Others", code: 4 },
+    ];
 
-    const renderImageBlock = (index) => (
-        <div className={cssStyles.ImagesBlock}>
-            {selectedImages[index] ? (
-                <div className={cssStyles.SelectedImageBlock}>
-                    <img
-                        className={cssStyles.imgProduct}
-                        src={selectedImages[index]}
-                        alt="Selected"
-                    />
-                    <span
-                        className={cssStyles.removeButtonIMG}
-                        onClick={() => handleImageRemove(index)}
-                    >
-                        {buttonIcons[5].icon}
-                    </span>
-                </div>
-            ) : (
-                <Images
-                    icon={buttonIcons[3].icon}
-                    onChange={(e) => handleImageChange(e, index)}
-                    id={`image-input-${index}`}
-                />
-            )}
-        </div>
-    );
-    const array = [];
-    array.push([selectedImages]);
-    
     const postProduct = async (e) => {
         e.preventDefault();
+
         const formData = new FormData();
+
+        formData.append("UserId", productCreate.UserId);
         formData.append("ProductName", productCreate.ProductName);
-        formData.append("Category", productCreate.Category);
-        formData.append("Price", productCreate.Price);
-        formData.append("SKU", productCreate.SKU);
-        formData.append("Description", productCreate.Description);
-        formData.append("Image", productCreate.Image);
-        formData.append("ImagePaths", productCreate.ImagePaths);
-        formData.append("StockStatus", productCreate.StockStatus);
-        formData.append("Payment", productCreate.Payment);
-        selectedImages.forEach((imageFile, index) => {
-            if (imageFile) {
-                formData.append(`Image`, imageFile);
-            }
-        });
-        productCreate.ImagePaths.forEach((imageFile, index) => {
-            if (imageFile) {
-                formData.append(`Image`, imageFile);
-            }
-        });
-        console.log(productCreate.ImagePaths);
+        formData.append("ProductPrice", productCreate.ProductPrice);
+        formData.append("ProductCode", productCreate.ProductCode);
+        formData.append("ProductSKU", productCreate.ProductSKU);
+        formData.append("ProductDescription", productCreate.ProductDescription);
+        formData.append("ProductPublish", productCreate.ProductPublish);
+        formData.append(
+            "ProductTags",
+            JSON.stringify(productCreate.ProductTags)
+        );
+        formData.append("ProductCategory", productCreate.ProductCategory);
+        formData.append("inStock", productCreate.inStock);
+        formData.append(
+            "ImageUrls",
+            selectedImages.forEach((file) => {
+                if (file) {
+                    formData.append("imageFiles", file);
+                }
+            })
+        );
+
         try {
             const response = await productCreateApi(formData);
-            addNewProduct(response.data)
+            addNewProduct(response.data);
             navigate("/products");
-            return response;
         } catch (error) {
             console.error("Error creating product:", error);
         }
     };
+    const renderHeader = () => {
+        return (
+            <span className="ql-formats">
+                <button className="ql-bold" aria-label="Bold"></button>
+                <button className="ql-italic" aria-label="Italic"></button>
+                <button
+                    className="ql-underline"
+                    aria-label="Underline"
+                ></button>
+            </span>
+        );
+    };
+    const header = renderHeader();
+
+    const handleUpload = (event) => {
+        setSelectedImages(event.files);
+    };
+    const handlePublishChange = (e) => {
+        setProductCreate((prevState) => ({
+            ...prevState,
+            ProductPublish: e.value.code,
+        }));
+    };
+    const handlePublishClick = () => {
+        setPublishShow(!publishShow);
+    };
+    const handleDescriptionChange = (e) => {
+        setProductCreate((prevState) => ({
+            ...prevState,
+            ProductDescription: e.htmlValue,
+        }));
+    };
+    const handleTagsChange = (e) => {
+        setProductCreate({
+            ...productCreate,
+            ProductTags: e.value.code,
+        });
+    };
+    const handleCategoryChange = (e) => {
+        setProductCreate({
+            ...productCreate,
+            ProductCategory: e.value.code,
+        });
+    };
+    console.log(productCreate);
     return (
         <div className={cssStyles.Container}>
-            <div>
-                <Cards
-                    width={"200px"}
-                    height={"44px"}
-                    element={
-                        <div className={cssStyles.ProductsTitle}>
-                            Product Editor
-                        </div>
-                    }
-                    border={"10px"}
-                />
-            </div>
             <div>
                 <Cards
                     width={"100%"}
@@ -144,111 +148,204 @@ const ProductEditor = ({addNewProduct}) => {
                             className={cssStyles.ProductEditorContainer}
                         >
                             <div className={cssStyles.ProductEditorTitle}>
-                                Product Settings
+                                Create Product
                             </div>
                             <div className={cssStyles.BackButton}>
                                 <Link to={"/products"}>
-                                    {buttonIcons[4].icon}
-                                    <span>Back</span>
+                                    {buttonIcons[14].icon}
                                 </Link>
                             </div>
                             <div className={cssStyles.firstBlockGrid}>
-                                <Label title={"Product Images"} />
-                                <div className={cssStyles.ImagesContainer}>
-                                    <div className={cssStyles.ImagesBlock}>
-                                        {renderImageBlock(0)}
-                                    </div>
-                                    <div className={cssStyles.ImagesBlock}>
-                                        {renderImageBlock(1)}
-                                    </div>
-                                    <div className={cssStyles.ImagesBlockSmall}>
-                                        {renderImageBlock(2)}
-                                        {renderImageBlock(3)}
-                                    </div>
+                                <span className="p-float-label">
+                                    <InputText
+                                        value={productCreate.ProductName}
+                                        onChange={(e) =>
+                                            setProductCreate({
+                                                ...productCreate,
+                                                ProductName: e.target.value,
+                                            })
+                                        }
+                                    />
+                                    <label htmlFor="Product Name">
+                                        Product Name
+                                    </label>
+                                </span>
+                                <div className={cssStyles.ProductStatusInput}>
+                                    <span className="p-float-label">
+                                        <InputText
+                                            value={productCreate.ProductPrice}
+                                            onChange={(e) =>
+                                                setProductCreate({
+                                                    ...productCreate,
+                                                    ProductPrice:
+                                                        e.target.value,
+                                                })
+                                            }
+                                            keyfilter={"money"}
+                                            className="p-invalid"
+                                        />
+                                        <label htmlFor="Product Price">
+                                            Product Price
+                                        </label>
+                                    </span>
+
+                                    <span className="p-float-label">
+                                        <InputText
+                                            value={productCreate.ProductCode}
+                                            onChange={(e) =>
+                                                setProductCreate({
+                                                    ...productCreate,
+                                                    ProductCode: e.target.value,
+                                                })
+                                            }
+                                        />
+                                        <label htmlFor="Product Code">
+                                            Product Code
+                                        </label>
+                                    </span>
+
+                                    <span className="p-float-label">
+                                        <InputText
+                                            value={productCreate.ProductSKU}
+                                            onChange={(e) =>
+                                                setProductCreate({
+                                                    ...productCreate,
+                                                    ProductSKU: e.target.value,
+                                                })
+                                            }
+                                        />
+                                        <label htmlFor="Product SKU">
+                                            Product SKU
+                                        </label>
+                                    </span>
                                 </div>
-                                <Label title={"Description"} />
-                                <Textarea
-                                    onChange={(e) =>
-                                        setProductCreate({
-                                            ...productCreate,
-                                            Description: e.target.value,
-                                        })
-                                    }
+                                <Editor
+                                    style={{ height: "400px" }}
+                                    headerTemplate={header}
+                                    className={cssStyles.ProductEditor}
+                                    value={productCreate.ProductDescription}
+                                    onTextChange={handleDescriptionChange}
                                 />
+
+                                <div className="card">
+                                    <FileUpload
+                                        name="imageFiles"
+                                        customUpload={true}
+                                        auto={false}
+                                        onSelect={handleUpload}
+                                        multiple
+                                        accept="image/*"
+                                        maxFileSize={5000000}
+                                        emptyTemplate={
+                                            <p className="m-0">
+                                                Drag and drop files here to
+                                                upload.
+                                            </p>
+                                        }
+                                    />
+                                </div>
                             </div>
                             <div className={cssStyles.ProductEditorInputsBlock}>
-                                <Label title={"Product Name"} />
-                                <Input
-                                    onChange={(e) =>
-                                        setProductCreate({
-                                            ...productCreate,
-                                            ProductName: e.target.value,
-                                        })
-                                    }
-                                />
-                                <Label title={"Category"} />
-                                <Input
-                                    onChange={(e) =>
-                                        setProductCreate({
-                                            ...productCreate,
-                                            Category: e.target.value,
-                                        })
-                                    }
-                                />
-                                <Label title={"Price"} />
-                                <Input
-                                    onChange={(e) =>
-                                        setProductCreate({
-                                            ...productCreate,
-                                            Price: e.target.value,
-                                        })
-                                    }
-                                />
-                                <Label title={"SKU"} />
-                                <Input
-                                    onChange={(e) =>
-                                        setProductCreate({
-                                            ...productCreate,
-                                            SKU: e.target.value,
-                                        })
-                                    }
-                                />
-                                <Label title={"Stock Status"} />
-                                <Input
-                                    onChange={(e) =>
-                                        setProductCreate({
-                                            ...productCreate,
-                                            StockStatus: e.target.value,
-                                        })
-                                    }
-                                />
-                                <Label title={"Payment Methods"} />
-                                <Radio
-                                    radioItem={radioItems}
-                                    onChange={(e) =>
-                                        setProductCreate({
-                                            ...productCreate,
-                                            Payment: e.target.value,
-                                        })
-                                    }
-                                />
+                                <div className={cssStyles.ProductEditorPanels}>
+                                    <Panel header="Publish">
+                                        <div className={cssStyles.StatusBlock}>
+                                            <div>
+                                                <span>Status:</span>
+                                                {publishShow ? (
+                                                    <Dropdown
+                                                        value={productPublish.find(
+                                                            (publish) =>
+                                                                publish.code ===
+                                                                productCreate.ProductPublish
+                                                        )}
+                                                        onChange={
+                                                            handlePublishChange
+                                                        }
+                                                        options={productPublish}
+                                                        optionLabel="name"
+                                                        placeholder="Select tags"
+                                                    />
+                                                ) : (
+                                                    <span>
+                                                        {
+                                                            productPublish.find(
+                                                                (publish) =>
+                                                                    publish.code ===
+                                                                    productCreate.ProductPublish
+                                                            )?.name
+                                                        }
+                                                    </span>
+                                                )}
+                                            </div>
+                                            <div
+                                                className={
+                                                    cssStyles.HandleClickButton
+                                                }
+                                                onClick={handlePublishClick}
+                                            >
+                                                {buttonIcons[13].icon}
+                                            </div>
+                                        </div>
+                                    </Panel>
+                                    <Panel header="Tags">
+                                        <Dropdown
+                                            value={productTagsDropdown.find(
+                                                (tags) =>
+                                                    tags.code ===
+                                                    productCreate.ProductTags
+                                            )}
+                                            onChange={handleTagsChange}
+                                            options={productTagsDropdown}
+                                            optionLabel="name"
+                                            placeholder="Select tags"
+                                        />
+                                    </Panel>
+                                    <Panel header="Cagegory" className="w-full">
+                                        <Dropdown
+                                            value={productCategoryDropdown.find(
+                                                (category) =>
+                                                    category.code ===
+                                                    productCreate.ProductCategory
+                                            )}
+                                            onChange={handleCategoryChange}
+                                            options={productCategoryDropdown}
+                                            optionLabel="name"
+                                            placeholder="Select category"
+                                        />
+                                    </Panel>
+                                    <Panel
+                                        className={cssStyles.PanelInStock}
+                                        unstyled
+                                    >
+                                        <p className={cssStyles.inStockFont}>
+                                            in stock
+                                        </p>
+                                        <InputSwitch
+                                            checked={productCreate.inStock}
+                                            onChange={(e) =>
+                                                setProductCreate({
+                                                    ...productCreate,
+                                                    inStock: e.value,
+                                                })
+                                            }
+                                        />
+                                    </Panel>
+                                </div>
                                 <div
                                     className={
                                         cssStyles.ProductEditorButtonsBlock
                                     }
                                 >
-                                    <Button
-                                        title={"Save to Drafts"}
-                                        width={"30%"}
-                                        primary={false}
-                                        background={"rgb(176, 176, 176)"}
-                                    />
+                                    <Link
+                                        to={"/products"}
+                                        className={cssStyles.BackButtonClick}
+                                    >
+                                        <span>Back</span>
+                                    </Link>
                                     <Button
                                         type={"submit"}
-                                        title={"Publish Product"}
-                                        width={"30%"}
-                                        primary={false}
-                                        background={"rgb(0, 186, 157)"}
+                                        label={"Save"}
+                                        icon={buttonIcons[11].icon}
                                     />
                                 </div>
                             </div>

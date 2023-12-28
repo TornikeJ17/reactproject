@@ -1,17 +1,28 @@
 body {
     margin: 0;
     font-family: "DM Sans";
-    
+    background-color: #f5f7ff !important;
+    height: 100vh;
 }
+
 .Container {
     display: grid;
-    grid-template-columns: 1fr 5fr;
     grid-template-areas: "sidebar content";
     height: 100vh;
+    transition: grid-template-columns 0.5s ease;
+    &.collapsed {
+        grid-template-columns: minmax(0px, 0%) 5fr;
+    }
+    &.expanded {
+        grid-template-columns: minmax(250px, 15%) 5fr;
+    }
 }
 *::-webkit-scrollbar {
     display: none;
 }
 *::-webkit-scrollbar-thumb {
     display: none;
+}
+
+.appContainer {
 }

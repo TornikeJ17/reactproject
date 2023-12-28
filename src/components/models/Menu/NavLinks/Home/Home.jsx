@@ -5,15 +5,50 @@ import { buttonIcons, SVG } from "../../../Icons/Icons";
 import Man from "../../../../img/Man.png";
 import Button from "../../../Widgets/Button/Button";
 import { Link } from "react-router-dom";
+import { Chart } from "primereact/chart";
 const Home = ({ products, loading }) => {
-    useEffect(() => {});
+    const [chartData, setChartData] = useState({});
+    const [chartOptions, setChartOptions] = useState({});
+
+    useEffect(() => {
+        const data = {
+            labels: ["Q1", "Q2"],
+            datasets: [
+                {
+                    label: "Sales",
+                    data: [540, 325],
+                    backgroundColor: ["#6366f1", "#6366f1"],
+                    borderColor: ["#6366f1", "#6366f1"],
+                    borderWidth: 0,
+                },
+                {
+                    label: "Sales",
+                    data: [540, 325],
+                    backgroundColor: ["#bcbdfa", "#bcbdfa"],
+                    borderColor: ["#6366f1", "#6366f1"],
+                    borderWidth: 0,
+                    width: "10px",
+                },
+            ],
+        };
+        const options = {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                },
+            },
+        };
+
+        setChartData(data);
+        setChartOptions(options);
+    }, []);
     return (
         <div className={cssStyles.MainContainer}>
             <div className={cssStyles.HomeContainer}>
                 <div className={cssStyles.SmallCardsContainer}>
                     <Cards
                         width={"100%"}
-                        height={"97px"}
+                        height={"150px"}
                         border={"20px"}
                         element={
                             <div className={cssStyles.CardsContainer}>
@@ -33,7 +68,7 @@ const Home = ({ products, loading }) => {
                     />
                     <Cards
                         width={"100%"}
-                        height={"97px"}
+                        height={"150px"}
                         border={"20px"}
                         element={
                             <div className={cssStyles.CardsContainer}>
@@ -57,7 +92,7 @@ const Home = ({ products, loading }) => {
                     />
                     <Cards
                         width={"100%"}
-                        height={"97px"}
+                        height={"150px"}
                         border={"20px"}
                         element={
                             <div className={cssStyles.CardsContainer}>
@@ -75,7 +110,7 @@ const Home = ({ products, loading }) => {
                     />
                     <Cards
                         width={"100%"}
-                        height={"97px"}
+                        height={"150px"}
                         border={"20px"}
                         element={
                             <div className={cssStyles.CardsContainer}>
@@ -98,9 +133,16 @@ const Home = ({ products, loading }) => {
                     <Cards
                         width={"100%"}
                         height={"345px"}
-                        background={"#FFFFFF"}
+                        background={"transparent"}
                         border={"20px"}
-                        element={<div>hello world</div>}
+                        element={
+                            <Chart
+                                type="bar"
+                                data={chartData}
+                                options={chartOptions}
+                                className={cssStyles.Chart}
+                            />
+                        }
                     />
                     <Cards
                         width={"100%"}
@@ -153,19 +195,40 @@ const Home = ({ products, loading }) => {
                         width={"100%"}
                         height={"345px"}
                         border={"20px"}
-                        element={<div>hello world</div>}
+                        element={
+                            <Chart
+                                type="bar"
+                                data={chartData}
+                                options={chartOptions}
+                                className={cssStyles.Chart}
+                            />
+                        }
                     />
                     <Cards
                         width={"100%"}
                         height={"345px"}
                         border={"20px"}
-                        element={<div>hello world</div>}
+                        element={
+                            <Chart
+                                type="bar"
+                                data={chartData}
+                                options={chartOptions}
+                                className={cssStyles.Chart}
+                            />
+                        }
                     />
                     <Cards
                         width={"100%"}
                         height={"345px"}
                         border={"20px"}
-                        element={<div>hello world</div>}
+                        element={
+                            <Chart
+                                type="line"
+                                data={chartData}
+                                options={chartOptions}
+                                className={cssStyles.Chart}
+                            />
+                        }
                     />
                 </div>
             </div>

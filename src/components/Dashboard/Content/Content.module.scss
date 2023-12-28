@@ -3,7 +3,30 @@
     background-color: #f5f7ff;
     padding: 20px;
     display: grid;
+    grid-template-rows: 0fr 1fr;
     gap: 20px;
+}
+.BreadCrumbAndMenuBlock {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.HideMenu {
+    width: 35px;
+    border-radius: 50%;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover {
+        background-color: #0891b2;
+        cursor: pointer;
+        svg {
+            path {
+                stroke: #fff;
+            }
+        }
+    }
 }
 .Welcome {
     color: var(--secondary-grey-900, #2b3674);
