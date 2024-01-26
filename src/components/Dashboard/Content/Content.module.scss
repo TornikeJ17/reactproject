@@ -7,9 +7,9 @@
     gap: 20px;
 }
 .BreadCrumbAndMenuBlock {
-    display: flex;
+    display: grid;
+    grid-template-columns: 25fr 1fr;
     align-items: center;
-    gap: 20px;
 }
 .HideMenu {
     width: 35px;
@@ -58,4 +58,14 @@
     display: grid;
     grid-template-columns: 3fr 1fr;
     gap: 20px;
+}
+:global .p-menu {
+    top: 77px !important;
+    .p-menuitem {
+        a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    }
 }

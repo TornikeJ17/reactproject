@@ -1,19 +1,44 @@
-﻿.Container {
+﻿:global .p-tabview-panel {
     display: grid;
-    grid-template-rows: 0fr 0fr;
     gap: 20px;
+}
+.CardContainer {
+    :global .p-card-body {
+        padding: 0;
+    }
 }
 .ProductItemContainer {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
     text-align: center;
-    :global .p-tabview-nav-content {
-        border-radius: 10px 10px 0 0;
+    :global .p-card .p-card-content {
+        padding: 0;
+    }
+    :global .p-card {
+        box-shadow: none;
+    }
+}
+.addProductBlock {
+    display: grid;
+    justify-content: end;
+    position: absolute;
+    right: 20px;
+    top: 6px;
+
+    :global .p-tabview-nav-link {
+        border: none !important;
+    }
+    a {
+        padding: 0;
     }
 }
 .ProductIMGBlock {
     width: 100%;
+}
+.ProductIMG {
+    img {
+        border-radius: 10px;
+    }
 }
 .ClickCard {
     display: grid;
@@ -40,19 +65,7 @@
 }
 
 .OrderElementBlock {
-    display: grid;
-    grid-template-rows: 4fr 1fr;
-    height: 100%;
     cursor: pointer;
-
-    &:hover {
-        .ProductsButtonsContainer {
-            transform: translateY(0);
-            opacity: 1;
-            cursor: pointer;
-            bottom: -10px;
-        }
-    }
 }
 .OrderElementTitle {
     display: flex;

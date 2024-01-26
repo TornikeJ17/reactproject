@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Cards from "../../../Widgets/Cards/Cards";
 import { ordersItems } from "../../../../api/order";
 import cssStyles from "./Products.module.scss";
-import Button from "../../../Widgets/Button/Button";
+import { Button } from "primereact/button";
 import { buttonIcons } from "../../../Icons/Icons";
 import { Link, useNavigate } from "react-router-dom";
 import { getResponsiveItemCount } from "../../../Widgets/Responsive/Responsive";
@@ -10,6 +10,11 @@ import { TabView, TabPanel } from "primereact/tabview";
 import { Skeleton } from "primereact/skeleton";
 import { Card } from "primereact/card";
 import { Paginator } from "primereact/paginator";
+import { Image } from "primereact/image";
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
+import { InputSwitch } from "primereact/inputswitch";
+import { Tag } from "primereact/tag";
 
 const Products = ({
     products,
@@ -20,236 +25,169 @@ const Products = ({
 }) => {
     const [first, setFirst] = useState(0);
     const [rows, setRows] = useState(10);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage, setItemsPerPage] = useState(getResponsiveItemCount());
-    const totalPages = Math.ceil(products?.length / itemsPerPage);
+    const [allProducts, setAllProducts] = useState([]);
+    const [drafts, setDrafts] = useState([]);
     const navigate = useNavigate();
-    const maxPageNumbersToShow = 5;
     const onPageChange = (event) => {
         setFirst(event.first);
         setRows(event.rows);
     };
     useEffect(() => {
-        const handleResize = () => {
-            setItemsPerPage(getResponsiveItemCount());
-        };
+        const handleResize = () => {};
         handleResize();
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, []);
+
     useEffect(() => {
-        setCurrentPage(1);
-    }, [itemsPerPage]);
-    const productPage = (id) => {
-        navigate("/products/" + id, { state: { id: id } });
-    };
+        setAllProducts(products.filter((i) => i.productPublish === 1));
+        setDrafts(products.filter((i) => i.productPublish === 0));
+    }, [products]);
 
-    const nextPage = () => {
-        setCurrentPage((prevPage) => {
-            if (prevPage === totalPages) {
-                return prevPage;
-            } else {
-                return prevPage + 1;
-            }
-        });
-    };
+    const currentItemsAllProducts = allProducts?.slice(first, first + rows);
+    const currentItemsDrafts = drafts?.slice(first, first + rows);
+    const listProduct = (productsget) => {
+        const productPage = (rowData) => {
+            navigate("/products/" + encodeURIComponent(rowData.productName));
+        };
+        const imageBodyTemplate = (rowData) => {
+            const imageUrl =
+                rowData.imageUrls && rowData.imageUrls.length > 0
+                    ? `http://localhost:5130${rowData.imageUrls[0]}`
+                    : "default-image-url"; // Replace 'default-image-url' with the URL to a default image
 
-    const prevPage = () => {
-        setCurrentPage((prevPage) => {
-            if (prevPage === 1) {
-                return prevPage;
-            } else {
-                return prevPage - 1;
-            }
-        });
-    };
+            return (
+                <img
+                    src={imageUrl}
+                    alt={rowData.productName}
+                    style={{ width: "80px" }}
+                />
+            );
+        };
+        const priceBodyTemplate = (rowData) => {
+            return <div>${rowData.productPrice}</div>;
+        };
+        const categoryBodyTemplate = (rowsData) => {
+            const productCategoryDropdown = [
+                { name: "Rings", code: 0 },
+                { name: "Earrings", code: 1 },
+                { name: "Necklaces", code: 2 },
+                { name: "Bracelets", code: 3 },
+                { name: "Others", code: 4 },
+            ];
+            return productCategoryDropdown.map((i) =>
+                i.code === rowsData.productCategory ? i.name : null
+            );
+        };
+        const inStockBodyTemplate = (rowsData) => {
+            return rowsData.inStock ? (
+                <Tag className="mr-2" severity="success" value="INSTOCK"></Tag>
+            ) : (
+                <Tag className="mr-2" severity="warning" value="OUTSTOCK"></Tag>
+            );
+        };
 
-    const startIndex = Math.max(
-        1,
-        currentPage - Math.floor(maxPageNumbersToShow / 2)
-    );
-    const endIndex = Math.min(
-        startIndex + maxPageNumbersToShow - 1,
-        totalPages
-    );
-    const currentItems = products?.slice(
-        (currentPage - 1) * itemsPerPage,
-        currentPage * itemsPerPage
-    );
-    console.log(products);
+        return (
+            <DataTable
+                value={productsget}
+                onRowClick={(e) => productPage(e.data)}
+                style={{ cursor: "pointer" }}
+            >
+                <Column field="productName" header="Name" sortable />
+                <Column
+                    field="imageUrls"
+                    body={imageBodyTemplate}
+                    header="Image"
+                    sortable
+                />
+                <Column
+                    field="productPrice"
+                    header="Price"
+                    body={priceBodyTemplate}
+                    sortable
+                />
+                <Column field="productCode" header="Product Code" sortable />
+                <Column
+                    field="productCategory"
+                    header="Category"
+                    body={categoryBodyTemplate}
+                    sortable
+                />
+                <Column
+                    field="inStock"
+                    header="Status"
+                    body={inStockBodyTemplate}
+                    sortable
+                />
+            </DataTable>
+        );
+    };
     return (
-        <div className={cssStyles.Container}>
-            <div className={cssStyles.ProductEditContainer}>
-                <Cards
-                    width={"100%"}
-                    border={"8px"}
-                    element={
-                        <div>
-                            <div>saf</div>
-                        </div>
+        <Card className={cssStyles.CardContainer}>
+            <TabView>
+                <TabPanel header={`All Products(${allProducts?.length})`}>
+                    <div className={cssStyles.ProductItemContainer}>
+                        {listProduct(currentItemsAllProducts)}
+                    </div>
+                    <Paginator
+                        first={first}
+                        rows={rows}
+                        totalRecords={allProducts?.length}
+                        onPageChange={onPageChange}
+                    />
+                </TabPanel>
+                <TabPanel header={`Drafts(${drafts?.length})`}>
+                    <div className={cssStyles.ProductItemContainer}>
+                        {loading ? (
+                            <>
+                                <Skeleton
+                                    shape="square"
+                                    size="15rem"
+                                ></Skeleton>
+                                <Skeleton
+                                    shape="square"
+                                    size="15rem"
+                                ></Skeleton>
+                                <Skeleton
+                                    shape="square"
+                                    size="15rem"
+                                ></Skeleton>
+                                <Skeleton
+                                    shape="square"
+                                    size="15rem"
+                                ></Skeleton>
+                                <Skeleton
+                                    shape="square"
+                                    size="15rem"
+                                ></Skeleton>
+                            </>
+                        ) : (
+                            listProduct(currentItemsDrafts)
+                        )}
+                    </div>
+                    <Paginator
+                        first={first}
+                        rows={rows}
+                        totalRecords={drafts?.length}
+                        onPageChange={onPageChange}
+                    />
+                </TabPanel>
+                <TabPanel
+                    className={cssStyles.addProductBlock}
+                    header={
+                        <Link to={"/products/product-editor"}>
+                            <Button
+                                label={"Add new product"}
+                                icon={buttonIcons[2].icon}
+                                severity="success"
+                                size="small"
+                                style={{ gap: "13px" }}
+                            />
+                        </Link>
                     }
                 />
-                <Link to={"/products/product-editor"}>
-                    <Button
-                        title={"Add new product"}
-                        icon={buttonIcons[2].icon}
-                        gap={"6px"}
-                        height={"30px"}
-                        background={"#00BA9D"}
-                        padding={"20px"}
-                    />
-                </Link>
-            </div>
-            <TabView>
-                <TabPanel header="All Products">
-                    <div className={cssStyles.ProductItemContainer}>
-                        {loading ? (
-                            <>
-                                <Skeleton
-                                    shape="square"
-                                    size="15rem"
-                                ></Skeleton>
-                                <Skeleton
-                                    shape="square"
-                                    size="15rem"
-                                ></Skeleton>
-                                <Skeleton
-                                    shape="square"
-                                    size="15rem"
-                                ></Skeleton>
-                                <Skeleton
-                                    shape="square"
-                                    size="15rem"
-                                ></Skeleton>
-                                <Skeleton
-                                    shape="square"
-                                    size="15rem"
-                                ></Skeleton>
-                            </>
-                        ) : (
-                            currentItems
-                                ?.filter((show) => show.productPublish !== 0)
-                                .map((item, index) => (
-                                    <Card key={index}>
-                                        <div
-                                            className={
-                                                cssStyles.OrderElementBlock
-                                            }
-                                        >
-                                            <div
-                                                className={
-                                                    cssStyles.ProductIMGBlock
-                                                }
-                                                onClick={() =>
-                                                    productPage(item.id)
-                                                }
-                                            >
-                                                {" "}
-                                                {item.imageUrls?.map(
-                                                    (image) => (
-                                                        <img
-                                                            className={
-                                                                cssStyles.ProductImg
-                                                            }
-                                                            src={`http://localhost:5130${image}`}
-                                                            alt={"s"}
-                                                        />
-                                                    )
-                                                )}
-                                            </div>
-                                            <div>{item.productName}</div>
-                                            <div
-                                                className={
-                                                    cssStyles.OrderElementText
-                                                }
-                                            >
-                                                ${item.price}
-                                            </div>
-                                        </div>
-                                    </Card>
-                                ))
-                        )}
-                    </div>
-                </TabPanel>
-                <TabPanel header="Drafts">
-                    <div className={cssStyles.ProductItemContainer}>
-                        {loading ? (
-                            <>
-                                <Skeleton
-                                    shape="square"
-                                    size="15rem"
-                                ></Skeleton>
-                                <Skeleton
-                                    shape="square"
-                                    size="15rem"
-                                ></Skeleton>
-                                <Skeleton
-                                    shape="square"
-                                    size="15rem"
-                                ></Skeleton>
-                                <Skeleton
-                                    shape="square"
-                                    size="15rem"
-                                ></Skeleton>
-                                <Skeleton
-                                    shape="square"
-                                    size="15rem"
-                                ></Skeleton>
-                            </>
-                        ) : (
-                            currentItems
-                                ?.filter((show) => show.productPublish === 0)
-                                .map((item, index) => (
-                                    <Card key={index}>
-                                        <div
-                                            className={
-                                                cssStyles.OrderElementBlock
-                                            }
-                                        >
-                                            <div
-                                                className={
-                                                    cssStyles.ProductIMGBlock
-                                                }
-                                                onClick={() =>
-                                                    productPage(item.id)
-                                                }
-                                            >
-                                                {" "}
-                                                {item.imageUrls?.map(
-                                                    (image) => (
-                                                        <img
-                                                            className={
-                                                                cssStyles.ProductImg
-                                                            }
-                                                            src={`http://localhost:5130${image}`}
-                                                            alt={"s"}
-                                                        />
-                                                    )
-                                                )}
-                                            </div>
-                                            <div>{item.productName}</div>
-                                            <div
-                                                className={
-                                                    cssStyles.OrderElementText
-                                                }
-                                            >
-                                                ${item.price}
-                                            </div>
-                                        </div>
-                                    </Card>
-                                ))
-                        )}
-                    </div>
-                </TabPanel>
             </TabView>
-            <Paginator
-                first={first}
-                rows={rows}
-                totalRecords={120}
-                rowsPerPageOptions={[10, 20, 30]}
-                onPageChange={onPageChange}
-            />
-        </div>
+        </Card>
     );
 };
 

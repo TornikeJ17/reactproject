@@ -8,18 +8,18 @@
 }
 .SmallCardsContainer {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(24%, 1fr));
     gap: 20px;
 }
 .MediumCardsContainer {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(32%, 1fr));
     gap: 20px;
 }
 
 .MediumCardsContainerSecond {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(49%, 1fr));
     gap: 20px;
 }
 
@@ -71,7 +71,6 @@
 }
 .ProfileBlock {
     display: grid;
-    padding: 20px;
     grid-template-rows: 5fr 1fr;
 }
 .ProfileIMG {
@@ -95,8 +94,8 @@
 .ProfileStatus {
     font-size: 14px;
     font-weight: 700;
-    background: linear-gradient(90deg, #e46565 0%, #ff3e3e 100%);
-    padding: 5px;
+    background: linear-gradient(90deg, #0891b2 0%, #06b6d4 100%);
+    padding: 10px;
     border-radius: 8px;
     color: #fff;
 }
@@ -111,6 +110,7 @@
     align-items: end;
     gap: 20px;
     button {
+        width: 100%;
         font-weight: 600;
         gap: 2px;
         svg {

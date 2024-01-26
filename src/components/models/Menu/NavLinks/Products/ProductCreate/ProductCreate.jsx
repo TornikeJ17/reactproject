@@ -1,6 +1,5 @@
-﻿import React, { useState } from "react";
-import cssStyles from "./ProductEditor.module.scss";
-import "./ProductEditor.module.scss";
+﻿import React, { useRef, useState } from "react";
+import cssStyles from "./ProductCreate.module.scss";
 import Cards from "../../../../Widgets/Cards/Cards";
 import Images from "../../../../Widgets/Images/Images";
 import { buttonIcons, radioItems } from "../../../../Icons/Icons";
@@ -13,13 +12,16 @@ import { InputSwitch } from "primereact/inputswitch";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
+import { Toast, ToastPassThroughOptions } from "primereact/toast";
 
-const ProductEditor = ({ addNewProduct }) => {
+const ProductCreate = ({ addNewProduct, user }) => {
     const { productCreateApi } = useRequestDataProvider();
+    const toastTopRight = useRef(null);
     const [selectedImages, setSelectedImages] = useState([]);
     const [publishShow, setPublishShow] = useState(false);
+    console.log(user, "userrrrrrr");
     const [productCreate, setProductCreate] = useState({
-        UserId: "1",
+        UserId: user.id,
         Id: "",
         ProductName: "",
         ProductPrice: "",
@@ -31,6 +33,17 @@ const ProductEditor = ({ addNewProduct }) => {
         ProductCategory: null,
         inStock: false,
         ImageUrls: [],
+    });
+    const [validationErrors, setValidationErrors] = useState({
+        ProductName: false,
+        ProductPrice: false,
+        ProductCode: false,
+        ProductSKU: false,
+        ProductDescription: false,
+        ProductPublish: false,
+        ProductTags: false,
+        ProductCategory: false,
+        ImageUrls: false,
     });
     const navigate = useNavigate();
 
@@ -56,8 +69,6 @@ const ProductEditor = ({ addNewProduct }) => {
     ];
 
     const postProduct = async (e) => {
-        e.preventDefault();
-
         const formData = new FormData();
 
         formData.append("UserId", productCreate.UserId);
@@ -90,6 +101,63 @@ const ProductEditor = ({ addNewProduct }) => {
             console.error("Error creating product:", error);
         }
     };
+    const showValidationError = (fieldName) => {
+        const messages = {
+            ProductName: "Product name is required.",
+            ProductPrice: "Product price is required.",
+            ProductCode: "Product code is required.",
+            ProductSKU: "Product SKU is required.",
+            ProductDescription: "Product description is required.",
+            ProductPublish: "Product publish status is required.",
+            ProductTags: "Product tags are required.",
+            ProductCategory: "Product category is required.",
+            ImageUrls: "At least one product image is required.",
+        };
+
+        showMessage(toastTopRight, "error", "Error", messages[fieldName]);
+    };
+    const validateFields = () => {
+        const errors = {
+            ProductName: !productCreate.ProductName,
+            ProductPrice: !productCreate.ProductPrice,
+            ProductCode: !productCreate.ProductCode,
+            ProductSKU: !productCreate.ProductSKU,
+            ProductDescription: !productCreate.ProductDescription,
+            ProductPublish: productCreate.ProductPublish == null,
+            ProductTags: productCreate.ProductTags == null,
+            ProductCategory: productCreate.ProductCategory == null,
+            ImageUrls: selectedImages.length === 0,
+        };
+
+        setValidationErrors(errors);
+        return !Object.values(errors).includes(true);
+    };
+
+    const showMessage = (ref, severity, summary, detail) => {
+        ref.current.show({
+            severity: severity,
+            summary: summary,
+            detail: detail,
+            life: 3000,
+        });
+    };
+
+    const createFunction = (e) => {
+        e.preventDefault();
+
+        toastTopRight.current.clear();
+        const isValid = validateFields();
+        if (!isValid) {
+            Object.entries(validationErrors).forEach(([field, error]) => {
+                if (error) {
+                    showValidationError(field);
+                }
+            });
+            return;
+        }
+        postProduct();
+    };
+
     const renderHeader = () => {
         return (
             <span className="ql-formats">
@@ -106,6 +174,12 @@ const ProductEditor = ({ addNewProduct }) => {
 
     const handleUpload = (event) => {
         setSelectedImages(event.files);
+        setValidationErrors((prev) => {
+            return {
+                ...prev,
+                ImageUrls: selectedImages.length === 0,
+            };
+        });
     };
     const handlePublishChange = (e) => {
         setProductCreate((prevState) => ({
@@ -115,17 +189,35 @@ const ProductEditor = ({ addNewProduct }) => {
     };
     const handlePublishClick = () => {
         setPublishShow(!publishShow);
+        setValidationErrors((prev) => {
+            return {
+                ...prev,
+                ProductPublish: productCreate.ProductPublish === null,
+            };
+        });
     };
     const handleDescriptionChange = (e) => {
         setProductCreate((prevState) => ({
             ...prevState,
             ProductDescription: e.htmlValue,
         }));
+        setValidationErrors((prev) => {
+            return {
+                ...prev,
+                ProductDescription: !productCreate.ProductDescription,
+            };
+        });
     };
     const handleTagsChange = (e) => {
         setProductCreate({
             ...productCreate,
             ProductTags: e.value.code,
+        });
+        setValidationErrors((prev) => {
+            return {
+                ...prev,
+                ProductTags: productCreate.ProductTags === null,
+            };
         });
     };
     const handleCategoryChange = (e) => {
@@ -133,10 +225,18 @@ const ProductEditor = ({ addNewProduct }) => {
             ...productCreate,
             ProductCategory: e.value.code,
         });
+        setValidationErrors((prev) => {
+            return {
+                ...prev,
+                ProductCategory: productCreate.ProductCategory === null,
+            };
+        });
     };
-    console.log(productCreate);
+    console.log("productCreate", productCreate);
     return (
         <div className={cssStyles.Container}>
+            <Toast ref={toastTopRight} position="top-right"></Toast>
+
             <div>
                 <Cards
                     width={"100%"}
@@ -144,7 +244,7 @@ const ProductEditor = ({ addNewProduct }) => {
                     border={"20px"}
                     element={
                         <form
-                            onSubmit={postProduct}
+                            onSubmit={createFunction}
                             className={cssStyles.ProductEditorContainer}
                         >
                             <div className={cssStyles.ProductEditorTitle}>
@@ -158,71 +258,137 @@ const ProductEditor = ({ addNewProduct }) => {
                             <div className={cssStyles.firstBlockGrid}>
                                 <span className="p-float-label">
                                     <InputText
-                                        value={productCreate.ProductName}
-                                        onChange={(e) =>
+                                        onChange={(e) => {
                                             setProductCreate({
                                                 ...productCreate,
                                                 ProductName: e.target.value,
-                                            })
+                                            });
+                                            setValidationErrors((prev) => ({
+                                                ...prev,
+                                                ProductName: false,
+                                            }));
+                                        }}
+                                        className={
+                                            validationErrors.ProductName
+                                                ? "p-invalid"
+                                                : ""
                                         }
                                     />
                                     <label htmlFor="Product Name">
                                         Product Name
                                     </label>
+                                    <div style={{ position: "absolute" }}>
+                                        {validationErrors.ProductName && (
+                                            <small className="p-error">
+                                                Product Name is required.
+                                            </small>
+                                        )}
+                                    </div>
                                 </span>
                                 <div className={cssStyles.ProductStatusInput}>
                                     <span className="p-float-label">
                                         <InputText
                                             value={productCreate.ProductPrice}
-                                            onChange={(e) =>
+                                            onChange={(e) => {
                                                 setProductCreate({
                                                     ...productCreate,
                                                     ProductPrice:
                                                         e.target.value,
-                                                })
-                                            }
+                                                });
+                                                setValidationErrors((prev) => ({
+                                                    ...prev,
+                                                    ProductPrice: false,
+                                                }));
+                                            }}
                                             keyfilter={"money"}
-                                            className="p-invalid"
+                                            className={
+                                                validationErrors.ProductPrice
+                                                    ? "p-invalid"
+                                                    : ""
+                                            }
                                         />
                                         <label htmlFor="Product Price">
                                             Product Price
                                         </label>
+                                        <div style={{ position: "absolute" }}>
+                                            {validationErrors.ProductPrice && (
+                                                <small className="p-error">
+                                                    Product Price is required.
+                                                </small>
+                                            )}
+                                        </div>
                                     </span>
 
                                     <span className="p-float-label">
                                         <InputText
                                             value={productCreate.ProductCode}
-                                            onChange={(e) =>
+                                            onChange={(e) => {
                                                 setProductCreate({
                                                     ...productCreate,
                                                     ProductCode: e.target.value,
-                                                })
+                                                });
+                                                setValidationErrors((prev) => ({
+                                                    ...prev,
+                                                    ProductCode: false,
+                                                }));
+                                            }}
+                                            className={
+                                                validationErrors.ProductCode
+                                                    ? "p-invalid"
+                                                    : ""
                                             }
                                         />
                                         <label htmlFor="Product Code">
                                             Product Code
                                         </label>
+                                        <div style={{ position: "absolute" }}>
+                                            {validationErrors.ProductCode && (
+                                                <small className="p-error">
+                                                    Product Code is required.
+                                                </small>
+                                            )}
+                                        </div>
                                     </span>
 
                                     <span className="p-float-label">
                                         <InputText
                                             value={productCreate.ProductSKU}
-                                            onChange={(e) =>
+                                            onChange={(e) => {
                                                 setProductCreate({
                                                     ...productCreate,
                                                     ProductSKU: e.target.value,
-                                                })
+                                                });
+                                                setValidationErrors((prev) => ({
+                                                    ...prev,
+                                                    ProductSKU: false,
+                                                }));
+                                            }}
+                                            className={
+                                                validationErrors.ProductSKU
+                                                    ? "p-invalid"
+                                                    : ""
                                             }
                                         />
                                         <label htmlFor="Product SKU">
                                             Product SKU
                                         </label>
+                                        <div style={{ position: "absolute" }}>
+                                            {validationErrors.ProductSKU && (
+                                                <small className="p-error">
+                                                    Product SKU is required.
+                                                </small>
+                                            )}
+                                        </div>
                                     </span>
                                 </div>
                                 <Editor
                                     style={{ height: "400px" }}
                                     headerTemplate={header}
-                                    className={cssStyles.ProductEditor}
+                                    className={
+                                        validationErrors.ProductPrice
+                                            ? "p-invalid"
+                                            : ""
+                                    }
                                     value={productCreate.ProductDescription}
                                     onTextChange={handleDescriptionChange}
                                 />
@@ -242,15 +408,26 @@ const ProductEditor = ({ addNewProduct }) => {
                                                 upload.
                                             </p>
                                         }
+                                        className={
+                                            validationErrors.ProductPrice
+                                                ? "p-invalid"
+                                                : ""
+                                        }
                                     />
                                 </div>
                             </div>
                             <div className={cssStyles.ProductEditorInputsBlock}>
                                 <div className={cssStyles.ProductEditorPanels}>
                                     <Panel header="Publish">
-                                        <div className={cssStyles.StatusBlock}>
+                                        <div
+                                            className={
+                                                validationErrors.ProductPublish
+                                                    ? cssStyles.StatusBlockError
+                                                    : cssStyles.StatusBlock
+                                            }
+                                        >
                                             <div>
-                                                <span>Status:</span>
+                                                <span>Status: {""}</span>
                                                 {publishShow ? (
                                                     <Dropdown
                                                         value={productPublish.find(
@@ -298,6 +475,11 @@ const ProductEditor = ({ addNewProduct }) => {
                                             options={productTagsDropdown}
                                             optionLabel="name"
                                             placeholder="Select tags"
+                                            className={
+                                                validationErrors.ProductTags
+                                                    ? "p-invalid"
+                                                    : ""
+                                            }
                                         />
                                     </Panel>
                                     <Panel header="Cagegory" className="w-full">
@@ -311,6 +493,11 @@ const ProductEditor = ({ addNewProduct }) => {
                                             options={productCategoryDropdown}
                                             optionLabel="name"
                                             placeholder="Select category"
+                                            className={
+                                                validationErrors.ProductCategory
+                                                    ? "p-invalid"
+                                                    : ""
+                                            }
                                         />
                                     </Panel>
                                     <Panel
@@ -344,7 +531,7 @@ const ProductEditor = ({ addNewProduct }) => {
                                     </Link>
                                     <Button
                                         type={"submit"}
-                                        label={"Save"}
+                                        label={"Create"}
                                         icon={buttonIcons[11].icon}
                                     />
                                 </div>
@@ -357,4 +544,4 @@ const ProductEditor = ({ addNewProduct }) => {
     );
 };
 
-export default ProductEditor;
+export default ProductCreate;

@@ -22,6 +22,7 @@ const Cards = ({
                 color: color,
                 borderRadius: border,
                 overflowY: overflow,
+                border: "1px solid #dfe7ef",
             }}
         >
             {element}

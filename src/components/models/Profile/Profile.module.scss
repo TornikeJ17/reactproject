@@ -1,2 +1,136 @@
-.Container {
+.ProfileInfoContainer {
+    background: linear-gradient(180deg, #0891b2 30%, #06b6d4 60%, #fff 60%);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+.profileContainer {
+    display: grid;
+    grid-template-rows: 0fr 1fr;
+    gap: 20px;
+    :global .p-tabview .p-tabview-panels {
+        background: transparent;
+        padding: 0;
+        padding-top: 20px;
+    }
+}
+.ContainerTitle {
+}
+.AvatarContainer {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    max-width: 100%;
+    :global .p-badge {
+        position: absolute;
+        top: -10px;
+        right: -15px;
+        display: flex;
+        align-items: center;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+}
+.Avatar {
+    position: relative;
+    img {
+        background: linear-gradient(90deg, #06b6d4 0%, #0891b2 100%);
+        border-radius: 10px;
+        border: 5px solid white;
+    }
+}
+.AvatarBlock {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 20px;
+    position: relative;
+    top: 20px;
+}
+:global .p-dialog-mask .p-badge {
+    svg {
+        position: absolute;
+        left: 0;
+    }
+}
+.ProfileTitle {
+    font-size: 24px;
+    font-weight: 700;
+}
+.ContentDataBlock {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(49%, 1fr));
+    gap: 20px;
+    :global .p-card-body {
+        padding: 0;
+    }
+}
+.ContainerUserDetails {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    gap: 20px;
+    .UserDetailsTitles {
+        color: #99a1b7;
+        font-weight: 600;
+        font-size: 1.075rem;
+    }
+    .UserDetailsProps {
+        color: #252f4a;
+        font-weight: 600;
+        font-size: 1.075rem;
+    }
+}
+.OverviewCard {
+    :global .p-card-body {
+        padding: 0;
+        .p-card-title {
+            padding-top: 20px;
+            span {
+                padding: 20px;
+            }
+        }
+        .p-card-content {
+            padding: 20px;
+        }
+    }
+}
+.AvatarDialog {
+    display: grid;
+    width: 75%;
+    height: 75%;
+    :global .p-dialog-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(8%, 1fr));
+    }
+}
+.FormContainer {
+    display: grid;
+    gap: 20px;
+    .fieldSmall {
+        display: grid;
+        grid-template-columns: 25% 74%;
+        gap: 20px;
+        div {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        label {
+            font-size: 1.075rem;
+            font-weight: 500;
+        }
+    }
+    .fieldLarge {
+        display: grid;
+        grid-template-columns: 25% 74%;
+        gap: 20px;
+        label {
+            font-size: 1.075rem;
+            font-weight: 500;
+        }
+    }
+}
+.fieldButton {
+    display: flex;
+    justify-content: end;
 }

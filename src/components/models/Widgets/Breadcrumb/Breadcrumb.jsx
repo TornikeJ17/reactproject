@@ -1,20 +1,35 @@
 import React from "react";
-
-import { useLocation } from "react-router-dom";
+import cssStyles from "./Breadcrumb.module.scss";
+import { Link, useLocation } from "react-router-dom";
 
 const Breadcrumb = () => {
     const location = useLocation();
     const pathnames = location.pathname.split("/").filter((x) => x);
-    console.log(location);
+
+    let fullPath = ""; // This will accumulate the full path as we iterate through pathnames
+
     return (
-        <div className="breadcrumb">
+        <div className={cssStyles.breadcrumb}>
+            {pathnames.length > 0 && (
+                <Link className={cssStyles.Alink} to="/">
+                    Home /
+                </Link>
+            )}
             {pathnames.map((name, index) => {
+                fullPath += `/${name}`; // Accumulate the path
                 const isLast = index === pathnames.length - 1;
                 return (
-                    <span key={name}>
-                        {name.toUpperCase()}
-                        {!isLast && "/"}
-                    </span>
+                    <>
+                        {isLast ? (
+                            <span className={cssStyles.current}>
+                                {name.toUpperCase()}
+                            </span>
+                        ) : (
+                            <Link className={cssStyles.Alink} to={fullPath}>
+                                {name.toUpperCase()} /
+                            </Link>
+                        )}
+                    </>
                 );
             })}
         </div>

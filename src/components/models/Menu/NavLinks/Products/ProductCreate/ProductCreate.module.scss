@@ -141,6 +141,16 @@
     align-items: center;
     justify-content: space-between;
 }
+.StatusBlockError {
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #ebebeb;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #e24c4c;
+}
 .HandleClickButton {
     cursor: pointer;
 }
