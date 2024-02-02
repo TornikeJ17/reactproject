@@ -4,6 +4,7 @@ import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import useRequestDataProvider from "../../api/useRequestDataProvider";
 import { useNavigate } from "react-router-dom";
+import { Card } from "primereact/card";
 const Register = ({ onLoginSuccess, setShowLogin, showLogin }) => {
     const { UserRegistration } = useRequestDataProvider();
     const navigate = useNavigate();
@@ -25,7 +26,6 @@ const Register = ({ onLoginSuccess, setShowLogin, showLogin }) => {
         e.preventDefault();
         try {
             const response = await UserRegistration(registerDetails);
-            console.log("Registration successful:", response);
             // Handle success (e.g. navigate to dashboard, store token, etc.)
         } catch (error) {
             console.error("Error during registration:", error);
@@ -33,8 +33,12 @@ const Register = ({ onLoginSuccess, setShowLogin, showLogin }) => {
         }
     };
     return (
-        <div className={cssStyles.RegisterContainer}>
+        <Card className={cssStyles.RegisterContainer}>
             <form onSubmit={register} className={cssStyles.RegisterForm}>
+                <div className={cssStyles.Title}>
+                    <h1>Login</h1>
+                    <h5>Please enter your details</h5>
+                </div>
                 <InputText
                     name="email"
                     value={registerDetails.email}
@@ -65,17 +69,12 @@ const Register = ({ onLoginSuccess, setShowLogin, showLogin }) => {
             <button
                 onClick={() => setShowLogin(!showLogin)}
                 className={cssStyles.toggleAuthButton}
-                style={{
-                    position: "absolute",
-                    bottom: "0",
-                    right: "0",
-                }}
             >
                 {!showLogin
                     ? "Need an account? Register"
                     : "Have an account? Login"}
             </button>
-        </div>
+        </Card>
     );
 };
 

@@ -1,7 +1,7 @@
 ﻿import React, { useEffect, useState } from "react";
 import { Link, redirect, useNavigate, useParams } from "react-router-dom";
-import cssStyles from "../ProductCreate/ProductCreate.module.scss";
-import Cards from "../../../../Widgets/Cards/Cards";
+import cssStyles from "../ProductPage/ProductPage.module.scss";
+import { Card } from "primereact/card";
 import { buttonIcons, radioItems } from "../../../../Icons/Icons";
 import useRequestDataProvider from "../../../../../api/useRequestDataProvider";
 import { Galleria } from "primereact/galleria";
@@ -14,70 +14,69 @@ const ProductPage = ({ products }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const decodedProductName = decodeURIComponent(productName);
-        const product = products.find(
-            (p) => p.productName === decodedProductName
-        );
         if (product) {
             // Format the image URLs for the Galleria component
             const formattedImages = product.imageUrls.map((url) => ({
-                original: `http://localhost:5130${url}`,
-                thumbnail: `http://localhost:5130${url}`,
+                original: `https://3522.somee.com${url}`,
+                thumbnail: `https://l3522.somee.com${url}`,
                 alt: "Product Image",
             }));
             setImages(formattedImages);
         }
     }, [products, productName, navigate]);
     const ItemTemplate = (item) => {
-        console.log("item", item);
-        return <Image src={item.original} alt={item.alt} width="250" />;
-    };
-    const thumbnailTemplate = (item) => {
         return (
-            <Image src={item.thumbnail} alt={item.alt} width="80" height="60" />
+            <Image
+                className={cssStyles.GalleriaImages}
+                src={item.original}
+                alt={item.alt}
+            />
         );
     };
-    const responsiveOptions = [
-        {
-            breakpoint: "991px",
-            numVisible: 4,
-        },
-        {
-            breakpoint: "767px",
-            numVisible: 3,
-        },
-        {
-            breakpoint: "575px",
-            numVisible: 1,
-        },
-    ];
+
     const product = products?.find(
         (p) => p.productName === decodeURIComponent(productName)
     );
+    const indicatorTemplate = (index) => {
+        return (
+            <span
+                style={{
+                    color: "#ffffff",
+                    cursor: "pointer",
+                    fontSize: "24px",
+                }}
+            >
+                {index + 1}
+            </span>
+        );
+    };
+    const Images = () => {
+        return (
+            <Galleria
+                value={images}
+                style={{ maxWidth: "600px" }}
+                className="custom-indicator-galleria"
+                showThumbnails={false}
+                showIndicators
+                changeItemOnIndicatorHover
+                showIndicatorsOnItem
+                indicatorsPosition="left"
+                item={ItemTemplate}
+                indicator={indicatorTemplate}
+            />
+        );
+    };
     return (
         <div className={cssStyles.Container}>
             <div>
                 {product && (
-                    <Cards
-                        width={"100%"}
-                        height={"100%"}
-                        border={"20px"}
-                        element={
+                    <Card
+                        title={product.productName}
+                        className={cssStyles.Card}
+                        footer={
                             <div>
-                                <Galleria
-                                    value={images}
-                                    item={ItemTemplate}
-                                    thumbnail={thumbnailTemplate}
-                                    style={{ maxWidth: "640px" }}
-                                    showThumbnails={true}
-                                    numVisible={3}
-                                    thumbnailsPosition="bottom"
-                                    responsiveOptions={responsiveOptions}
-                                />
-                                <InputSwitch
-                                    checked={product.inStock}
-                                    disabled
-                                />
+                                {Images()}
+                                {console.log(product)}
                             </div>
                         }
                     />

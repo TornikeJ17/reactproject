@@ -12,6 +12,7 @@ import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { Badge } from "primereact/badge";
 import { buttonIcons } from "../Icons/Icons";
+import { Link } from "react-router-dom";
 
 const Profile = ({
     user,
@@ -22,40 +23,79 @@ const Profile = ({
     getUserAvatarsImages,
 }) => {
     const { capitalizeFirstLetter } = useRequestDataProvider();
-
+    const [userDetails, setUserDetails] = useState({
+        id: "",
+        firstName: "",
+        lastName: "",
+        email: "",
+        contactNumber: "",
+        company: "",
+        address: "",
+        country: "",
+        companySite: "",
+        imageUrls: "",
+    });
+    console.log(userDetails);
     const [dialog, setDialog] = useState(false);
     const [selectedAvatar, setSelectedAvatar] = useState("");
-    const avatarBaseUrl = "http://localhost:5130/Avatars";
+    const avatarBaseUrl = "https://3522.somee.com/Avatars";
 
     useEffect(() => {
+        setUserDetails(getUserDetailById);
         const currentUserAvatarFilename = decodeURIComponent(
             getUserDetailById.imageUrls
         )
             .split("/")
             .pop();
         setSelectedAvatar(currentUserAvatarFilename);
-    }, [getUserDetailById.imageUrls]);
+    }, [getUserDetailById]);
     const onSubmit = async (event) => {
         event.preventDefault();
+
         const formData = new FormData(event.target);
+
+        formData.append("firstName", userDetails.firstName);
+        formData.append("lastName", userDetails.lastName);
+        formData.append("email", userDetails.email);
+        formData.append("contactNumber", userDetails.contactNumber);
+        formData.append("company", userDetails.company);
+        formData.append("address", userDetails.address);
+        formData.append("country", userDetails.country);
+        formData.append("companySite", userDetails.companySite);
+
         if (selectedAvatar && selectedAvatar !== getUserDetailById.imageUrls) {
             formData.append("avatarImage", selectedAvatar);
         }
-        // If an avatar was selected and it's a new image, append it to the formData
-        const selectedAvatarImage = formData.get("avatarImage");
-        if (selectedAvatarImage && selectedAvatarImage !== user.imageUrls) {
-            // Assuming selectedAvatarImage is just the filename, construct the file path
-            formData.set(
-                "ImageUrls",
-                `${avatarBaseUrl}/${selectedAvatarImage}`
-            );
-        } else {
-            // If no new avatar was selected, make sure not to send the imageUrls as null
-            formData.delete("ImageUrls");
-        }
 
-        // Call userDetailsUpdate and pass formData
-        await userDetailsUpdate(user.id, formData);
+        if (selectedAvatar && selectedAvatar !== userDetails.imageUrls) {
+            formData.append("avatarImage", selectedAvatar);
+            formData.set("ImageUrls", `${avatarBaseUrl}/${selectedAvatar}`);
+        }
+        try {
+            const updateUser = await userDetailsUpdate(user.id, formData);
+            setUserDetails(updateUser);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    const hasFormChanged = () => {
+        return (
+            userDetails.firstName !== getUserDetailById.firstName ||
+            userDetails.lastName !== getUserDetailById.lastName ||
+            userDetails.email !== getUserDetailById.email ||
+            userDetails.contactNumber !== getUserDetailById.contactNumber ||
+            userDetails.company !== getUserDetailById.company ||
+            userDetails.address !== getUserDetailById.address ||
+            userDetails.country !== getUserDetailById.country ||
+            userDetails.companySite !== getUserDetailById.companySite
+        );
+    };
+    {
+        console.log(userDetails.contactNumber);
+    }
+
+    const digitNumber = (str) => {
+        return /^\d{9}$/.test(str);
     };
     const footerContent = (
         <div>
@@ -82,7 +122,7 @@ const Profile = ({
             <div className="col-12">
                 <div className="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
                     <Image
-                        src={"http://localhost:5130" + product.imageUrls[0]}
+                        src={"https://3522.somee.com" + product.imageUrls[0]}
                         alt={product.name}
                         width="100"
                         height="100"
@@ -147,8 +187,8 @@ const Profile = ({
                             )}
                         </div>
                         <div className={cssStyles.ProfileTitle}>
-                            {capitalizeFirstLetter(user.firstName)}{" "}
-                            {capitalizeFirstLetter(user.lastName)}
+                            {capitalizeFirstLetter(userDetails.firstName)}{" "}
+                            {capitalizeFirstLetter(userDetails.lastName)}
                         </div>
                     </div>
                 </div>
@@ -169,42 +209,49 @@ const Profile = ({
                                 Full Name
                             </div>
                             <div className={cssStyles.UserDetailsProps}>
-                                {capitalizeFirstLetter(
-                                    getUserDetailById.firstName
-                                )}{" "}
-                                {capitalizeFirstLetter(
-                                    getUserDetailById.lastName
-                                )}
+                                {capitalizeFirstLetter(userDetails.firstName)}{" "}
+                                {capitalizeFirstLetter(userDetails.lastName)}
+                            </div>
+                            <div className={cssStyles.UserDetailsTitles}>
+                                Email
+                            </div>
+                            <div className={cssStyles.UserDetailsProps}>
+                                {userDetails.email}
                             </div>
                             <div className={cssStyles.UserDetailsTitles}>
                                 Company
                             </div>
                             <div className={cssStyles.UserDetailsProps}>
-                                {getUserDetailById.company}
+                                {userDetails.company}
                             </div>
                             <div className={cssStyles.UserDetailsTitles}>
                                 Contact Phone
                             </div>
                             <div className={cssStyles.UserDetailsProps}>
-                                {getUserDetailById.contactNumber}
+                                +(995) {userDetails.contactNumber}
                             </div>
                             <div className={cssStyles.UserDetailsTitles}>
                                 Company Site
                             </div>
                             <div className={cssStyles.UserDetailsProps}>
-                                {getUserDetailById.companySite}
+                                <Link
+                                    to={userDetails.companySite}
+                                    target="_blank"
+                                >
+                                    {userDetails.companySite}
+                                </Link>
                             </div>
                             <div className={cssStyles.UserDetailsTitles}>
                                 Country
                             </div>
                             <div className={cssStyles.UserDetailsProps}>
-                                {getUserDetailById.country}
+                                {userDetails.country}
                             </div>
                             <div className={cssStyles.UserDetailsTitles}>
                                 Address
                             </div>
                             <div className={cssStyles.UserDetailsProps}>
-                                {getUserDetailById.address}
+                                {userDetails.address}
                             </div>
                         </div>
                     </Card>
@@ -268,26 +315,21 @@ const Profile = ({
                             <div className={cssStyles.fieldLarge}>
                                 <label htmlFor="avatar">Avatar</label>
                                 <div className={cssStyles.AvatarContainer}>
-                                    {selectedAvatar ? (
-                                        <Image
-                                            src={
-                                                "http://localhost:5130/Avatars/" +
-                                                selectedAvatar
-                                            }
-                                            alt="Image"
-                                            width="200"
-                                            height="200"
-                                            className={cssStyles.Avatar}
-                                        />
-                                    ) : (
-                                        <Image
-                                            src={getUserDetailById?.imageUrls}
-                                            alt="Image"
-                                            width="200"
-                                            height="200"
-                                            className={cssStyles.Avatar}
-                                        />
-                                    )}
+                                    <Image
+                                        src={
+                                            !getUserDetailById.imageUrls
+                                                ? "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png"
+                                                : getUserDetailById.imageUrls &&
+                                                  selectedAvatar
+                                                ? `${avatarBaseUrl}/${selectedAvatar}`
+                                                : getUserDetailById.imageUrls
+                                        }
+                                        alt="Image"
+                                        width="200"
+                                        height="200"
+                                        className={cssStyles.Avatar}
+                                    />
+
                                     <Badge
                                         onClick={() => setDialog(true)}
                                         value={buttonIcons[0].icon}
@@ -303,15 +345,23 @@ const Profile = ({
                                     <InputText
                                         type="text"
                                         name="firstName"
-                                        defaultValue={
-                                            getUserDetailById.firstName
+                                        value={userDetails.firstName} // Assuming the name is in "firstName lastName" format
+                                        onChange={(e) =>
+                                            setUserDetails({
+                                                ...userDetails,
+                                                firstName: e.target.value,
+                                            })
                                         }
                                     />
                                     <InputText
                                         type="text"
                                         name="lastName"
-                                        defaultValue={
-                                            getUserDetailById.lastName
+                                        value={userDetails.lastName}
+                                        onChange={(e) =>
+                                            setUserDetails({
+                                                ...userDetails,
+                                                lastName: e.target.value,
+                                            })
                                         }
                                     />
                                 </div>
@@ -322,7 +372,13 @@ const Profile = ({
                                 <InputText
                                     type="text"
                                     name="Company"
-                                    defaultValue={getUserDetailById.company}
+                                    defaultValue={userDetails.company}
+                                    onChange={(e) =>
+                                        setUserDetails({
+                                            ...userDetails,
+                                            company: e.target.value,
+                                        })
+                                    }
                                 />
                             </div>
                             <div className={cssStyles.fieldLarge}>
@@ -331,12 +387,24 @@ const Profile = ({
                                 </label>
 
                                 <InputText
-                                    type="text"
+                                    type="number"
                                     name="ContactNumber"
-                                    defaultValue={
-                                        getUserDetailById.contactNumber
+                                    defaultValue={userDetails.contactNumber}
+                                    onChange={(e) =>
+                                        setUserDetails({
+                                            ...userDetails,
+                                            contactNumber: digitNumber(
+                                                e.target.value
+                                            ),
+                                        })
                                     }
+                                    pattern="\d{9}"
                                 />
+                                {getUserDetailById.contactNumber !== 9 && (
+                                    <small className="p-error">
+                                        Contact number must be 9 digits.
+                                    </small>
+                                )}
                             </div>
                             <div className={cssStyles.fieldLarge}>
                                 <label htmlFor="companySite">
@@ -346,7 +414,13 @@ const Profile = ({
                                 <InputText
                                     type="text"
                                     name="CompanySite"
-                                    defaultValue={getUserDetailById.companySite}
+                                    defaultValue={userDetails.companySite}
+                                    onChange={(e) =>
+                                        setUserDetails({
+                                            ...userDetails,
+                                            companySite: e.target.value,
+                                        })
+                                    }
                                 />
                             </div>
                             <div className={cssStyles.fieldLarge}>
@@ -355,7 +429,13 @@ const Profile = ({
                                 <InputText
                                     type="text"
                                     name="Country"
-                                    defaultValue={getUserDetailById.country}
+                                    defaultValue={userDetails.country}
+                                    onChange={(e) =>
+                                        setUserDetails({
+                                            ...userDetails,
+                                            country: e.target.value,
+                                        })
+                                    }
                                 />
                             </div>
                             <div className={cssStyles.fieldLarge}>
@@ -364,7 +444,13 @@ const Profile = ({
                                 <InputText
                                     type="text"
                                     name="Address"
-                                    defaultValue={getUserDetailById.address}
+                                    defaultValue={userDetails.address}
+                                    onChange={(e) =>
+                                        setUserDetails({
+                                            ...userDetails,
+                                            address: e.target.value,
+                                        })
+                                    }
                                 />
                             </div>
                             {dialog && (
@@ -425,7 +511,11 @@ const Profile = ({
                                 style={{ display: "none" }}
                             />
                             <div className={cssStyles.fieldButton}>
-                                <Button label="Save Changes" type="submit" />
+                                <Button
+                                    label="Save Changes"
+                                    type="submit"
+                                    disabled={!hasFormChanged()}
+                                />
                             </div>
                         </form>
                     </Card>

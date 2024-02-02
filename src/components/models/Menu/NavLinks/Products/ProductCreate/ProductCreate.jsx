@@ -12,7 +12,7 @@ import { InputSwitch } from "primereact/inputswitch";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
-import { Toast, ToastPassThroughOptions } from "primereact/toast";
+import { Toast } from "primereact/toast";
 
 const ProductCreate = ({ addNewProduct, user }) => {
     const { productCreateApi } = useRequestDataProvider();
@@ -47,7 +47,6 @@ const ProductCreate = ({ addNewProduct, user }) => {
     });
     const navigate = useNavigate();
 
-    const backButton = () => {};
     //dropdown
 
     const productPublish = [
@@ -418,51 +417,23 @@ const ProductCreate = ({ addNewProduct, user }) => {
                             </div>
                             <div className={cssStyles.ProductEditorInputsBlock}>
                                 <div className={cssStyles.ProductEditorPanels}>
-                                    <Panel header="Publish">
-                                        <div
+                                    <Panel header="Status">
+                                        <Dropdown
+                                            value={productPublish.find(
+                                                (publish) =>
+                                                    publish.code ===
+                                                    productCreate.ProductPublish
+                                            )}
+                                            onChange={handlePublishChange}
+                                            options={productPublish}
+                                            optionLabel="name"
+                                            placeholder="Select status"
                                             className={
-                                                validationErrors.ProductPublish
-                                                    ? cssStyles.StatusBlockError
-                                                    : cssStyles.StatusBlock
+                                                validationErrors.ProductTags
+                                                    ? "p-invalid"
+                                                    : ""
                                             }
-                                        >
-                                            <div>
-                                                <span>Status: {""}</span>
-                                                {publishShow ? (
-                                                    <Dropdown
-                                                        value={productPublish.find(
-                                                            (publish) =>
-                                                                publish.code ===
-                                                                productCreate.ProductPublish
-                                                        )}
-                                                        onChange={
-                                                            handlePublishChange
-                                                        }
-                                                        options={productPublish}
-                                                        optionLabel="name"
-                                                        placeholder="Select tags"
-                                                    />
-                                                ) : (
-                                                    <span>
-                                                        {
-                                                            productPublish.find(
-                                                                (publish) =>
-                                                                    publish.code ===
-                                                                    productCreate.ProductPublish
-                                                            )?.name
-                                                        }
-                                                    </span>
-                                                )}
-                                            </div>
-                                            <div
-                                                className={
-                                                    cssStyles.HandleClickButton
-                                                }
-                                                onClick={handlePublishClick}
-                                            >
-                                                {buttonIcons[13].icon}
-                                            </div>
-                                        </div>
+                                        />
                                     </Panel>
                                     <Panel header="Tags">
                                         <Dropdown

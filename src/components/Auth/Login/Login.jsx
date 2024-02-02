@@ -4,6 +4,9 @@ import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import useRequestDataProvider from "../../api/useRequestDataProvider";
 import { useNavigate } from "react-router-dom";
+import "primereact/resources/themes/lara-light-cyan/theme.css";
+import { Card } from "primereact/card";
+
 const Login = ({ onLoginSuccess, setShowLogin, showLogin }) => {
     const { UserLogin } = useRequestDataProvider();
     const navigate = useNavigate();
@@ -23,7 +26,6 @@ const Login = ({ onLoginSuccess, setShowLogin, showLogin }) => {
         e.preventDefault();
         try {
             const response = await UserLogin(loginDetails);
-            console.log("Login successful:", response);
 
             if (response.token && response.userDetails) {
                 localStorage.setItem("userToken", response.token);
@@ -43,7 +45,7 @@ const Login = ({ onLoginSuccess, setShowLogin, showLogin }) => {
         }
     };
     return (
-        <div className={cssStyles.LoginContainer}>
+        <Card className={cssStyles.LoginContainer}>
             <form onSubmit={login} className={cssStyles.LoginForm}>
                 <div className={cssStyles.Title}>
                     <h1>Login</h1>
@@ -60,24 +62,19 @@ const Login = ({ onLoginSuccess, setShowLogin, showLogin }) => {
                     value={loginDetails.password}
                     onChange={handleInputChange}
                     placeholder="Password"
-                    type="password" // Use password type for security
+                    type="password"
                 />
                 <Button label="Login" />
             </form>
             <button
                 onClick={() => setShowLogin(!showLogin)}
                 className={cssStyles.toggleAuthButton}
-                style={{
-                    position: "absolute",
-                    bottom: "0",
-                    right: "0",
-                }}
             >
                 {!showLogin
                     ? "Need an account? Register"
                     : "Have an account? Login"}
             </button>
-        </div>
+        </Card>
     );
 };
 

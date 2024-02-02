@@ -11,6 +11,12 @@
     grid-template-columns: 25fr 1fr;
     align-items: center;
 }
+:global .p-menuitem-text {
+    a {
+        text-decoration: none;
+        color: #222;
+    }
+}
 .HideMenu {
     width: 35px;
     border-radius: 50%;

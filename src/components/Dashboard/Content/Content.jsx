@@ -15,8 +15,10 @@ import { buttonIcons } from "../../models/Icons/Icons";
 import Breadcrumb from "../../models/Widgets/Breadcrumb/Breadcrumb";
 import { Avatar } from "primereact/avatar";
 import { Menu } from "primereact/menu";
-
+import { Toast } from "primereact/toast";
+import { ConfirmDialog } from "primereact/confirmdialog";
 const Content = ({ hide, setClick, handleLogout, user }) => {
+    const toast = useRef(null);
     const [data, setData] = useState([]);
     const [productsByUser, setProductsByUser] = useState([]);
     const [getUserDetails, setGetUserDetails] = useState([]);
@@ -32,8 +34,10 @@ const Content = ({ hide, setClick, handleLogout, user }) => {
         productDelete,
         getProductByUser,
         getUserAvatars,
+        userDeleteById,
         loading,
         loadingCreateProduct,
+        loadingProducts,
         refetch,
     } = useRequestDataProvider();
 
@@ -79,7 +83,6 @@ const Content = ({ hide, setClick, handleLogout, user }) => {
         const fetchGetUserDetailsById = async () => {
             try {
                 const response = await userDetailsById(user.id);
-                console.log("response:", response);
                 setGetUserDetailById(response);
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -98,10 +101,11 @@ const Content = ({ hide, setClick, handleLogout, user }) => {
     }, []);
     const addNewProduct = (newProduct) => {
         setData((prevProducts) => [...prevProducts, newProduct]);
-        console.log(getUserDetailById, "getUserDetailById");
     };
     return (
         <div className={cssStyles.Content}>
+            <Toast ref={toast} />
+            <ConfirmDialog draggable={false} />
             <div className={cssStyles.BreadCrumbAndMenuBlock}>
                 <div className={cssStyles.HideMenu} onClick={() => setClick()}>
                     {buttonIcons[10].icon}
@@ -163,8 +167,7 @@ const Content = ({ hide, setClick, handleLogout, user }) => {
                     element={
                         <Products
                             products={data}
-                            loading={loading}
-                            loadingCreateProduct={loadingCreateProduct}
+                            loadingProducts={loadingProducts}
                             productDelete={productDelete}
                             setProducts={setData}
                             refetch={refetch}
@@ -187,7 +190,12 @@ const Content = ({ hide, setClick, handleLogout, user }) => {
                 <Route path="/statistics" element={<Statistics />} />
                 <Route
                     path="/admins"
-                    element={<Admins getUserDetails={getUserDetails} />}
+                    element={
+                        <Admins
+                            getUserDetails={getUserDetails}
+                            userDeleteOnClick={userDeleteById}
+                        />
+                    }
                 />
                 <Route path="/settings" element={<Settings />} />
                 <Route path="*" element={<div>error 404</div>} />

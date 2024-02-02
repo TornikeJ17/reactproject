@@ -5,11 +5,10 @@ import { buttonIcons, SVG } from "../../../Icons/Icons";
 // import Button from "../../../Widgets/Button/Button";
 import { Link } from "react-router-dom";
 import { Chart } from "primereact/chart";
-import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 import { Button } from "primereact/button";
-import { Toast } from "primereact/toast";
 import useRequestDataProvider from "../../../../api/useRequestDataProvider";
 import { Card } from "primereact/card";
+import { Image } from "primereact/image";
 const Home = ({
     products,
     loading,
@@ -20,9 +19,8 @@ const Home = ({
 }) => {
     const { capitalizeFirstLetter } = useRequestDataProvider();
     const [chartDataProducts, setChartDataProducts] = useState({});
-    const [chartDataAdmins, setChartDataAdmins] = useState({});
+    const [chartDataAdmins, setChartDataAdmins] = useState([]);
     const [chartOptions, setChartOptions] = useState({});
-    const toast = useRef(null);
 
     const dateObj = new Date();
     const month = dateObj.getMonth() + 1;
@@ -39,7 +37,9 @@ const Home = ({
         const getDrafts = () => {
             return products.filter((i) => i.productPublish === 0).length;
         };
-        console.log(products.filter((i) => i.productPublish === 0).length);
+        const getAdmins = () => {
+            return getUserDetails.filter((i) => i).length;
+        };
         const data = {
             labels: ["Published", "Drafts"],
             datasets: [
@@ -48,6 +48,21 @@ const Home = ({
                     data: [getPublish(), getDrafts()],
                     backgroundColor: ["#0891b2", "#06b6d4"],
                     borderColor: ["#0891b2", "#06b6d4"],
+                    borderWidth: 2,
+                    fill: false,
+                    tension: 3,
+                    borderDash: [1, 1],
+                },
+            ],
+        };
+        const dataAdmins = {
+            labels: ["Admins"],
+            datasets: [
+                {
+                    label: "Admins",
+                    data: [getAdmins()],
+                    backgroundColor: ["#0891b2"],
+                    borderColor: ["#0891b2"],
                     borderWidth: 2,
                     fill: false,
                     tension: 3,
@@ -91,18 +106,16 @@ const Home = ({
         };
 
         setChartDataProducts(data);
-        setChartDataAdmins();
+        setChartDataAdmins(dataAdmins);
         setChartOptions(options);
     };
     useEffect(() => {
         chartFunction();
-    }, [products]);
+    }, [products, getUserDetails]);
 
     return (
         <div className={cssStyles.MainContainer}>
             <div className={cssStyles.HomeContainer}>
-                <Toast ref={toast} />
-                <ConfirmDialog draggable={false} />
                 <div className={cssStyles.SmallCardsContainer}>
                     <Card>
                         <div className={cssStyles.CardsContainer}>
@@ -179,7 +192,7 @@ const Home = ({
                     <Card>
                         <Chart
                             type="pie"
-                            data={chartDataProducts}
+                            data={chartDataAdmins}
                             options={chartOptions}
                             className={cssStyles.Chart}
                         />
@@ -187,10 +200,24 @@ const Home = ({
                     <Card>
                         <div className={cssStyles.ProfileBlock}>
                             <div className={cssStyles.ProfileIMG}>
-                                <img
-                                    src={getUserDetailById?.imageUrls}
-                                    alt="man"
-                                />
+                                {!getUserDetailById?.imageUrls ? (
+                                    <Image
+                                        src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png"
+                                        alt="Image"
+                                        width="200"
+                                        height="200"
+                                        className={cssStyles.Avatar}
+                                    />
+                                ) : (
+                                    <Image
+                                        src={getUserDetailById?.imageUrls}
+                                        alt="Image"
+                                        width="200"
+                                        height="200"
+                                        className={cssStyles.Avatar}
+                                    />
+                                )}
+
                                 <div>
                                     <span className={cssStyles.ProfileName}>
                                         {capitalizeFirstLetter(user?.firstName)}{" "}

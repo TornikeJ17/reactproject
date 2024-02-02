@@ -96,10 +96,10 @@
     opacity: 0;
 }
 
-.ProductImg {
-    width: 100%;
-    height: 100%;
-    aspect-ratio: 1/1;
-    object-fit: fill;
-    border-radius: 10px 10px 0 0;
+.ProductImage {
+    img {
+        aspect-ratio: 1/1;
+        object-fit: fill;
+        border-radius: 10px;
+    }
 }

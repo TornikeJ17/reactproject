@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Card } from "primereact/card";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-const Admins = ({ getUserDetails }) => {
-    console.log(getUserDetails, "getUserDetails");
-
+import { Button } from "primereact/button";
+import { buttonIcons } from "../../../Icons/Icons";
+const Admins = ({ getUserDetails, userDeleteOnClick }) => {
     const getUserAvatar = (data) => {
         return (
             data.imageUrls && (
@@ -23,7 +23,6 @@ const Admins = ({ getUserDetails }) => {
         return (
             <div>
                 {data.firstName} {data.lastName}
-                {console.log(data, "data")}
             </div>
         );
     };
@@ -35,6 +34,15 @@ const Admins = ({ getUserDetails }) => {
             <div></div>
         ) : (
             <div>{data?.contactNumber}</div>
+        );
+    };
+    const deleteAdminById = (userId) => {
+        return (
+            <Button
+                severity="danger"
+                icon={buttonIcons[21].icon}
+                onClick={() => userDeleteOnClick(userId.id)}
+            />
         );
     };
     return (
@@ -65,6 +73,7 @@ const Admins = ({ getUserDetails }) => {
                     sortable
                     body={getContactNumber}
                 />
+                <Column field="delete" header="" body={deleteAdminById} />
             </DataTable>
         </Card>
     );

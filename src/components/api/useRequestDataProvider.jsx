@@ -2,11 +2,13 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const API_URL = "http://localhost:5130/api/";
+const API_URL_LOCAL = "http://localhost:7225/api/";
+const API_URL = "https://3522.somee.com/api/";
 
 const useRequestDataProvider = () => {
     const Navigate = useNavigate();
     const [loading, setLoading] = useState(false);
+    const [loadingProducts, setLoadingProducts] = useState(false);
     const [loadingCreateProduct, setLoadingCreateProduct] = useState(false);
     const [loadingDeleteProduct, setLoadingDeleteProduct] = useState(false);
     const [loadingByUser, setLoadingByUser] = useState(false);
@@ -90,14 +92,14 @@ const useRequestDataProvider = () => {
         }
     };
     const UserApi = async () => {
-        setLoading(true);
+        setLoadingProducts(true);
         try {
             const response = await axios.get(API_URL + "Product");
-            setLoading(false);
             return response.data;
         } catch (error) {
-            setLoading(false);
             console.log(error);
+        } finally {
+            setLoadingProducts(false);
         }
     };
     const userDetails = async () => {
@@ -179,6 +181,14 @@ const useRequestDataProvider = () => {
             }
         }
     };
+    const userDeleteById = async (id) => {
+        try {
+            const response = await axios.delete(API_URL + "User/" + id);
+            return response.data;
+        } catch (error) {
+            console.log(error);
+        }
+    };
     const capitalizeFirstLetter = (string) => {
         if (!string) return ""; // Check for null, undefined, and empty string
         return string.charAt(0).toUpperCase() + string.slice(1);
@@ -186,6 +196,7 @@ const useRequestDataProvider = () => {
     return {
         user,
         loading,
+        loadingProducts,
         loadingCreateProduct,
         loadingDeleteProduct,
         loadingByUser,
@@ -199,6 +210,7 @@ const useRequestDataProvider = () => {
         productCreateApi,
         productDelete,
         getProductByUser,
+        userDeleteById,
         capitalizeFirstLetter,
     };
 };

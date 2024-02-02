@@ -985,6 +985,67 @@ export const buttonIcons = [
             </svg>
         ),
     },
+    {
+        id: 18,
+        name: "Arrow >",
+        icon: (
+            <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <path
+                    d="m8.91 19.92 6.52-6.52c.77-.77.77-2.03 0-2.8L8.91 4.08"
+                    stroke="#a3aed0"
+                    stroke-width="1.5"
+                    stroke-miterlimit="10"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                />
+            </svg>
+        ),
+    },
+    {
+        id: 19,
+        name: "home",
+        icon: (
+            <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <path
+                    d="m20.04 6.82-5.76-4.03c-1.57-1.1-3.98-1.04-5.49.13L3.78 6.83c-1 .78-1.79 2.38-1.79 3.64v6.9c0 2.55 2.07 4.63 4.62 4.63h10.78c2.55 0 4.62-2.07 4.62-4.62V10.6c0-1.35-.87-3.01-1.97-3.78ZM12.75 18c0 .41-.34.75-.75.75s-.75-.34-.75-.75v-3c0-.41.34-.75.75-.75s.75.34.75.75v3Z"
+                    fill="#a3aed0"
+                />
+            </svg>
+        ),
+    },
+    {
+        id: 20,
+        name: "remove-user",
+        icon: (
+            <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <path
+                    d="M19.5 19h-4m-3.35-8.13c-.1-.01-.22-.01-.33 0a4.42 4.42 0 0 1-4.27-4.43C7.55 3.99 9.53 2 11.99 2a4.435 4.435 0 0 1 .16 8.87Zm-.16 10.94c-1.82 0-3.63-.46-5.01-1.38-2.42-1.62-2.42-4.26 0-5.87 2.75-1.84 7.26-1.84 10.01 0"
+                    stroke="#FFF"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                />
+            </svg>
+        ),
+    },
 ];
 
 export const radioItems = [

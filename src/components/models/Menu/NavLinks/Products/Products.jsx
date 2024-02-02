@@ -22,15 +22,23 @@ const Products = ({
     productDelete,
     loading,
     loadingCreateProduct,
+    loadingProducts,
 }) => {
-    const [first, setFirst] = useState(0);
-    const [rows, setRows] = useState(10);
+    const [firstAllProducts, setFirstAllProducts] = useState(0);
+    const [rowsAllProducts, setRowsAllProducts] = useState(10);
+    const [firstDrafts, setFirstDrafts] = useState(0);
+    const [rowsDrafts, setRowsDrafts] = useState(10);
     const [allProducts, setAllProducts] = useState([]);
     const [drafts, setDrafts] = useState([]);
     const navigate = useNavigate();
-    const onPageChange = (event) => {
-        setFirst(event.first);
-        setRows(event.rows);
+    const onPageChangeAllProducts = (event) => {
+        setFirstAllProducts(event.first);
+        setRowsAllProducts(event.rows);
+    };
+
+    const onPageChangeDrafts = (event) => {
+        setFirstDrafts(event.first);
+        setRowsDrafts(event.rows);
     };
     useEffect(() => {
         const handleResize = () => {};
@@ -43,9 +51,15 @@ const Products = ({
         setAllProducts(products.filter((i) => i.productPublish === 1));
         setDrafts(products.filter((i) => i.productPublish === 0));
     }, [products]);
-
-    const currentItemsAllProducts = allProducts?.slice(first, first + rows);
-    const currentItemsDrafts = drafts?.slice(first, first + rows);
+    products.filter((i) => console.log(i.productPublish, "i.productPublish"));
+    const currentItemsAllProducts = allProducts?.slice(
+        firstAllProducts,
+        firstAllProducts + rowsAllProducts
+    );
+    const currentItemsDrafts = drafts?.slice(
+        firstDrafts,
+        firstDrafts + rowsDrafts
+    );
     const listProduct = (productsget) => {
         const productPage = (rowData) => {
             navigate("/products/" + encodeURIComponent(rowData.productName));
@@ -53,14 +67,16 @@ const Products = ({
         const imageBodyTemplate = (rowData) => {
             const imageUrl =
                 rowData.imageUrls && rowData.imageUrls.length > 0
-                    ? `http://localhost:5130${rowData.imageUrls[0]}`
+                    ? `https://3522.somee.com${rowData.imageUrls[0]}`
                     : "default-image-url"; // Replace 'default-image-url' with the URL to a default image
 
             return (
-                <img
+                <Image
                     src={imageUrl}
-                    alt={rowData.productName}
-                    style={{ width: "80px" }}
+                    alt={rowData.name}
+                    width="100"
+                    height="100"
+                    className={cssStyles.ProductImage}
                 />
             );
         };
@@ -87,7 +103,14 @@ const Products = ({
             );
         };
 
-        return (
+        return loadingProducts ? (
+            <>
+                <Skeleton height="2rem" className="mb-2"></Skeleton>
+                <Skeleton height="2rem" className="mb-2"></Skeleton>
+                <Skeleton height="2rem" className="mb-2"></Skeleton>
+                <Skeleton height="2rem" className="mb-2"></Skeleton>
+            </>
+        ) : (
             <DataTable
                 value={productsget}
                 onRowClick={(e) => productPage(e.data)}
@@ -124,52 +147,29 @@ const Products = ({
     };
     return (
         <Card className={cssStyles.CardContainer}>
-            <TabView>
+            <TabView activeIndex={0}>
                 <TabPanel header={`All Products(${allProducts?.length})`}>
                     <div className={cssStyles.ProductItemContainer}>
                         {listProduct(currentItemsAllProducts)}
                     </div>
                     <Paginator
-                        first={first}
-                        rows={rows}
+                        first={firstAllProducts}
+                        rows={rowsAllProducts}
                         totalRecords={allProducts?.length}
-                        onPageChange={onPageChange}
+                        onPageChange={onPageChangeAllProducts}
+                        rowsPerPageOptions={allProducts ? [20, 40, 60] : []}
                     />
                 </TabPanel>
                 <TabPanel header={`Drafts(${drafts?.length})`}>
                     <div className={cssStyles.ProductItemContainer}>
-                        {loading ? (
-                            <>
-                                <Skeleton
-                                    shape="square"
-                                    size="15rem"
-                                ></Skeleton>
-                                <Skeleton
-                                    shape="square"
-                                    size="15rem"
-                                ></Skeleton>
-                                <Skeleton
-                                    shape="square"
-                                    size="15rem"
-                                ></Skeleton>
-                                <Skeleton
-                                    shape="square"
-                                    size="15rem"
-                                ></Skeleton>
-                                <Skeleton
-                                    shape="square"
-                                    size="15rem"
-                                ></Skeleton>
-                            </>
-                        ) : (
-                            listProduct(currentItemsDrafts)
-                        )}
+                        {listProduct(currentItemsDrafts)}
                     </div>
                     <Paginator
-                        first={first}
-                        rows={rows}
+                        first={firstDrafts}
+                        rows={rowsDrafts}
                         totalRecords={drafts?.length}
-                        onPageChange={onPageChange}
+                        onPageChange={onPageChangeDrafts}
+                        rowsPerPageOptions={drafts ? [20, 40, 60] : []}
                     />
                 </TabPanel>
                 <TabPanel
