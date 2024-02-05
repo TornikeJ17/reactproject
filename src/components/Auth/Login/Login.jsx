@@ -3,7 +3,7 @@ import cssStyles from "./Login.module.scss";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import useRequestDataProvider from "../../api/useRequestDataProvider";
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import { Card } from "primereact/card";
 
@@ -14,7 +14,10 @@ const Login = ({ onLoginSuccess, setShowLogin, showLogin }) => {
         email: "",
         password: "",
     });
-
+    const handleInputChangelogin = (e) => {
+        setShowLogin(true);
+        navigate("/register");
+    };
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setLoginDetails((prevState) => ({
@@ -67,7 +70,7 @@ const Login = ({ onLoginSuccess, setShowLogin, showLogin }) => {
                 <Button label="Login" />
             </form>
             <button
-                onClick={() => setShowLogin(!showLogin)}
+                onClick={() => handleInputChangelogin()}
                 className={cssStyles.toggleAuthButton}
             >
                 {!showLogin

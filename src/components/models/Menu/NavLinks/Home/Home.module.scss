@@ -153,7 +153,7 @@
 /* Medium desktops */
 @media only screen and (min-width: 1280px) and (max-width: 1599px) {
     .SmallCardsContainer {
-        grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(23%, 1fr));
     }
     .MediumCardsContainer {
         grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
@@ -162,7 +162,7 @@
 /* Large desktops and high-resolution displays */
 @media only screen and (min-width: 1600px) {
     .SmallCardsContainer {
-        grid-template-columns: repeat(auto-fill, minmax(24%, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(23%, 1fr));
     }
     .MediumCardsContainer {
         grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));

@@ -4,7 +4,7 @@ import Sidebar from "./components/Dashboard/Sidebar/Sidebar";
 import Content from "./components/Dashboard/Content/Content";
 import Login from "./components/Auth/Login/Login";
 import Register from "./components/Auth/Register/Register";
-import { useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 import { Toast } from "primereact/toast";
 
@@ -64,19 +64,27 @@ const App = () => {
     if (!isLoggedIn) {
         return (
             <div className={cssStyles.LoginRegisterContainer}>
-                {/* <BackgroundSVG /> */}
-                {!showLogin ? (
-                    <Login
-                        onLoginSuccess={handleLoginSuccess}
-                        setShowLogin={setShowLogin}
-                        showLogin={showLogin}
+                <Routes>
+                    <Route
+                        path="/"
+                        element={
+                            <Login
+                                onLoginSuccess={handleLoginSuccess}
+                                setShowLogin={setShowLogin}
+                                showLogin={showLogin}
+                            />
+                        }
                     />
-                ) : (
-                    <Register
-                        setShowLogin={setShowLogin}
-                        showLogin={showLogin}
+                    <Route
+                        path="/register"
+                        element={
+                            <Register
+                                setShowLogin={setShowLogin}
+                                showLogin={showLogin}
+                            />
+                        }
                     />
-                )}
+                </Routes>
             </div>
         );
     }

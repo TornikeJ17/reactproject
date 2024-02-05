@@ -3,7 +3,7 @@ import cssStyles from "./Register.module.scss";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import useRequestDataProvider from "../../api/useRequestDataProvider";
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 import { Card } from "primereact/card";
 const Register = ({ onLoginSuccess, setShowLogin, showLogin }) => {
     const { UserRegistration } = useRequestDataProvider();
@@ -22,11 +22,15 @@ const Register = ({ onLoginSuccess, setShowLogin, showLogin }) => {
             [name]: value,
         }));
     };
+    const handleInputChangelogin = (e) => {
+        setShowLogin(false);
+        navigate("/");
+    };
     const register = async (e) => {
         e.preventDefault();
         try {
-            const response = await UserRegistration(registerDetails);
-            // Handle success (e.g. navigate to dashboard, store token, etc.)
+            await UserRegistration(registerDetails);
+            redirect("/login"); // Handle success (e.g. navigate to dashboard, store token, etc.)
         } catch (error) {
             console.error("Error during registration:", error);
             // Handle error (e.g. show error message to the user)
@@ -36,7 +40,7 @@ const Register = ({ onLoginSuccess, setShowLogin, showLogin }) => {
         <Card className={cssStyles.RegisterContainer}>
             <form onSubmit={register} className={cssStyles.RegisterForm}>
                 <div className={cssStyles.Title}>
-                    <h1>Login</h1>
+                    <h1>Register</h1>
                     <h5>Please enter your details</h5>
                 </div>
                 <InputText
@@ -67,7 +71,7 @@ const Register = ({ onLoginSuccess, setShowLogin, showLogin }) => {
                 <Button label="Register" />
             </form>
             <button
-                onClick={() => setShowLogin(!showLogin)}
+                onClick={() => handleInputChangelogin()}
                 className={cssStyles.toggleAuthButton}
             >
                 {!showLogin

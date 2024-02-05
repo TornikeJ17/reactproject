@@ -32,6 +32,11 @@
         align-items: center;
     }
 }
+.TitleCreateProduct {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 .ProductEditorTitle {
     font-weight: 700;
     font-size: 20px;

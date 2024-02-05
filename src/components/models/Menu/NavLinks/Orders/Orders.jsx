@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import cssStyles from "./Orders.module.scss";
-import Cards from "../../../Widgets/Cards/Cards";
+import { Card } from "primereact/card";
 import { buttonIcons, orderIcons } from "../../../Icons/Icons";
 import { ordersItems } from "../../../../api/order";
 import StarRating from "../../../Widgets/StarRating/StarRating";
@@ -92,207 +92,161 @@ const Orders = () => {
     return (
         <div className={cssStyles.ContainerOrders}>
             <div className={cssStyles.Blocks}>
-                <Cards
-                    width={"100%"}
-                    height={"150px"}
-                    border={"20px"}
-                    element={
-                        <div className={cssStyles.OrderElementBlock}>
-                            <div>{orderIcons[0].icon}</div>
-                            <div className={cssStyles.OrderElementTitle}>
-                                Orders Completed
-                            </div>
-                            <div className={cssStyles.OrderElementText}>
-                                2345
-                            </div>
+                <Card>
+                    <div className={cssStyles.OrderElementBlock}>
+                        <div>{orderIcons[0].icon}</div>
+                        <div className={cssStyles.OrderElementTitle}>
+                            Orders Completed
                         </div>
-                    }
-                />
-                <Cards
-                    width={"100%"}
-                    height={"150px"}
-                    border={"20px"}
-                    element={
-                        <div className={cssStyles.OrderElementBlock}>
-                            <div>{orderIcons[1].icon}</div>
-                            <div className={cssStyles.OrderElementTitle}>
-                                Orders Confirmed
-                            </div>
-                            <div className={cssStyles.OrderElementText}>
-                                323
-                            </div>
+                        <div className={cssStyles.OrderElementText}>2345</div>
+                    </div>
+                </Card>
+                <Card>
+                    <div className={cssStyles.OrderElementBlock}>
+                        <div>{orderIcons[1].icon}</div>
+                        <div className={cssStyles.OrderElementTitle}>
+                            Orders Confirmed
                         </div>
-                    }
-                />
-                <Cards
-                    width={"100%"}
-                    height={"150px"}
-                    border={"20px"}
-                    element={
-                        <div className={cssStyles.OrderElementBlock}>
-                            <div>{orderIcons[2].icon}</div>
-                            <div className={cssStyles.OrderElementTitle}>
-                                Orders Canceled
-                            </div>
-                            <div className={cssStyles.OrderElementText}>17</div>
+                        <div className={cssStyles.OrderElementText}>323</div>
+                    </div>
+                </Card>
+                <Card>
+                    <div className={cssStyles.OrderElementBlock}>
+                        <div>{orderIcons[2].icon}</div>
+                        <div className={cssStyles.OrderElementTitle}>
+                            Orders Canceled
                         </div>
-                    }
-                />
-                <Cards
-                    width={"100%"}
-                    height={"150px"}
-                    border={"20px"}
-                    element={
-                        <div className={cssStyles.OrderElementBlock}>
-                            <div>{orderIcons[3].icon}</div>
-                            <div className={cssStyles.OrderElementTitle}>
-                                Orders Refunded{" "}
-                            </div>
-                            <div className={cssStyles.OrderElementText}>2</div>
+                        <div className={cssStyles.OrderElementText}>17</div>
+                    </div>
+                </Card>
+                <Card>
+                    <div className={cssStyles.OrderElementBlock}>
+                        <div>{orderIcons[3].icon}</div>
+                        <div className={cssStyles.OrderElementTitle}>
+                            Orders Refunded{" "}
                         </div>
-                    }
-                />
+                        <div className={cssStyles.OrderElementText}>2</div>
+                    </div>
+                </Card>
             </div>
             <div className={cssStyles.SecondBlock}>
-                <Cards
-                    width={"100%"}
-                    height={"800px"}
-                    border={"20px"}
-                    element={
-                        <div className={cssStyles.OrderHeightBlock}>
-                            <div className={cssStyles.OrderFilterContainer}>
-                                <Dropdown
-                                    select={selectStatus}
-                                    options={orderOptions}
-                                    onChange={handleDropdown}
-                                    width={150}
-                                />
-                                <Dropdown
-                                    select={selectCategory}
-                                    options={categoryOptions}
-                                    onChange={handleDropdownCategory}
-                                    width={150}
-                                />
-                            </div>
-                            <div className={cssStyles.gridtable}>
-                                <div className={cssStyles.gridtableBlock}>
-                                    <div className={cssStyles.header}>
-                                        Order
-                                    </div>
-                                    <div className={cssStyles.header}>
-                                        Product
-                                    </div>
-                                    <div className={cssStyles.header}>SKU</div>
-                                    <div className={cssStyles.header}>
-                                        Category
-                                    </div>
-                                    <div className={cssStyles.header}>
-                                        Payment
-                                    </div>
-                                    <div className={cssStyles.header}>
-                                        Order Status
-                                    </div>
-                                    <div className={cssStyles.header}>Rate</div>
-                                    <div className={cssStyles.header}>
-                                        Actions
-                                    </div>
+                <Card>
+                    <div className={cssStyles.OrderHeightBlock}>
+                        <div className={cssStyles.OrderFilterContainer}>
+                            <Dropdown
+                                select={selectStatus}
+                                options={orderOptions}
+                                onChange={handleDropdown}
+                                width={150}
+                            />
+                            <Dropdown
+                                select={selectCategory}
+                                options={categoryOptions}
+                                onChange={handleDropdownCategory}
+                                width={150}
+                            />
+                        </div>
+                        <div className={cssStyles.gridtable}>
+                            <div className={cssStyles.gridtableBlock}>
+                                <div className={cssStyles.header}>Order</div>
+                                <div className={cssStyles.header}>Product</div>
+                                <div className={cssStyles.header}>SKU</div>
+                                <div className={cssStyles.header}>Category</div>
+                                <div className={cssStyles.header}>Payment</div>
+                                <div className={cssStyles.header}>
+                                    Order Status
                                 </div>
-                                {currentItems
-                                    .filter(
-                                        (f) =>
-                                            (selectStatus === null ||
-                                                f.status === selectStatus) &&
-                                            (selectCategory === null ||
-                                                f.category === selectCategory)
-                                    )
-                                    .map((item) => {
-                                        const statusColor = colors[item.status]
-                                            ? colors[item.status].id
-                                            : "#A1A1A1";
+                                <div className={cssStyles.header}>Rate</div>
+                                <div className={cssStyles.header}>Actions</div>
+                            </div>
+                            {currentItems
+                                .filter(
+                                    (f) =>
+                                        (selectStatus === null ||
+                                            f.status === selectStatus) &&
+                                        (selectCategory === null ||
+                                            f.category === selectCategory)
+                                )
+                                .map((item) => {
+                                    const statusColor = colors[item.status]
+                                        ? colors[item.status].id
+                                        : "#A1A1A1";
 
-                                        return (
-                                            <div
-                                                className={cssStyles.orderList}
-                                            >
-                                                <div>#{item.id}</div>
-                                                <div>
-                                                    <img
-                                                        style={{
-                                                            width: "70px",
-                                                            height: "70px",
-                                                        }}
-                                                        src={item.icon}
-                                                        alt="s"
-                                                    />
-                                                </div>
-                                                <div>{item.sku}</div>
-                                                <div>{item.category}</div>
-                                                <div>{item.payment}</div>
-                                                <div>
-                                                    <span
-                                                        style={{
-                                                            background:
-                                                                statusColor,
-                                                        }}
-                                                        className={
-                                                            cssStyles.StatusColor
-                                                        }
-                                                    >
-                                                        {item.status === 0
-                                                            ? "Completed"
-                                                            : item.status === 1
-                                                            ? "Confirmed"
-                                                            : item.status === 2
-                                                            ? "Canceled"
-                                                            : item.status === 3
-                                                            ? "Refunded"
-                                                            : ""}
-                                                    </span>
-                                                </div>
-
-                                                <div>
-                                                    {
-                                                        <StarRating
-                                                            totalStars={5}
-                                                            initialRating={
-                                                                item.rate
-                                                            }
-                                                            onRate={(rating) =>
-                                                                console.log(
-                                                                    `Rated: ${rating}`
-                                                                )
-                                                            }
-                                                        />
-                                                    }
-                                                </div>
-                                                <div
+                                    return (
+                                        <div className={cssStyles.orderList}>
+                                            <div>#{item.id}</div>
+                                            <div>
+                                                <img
+                                                    style={{
+                                                        width: "70px",
+                                                        height: "70px",
+                                                    }}
+                                                    src={item.icon}
+                                                    alt="s"
+                                                />
+                                            </div>
+                                            <div>{item.sku}</div>
+                                            <div>{item.category}</div>
+                                            <div>{item.payment}</div>
+                                            <div>
+                                                <span
+                                                    style={{
+                                                        background: statusColor,
+                                                    }}
                                                     className={
-                                                        cssStyles.actions
+                                                        cssStyles.StatusColor
                                                     }
                                                 >
-                                                    <span
-                                                        className={
-                                                            cssStyles.orderViewIcon
-                                                        }
-                                                    >
-                                                        {orderIcons[4].icon}
-                                                    </span>
-                                                    <span
-                                                        className={
-                                                            cssStyles.orderRemoveIcon
-                                                        }
-                                                        onClick={handleModal}
-                                                    >
-                                                        {orderIcons[5].icon}
-                                                    </span>
-                                                </div>
+                                                    {item.status === 0
+                                                        ? "Completed"
+                                                        : item.status === 1
+                                                        ? "Confirmed"
+                                                        : item.status === 2
+                                                        ? "Canceled"
+                                                        : item.status === 3
+                                                        ? "Refunded"
+                                                        : ""}
+                                                </span>
                                             </div>
-                                        );
-                                    })}
-                            </div>
+
+                                            <div>
+                                                {
+                                                    <StarRating
+                                                        totalStars={5}
+                                                        initialRating={
+                                                            item.rate
+                                                        }
+                                                        onRate={(rating) =>
+                                                            console.log(
+                                                                `Rated: ${rating}`
+                                                            )
+                                                        }
+                                                    />
+                                                }
+                                            </div>
+                                            <div className={cssStyles.actions}>
+                                                <span
+                                                    className={
+                                                        cssStyles.orderViewIcon
+                                                    }
+                                                >
+                                                    {orderIcons[4].icon}
+                                                </span>
+                                                <span
+                                                    className={
+                                                        cssStyles.orderRemoveIcon
+                                                    }
+                                                    onClick={handleModal}
+                                                >
+                                                    {orderIcons[5].icon}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
                         </div>
-                    }
-                />
+                    </div>
+                </Card>
             </div>
         </div>
     );

@@ -1,7 +1,6 @@
 ﻿import React, { useRef, useState } from "react";
 import cssStyles from "./ProductCreate.module.scss";
-import Cards from "../../../../Widgets/Cards/Cards";
-import Images from "../../../../Widgets/Images/Images";
+import { Card } from "primereact/card";
 import { buttonIcons, radioItems } from "../../../../Icons/Icons";
 import { Link, useNavigate } from "react-router-dom";
 import useRequestDataProvider from "../../../../../api/useRequestDataProvider";
@@ -237,279 +236,270 @@ const ProductCreate = ({ addNewProduct, user }) => {
             <Toast ref={toastTopRight} position="top-right"></Toast>
 
             <div>
-                <Cards
-                    width={"100%"}
-                    height={"100%"}
-                    border={"20px"}
-                    element={
-                        <form
-                            onSubmit={createFunction}
-                            className={cssStyles.ProductEditorContainer}
-                        >
-                            <div className={cssStyles.ProductEditorTitle}>
-                                Create Product
-                            </div>
-                            <div className={cssStyles.BackButton}>
-                                <Link to={"/products"}>
-                                    {buttonIcons[14].icon}
-                                </Link>
-                            </div>
-                            <div className={cssStyles.firstBlockGrid}>
-                                <span className="p-float-label">
-                                    <InputText
-                                        onChange={(e) => {
-                                            setProductCreate({
-                                                ...productCreate,
-                                                ProductName: e.target.value,
-                                            });
-                                            setValidationErrors((prev) => ({
-                                                ...prev,
-                                                ProductName: false,
-                                            }));
-                                        }}
-                                        className={
-                                            validationErrors.ProductName
-                                                ? "p-invalid"
-                                                : ""
-                                        }
-                                    />
-                                    <label htmlFor="Product Name">
-                                        Product Name
-                                    </label>
-                                    <div style={{ position: "absolute" }}>
-                                        {validationErrors.ProductName && (
-                                            <small className="p-error">
-                                                Product Name is required.
-                                            </small>
-                                        )}
-                                    </div>
-                                </span>
-                                <div className={cssStyles.ProductStatusInput}>
-                                    <span className="p-float-label">
-                                        <InputText
-                                            value={productCreate.ProductPrice}
-                                            onChange={(e) => {
-                                                setProductCreate({
-                                                    ...productCreate,
-                                                    ProductPrice:
-                                                        e.target.value,
-                                                });
-                                                setValidationErrors((prev) => ({
-                                                    ...prev,
-                                                    ProductPrice: false,
-                                                }));
-                                            }}
-                                            keyfilter={"money"}
-                                            className={
-                                                validationErrors.ProductPrice
-                                                    ? "p-invalid"
-                                                    : ""
-                                            }
-                                        />
-                                        <label htmlFor="Product Price">
-                                            Product Price
-                                        </label>
-                                        <div style={{ position: "absolute" }}>
-                                            {validationErrors.ProductPrice && (
-                                                <small className="p-error">
-                                                    Product Price is required.
-                                                </small>
-                                            )}
-                                        </div>
-                                    </span>
-
-                                    <span className="p-float-label">
-                                        <InputText
-                                            value={productCreate.ProductCode}
-                                            onChange={(e) => {
-                                                setProductCreate({
-                                                    ...productCreate,
-                                                    ProductCode: e.target.value,
-                                                });
-                                                setValidationErrors((prev) => ({
-                                                    ...prev,
-                                                    ProductCode: false,
-                                                }));
-                                            }}
-                                            className={
-                                                validationErrors.ProductCode
-                                                    ? "p-invalid"
-                                                    : ""
-                                            }
-                                        />
-                                        <label htmlFor="Product Code">
-                                            Product Code
-                                        </label>
-                                        <div style={{ position: "absolute" }}>
-                                            {validationErrors.ProductCode && (
-                                                <small className="p-error">
-                                                    Product Code is required.
-                                                </small>
-                                            )}
-                                        </div>
-                                    </span>
-
-                                    <span className="p-float-label">
-                                        <InputText
-                                            value={productCreate.ProductSKU}
-                                            onChange={(e) => {
-                                                setProductCreate({
-                                                    ...productCreate,
-                                                    ProductSKU: e.target.value,
-                                                });
-                                                setValidationErrors((prev) => ({
-                                                    ...prev,
-                                                    ProductSKU: false,
-                                                }));
-                                            }}
-                                            className={
-                                                validationErrors.ProductSKU
-                                                    ? "p-invalid"
-                                                    : ""
-                                            }
-                                        />
-                                        <label htmlFor="Product SKU">
-                                            Product SKU
-                                        </label>
-                                        <div style={{ position: "absolute" }}>
-                                            {validationErrors.ProductSKU && (
-                                                <small className="p-error">
-                                                    Product SKU is required.
-                                                </small>
-                                            )}
-                                        </div>
-                                    </span>
-                                </div>
-                                <Editor
-                                    style={{ height: "400px" }}
-                                    headerTemplate={header}
+                <Card>
+                    <div className={cssStyles.TitleCreateProduct}>
+                        <div className={cssStyles.ProductEditorTitle}>
+                            Create Product
+                        </div>
+                        <div className={cssStyles.BackButton}>
+                            <Link to={"/products"}>{buttonIcons[14].icon}</Link>
+                        </div>
+                    </div>
+                    <form
+                        onSubmit={createFunction}
+                        className={cssStyles.ProductEditorContainer}
+                    >
+                        <div className={cssStyles.firstBlockGrid}>
+                            <span className="p-float-label">
+                                <InputText
+                                    onChange={(e) => {
+                                        setProductCreate({
+                                            ...productCreate,
+                                            ProductName: e.target.value,
+                                        });
+                                        setValidationErrors((prev) => ({
+                                            ...prev,
+                                            ProductName: false,
+                                        }));
+                                    }}
                                     className={
-                                        validationErrors.ProductPrice
+                                        validationErrors.ProductName
                                             ? "p-invalid"
                                             : ""
                                     }
-                                    value={productCreate.ProductDescription}
-                                    onTextChange={handleDescriptionChange}
                                 />
-
-                                <div className="card">
-                                    <FileUpload
-                                        name="imageFiles"
-                                        customUpload={true}
-                                        auto={false}
-                                        onSelect={handleUpload}
-                                        multiple
-                                        accept="image/*"
-                                        maxFileSize={5000000}
-                                        emptyTemplate={
-                                            <p className="m-0">
-                                                Drag and drop files here to
-                                                upload.
-                                            </p>
-                                        }
+                                <label htmlFor="Product Name">
+                                    Product Name
+                                </label>
+                                <div style={{ position: "absolute" }}>
+                                    {validationErrors.ProductName && (
+                                        <small className="p-error">
+                                            Product Name is required.
+                                        </small>
+                                    )}
+                                </div>
+                            </span>
+                            <div className={cssStyles.ProductStatusInput}>
+                                <span className="p-float-label">
+                                    <InputText
+                                        value={productCreate.ProductPrice}
+                                        onChange={(e) => {
+                                            setProductCreate({
+                                                ...productCreate,
+                                                ProductPrice: e.target.value,
+                                            });
+                                            setValidationErrors((prev) => ({
+                                                ...prev,
+                                                ProductPrice: false,
+                                            }));
+                                        }}
+                                        keyfilter={"money"}
                                         className={
                                             validationErrors.ProductPrice
                                                 ? "p-invalid"
                                                 : ""
                                         }
                                     />
-                                </div>
-                            </div>
-                            <div className={cssStyles.ProductEditorInputsBlock}>
-                                <div className={cssStyles.ProductEditorPanels}>
-                                    <Panel header="Status">
-                                        <Dropdown
-                                            value={productPublish.find(
-                                                (publish) =>
-                                                    publish.code ===
-                                                    productCreate.ProductPublish
-                                            )}
-                                            onChange={handlePublishChange}
-                                            options={productPublish}
-                                            optionLabel="name"
-                                            placeholder="Select status"
-                                            className={
-                                                validationErrors.ProductTags
-                                                    ? "p-invalid"
-                                                    : ""
-                                            }
-                                        />
-                                    </Panel>
-                                    <Panel header="Tags">
-                                        <Dropdown
-                                            value={productTagsDropdown.find(
-                                                (tags) =>
-                                                    tags.code ===
-                                                    productCreate.ProductTags
-                                            )}
-                                            onChange={handleTagsChange}
-                                            options={productTagsDropdown}
-                                            optionLabel="name"
-                                            placeholder="Select tags"
-                                            className={
-                                                validationErrors.ProductTags
-                                                    ? "p-invalid"
-                                                    : ""
-                                            }
-                                        />
-                                    </Panel>
-                                    <Panel header="Cagegory" className="w-full">
-                                        <Dropdown
-                                            value={productCategoryDropdown.find(
-                                                (category) =>
-                                                    category.code ===
-                                                    productCreate.ProductCategory
-                                            )}
-                                            onChange={handleCategoryChange}
-                                            options={productCategoryDropdown}
-                                            optionLabel="name"
-                                            placeholder="Select category"
-                                            className={
-                                                validationErrors.ProductCategory
-                                                    ? "p-invalid"
-                                                    : ""
-                                            }
-                                        />
-                                    </Panel>
-                                    <Panel
-                                        className={cssStyles.PanelInStock}
-                                        unstyled
-                                    >
-                                        <p className={cssStyles.inStockFont}>
-                                            in stock
-                                        </p>
-                                        <InputSwitch
-                                            checked={productCreate.inStock}
-                                            onChange={(e) =>
-                                                setProductCreate({
-                                                    ...productCreate,
-                                                    inStock: e.value,
-                                                })
-                                            }
-                                        />
-                                    </Panel>
-                                </div>
-                                <div
-                                    className={
-                                        cssStyles.ProductEditorButtonsBlock
-                                    }
-                                >
-                                    <Link
-                                        to={"/products"}
-                                        className={cssStyles.BackButtonClick}
-                                    >
-                                        <span>Back</span>
-                                    </Link>
-                                    <Button
-                                        type={"submit"}
-                                        label={"Create"}
-                                        icon={buttonIcons[11].icon}
+                                    <label htmlFor="Product Price">
+                                        Product Price
+                                    </label>
+                                    <div style={{ position: "absolute" }}>
+                                        {validationErrors.ProductPrice && (
+                                            <small className="p-error">
+                                                Product Price is required.
+                                            </small>
+                                        )}
+                                    </div>
+                                </span>
+
+                                <span className="p-float-label">
+                                    <InputText
+                                        value={productCreate.ProductCode}
+                                        onChange={(e) => {
+                                            setProductCreate({
+                                                ...productCreate,
+                                                ProductCode: e.target.value,
+                                            });
+                                            setValidationErrors((prev) => ({
+                                                ...prev,
+                                                ProductCode: false,
+                                            }));
+                                        }}
+                                        className={
+                                            validationErrors.ProductCode
+                                                ? "p-invalid"
+                                                : ""
+                                        }
                                     />
-                                </div>
+                                    <label htmlFor="Product Code">
+                                        Product Code
+                                    </label>
+                                    <div style={{ position: "absolute" }}>
+                                        {validationErrors.ProductCode && (
+                                            <small className="p-error">
+                                                Product Code is required.
+                                            </small>
+                                        )}
+                                    </div>
+                                </span>
+
+                                <span className="p-float-label">
+                                    <InputText
+                                        value={productCreate.ProductSKU}
+                                        onChange={(e) => {
+                                            setProductCreate({
+                                                ...productCreate,
+                                                ProductSKU: e.target.value,
+                                            });
+                                            setValidationErrors((prev) => ({
+                                                ...prev,
+                                                ProductSKU: false,
+                                            }));
+                                        }}
+                                        className={
+                                            validationErrors.ProductSKU
+                                                ? "p-invalid"
+                                                : ""
+                                        }
+                                    />
+                                    <label htmlFor="Product SKU">
+                                        Product SKU
+                                    </label>
+                                    <div style={{ position: "absolute" }}>
+                                        {validationErrors.ProductSKU && (
+                                            <small className="p-error">
+                                                Product SKU is required.
+                                            </small>
+                                        )}
+                                    </div>
+                                </span>
                             </div>
-                        </form>
-                    }
-                />
+                            <Editor
+                                style={{ height: "400px" }}
+                                headerTemplate={header}
+                                className={
+                                    validationErrors.ProductPrice
+                                        ? "p-invalid"
+                                        : ""
+                                }
+                                value={productCreate.ProductDescription}
+                                onTextChange={handleDescriptionChange}
+                            />
+
+                            <div className="card">
+                                <FileUpload
+                                    name="imageFiles"
+                                    customUpload={true}
+                                    auto={false}
+                                    onSelect={handleUpload}
+                                    multiple
+                                    accept="image/*"
+                                    maxFileSize={5000000}
+                                    emptyTemplate={
+                                        <p className="m-0">
+                                            Drag and drop files here to upload.
+                                        </p>
+                                    }
+                                    className={
+                                        validationErrors.ProductPrice
+                                            ? "p-invalid"
+                                            : ""
+                                    }
+                                />
+                            </div>
+                        </div>
+                        <div className={cssStyles.ProductEditorInputsBlock}>
+                            <div className={cssStyles.ProductEditorPanels}>
+                                <Panel header="Status">
+                                    <Dropdown
+                                        value={productPublish.find(
+                                            (publish) =>
+                                                publish.code ===
+                                                productCreate.ProductPublish
+                                        )}
+                                        onChange={handlePublishChange}
+                                        options={productPublish}
+                                        optionLabel="name"
+                                        placeholder="Select status"
+                                        className={
+                                            validationErrors.ProductTags
+                                                ? "p-invalid"
+                                                : ""
+                                        }
+                                    />
+                                </Panel>
+                                <Panel header="Tags">
+                                    <Dropdown
+                                        value={productTagsDropdown.find(
+                                            (tags) =>
+                                                tags.code ===
+                                                productCreate.ProductTags
+                                        )}
+                                        onChange={handleTagsChange}
+                                        options={productTagsDropdown}
+                                        optionLabel="name"
+                                        placeholder="Select tags"
+                                        className={
+                                            validationErrors.ProductTags
+                                                ? "p-invalid"
+                                                : ""
+                                        }
+                                    />
+                                </Panel>
+                                <Panel header="Cagegory" className="w-full">
+                                    <Dropdown
+                                        value={productCategoryDropdown.find(
+                                            (category) =>
+                                                category.code ===
+                                                productCreate.ProductCategory
+                                        )}
+                                        onChange={handleCategoryChange}
+                                        options={productCategoryDropdown}
+                                        optionLabel="name"
+                                        placeholder="Select category"
+                                        className={
+                                            validationErrors.ProductCategory
+                                                ? "p-invalid"
+                                                : ""
+                                        }
+                                    />
+                                </Panel>
+                                <Panel
+                                    className={cssStyles.PanelInStock}
+                                    unstyled
+                                >
+                                    <p className={cssStyles.inStockFont}>
+                                        in stock
+                                    </p>
+                                    <InputSwitch
+                                        checked={productCreate.inStock}
+                                        onChange={(e) =>
+                                            setProductCreate({
+                                                ...productCreate,
+                                                inStock: e.value,
+                                            })
+                                        }
+                                    />
+                                </Panel>
+                            </div>
+                            <div
+                                className={cssStyles.ProductEditorButtonsBlock}
+                            >
+                                <Link
+                                    to={"/products"}
+                                    className={cssStyles.BackButtonClick}
+                                >
+                                    <span>Back</span>
+                                </Link>
+                                <Button
+                                    type={"submit"}
+                                    label={"Create"}
+                                    icon={buttonIcons[11].icon}
+                                />
+                            </div>
+                        </div>
+                    </form>
+                </Card>
             </div>
         </div>
     );

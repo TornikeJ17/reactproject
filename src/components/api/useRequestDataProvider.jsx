@@ -21,6 +21,7 @@ const useRequestDataProvider = () => {
                 API_URL + "User/register",
                 registrationDetails
             );
+            Navigate("/");
             setLoading(false);
             if (response.status === 201) {
                 alert("Registration successful!");
