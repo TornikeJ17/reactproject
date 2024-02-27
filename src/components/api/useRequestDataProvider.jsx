@@ -2,18 +2,26 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const API_URL_LOCAL = "http://localhost:7225/api/";
+const API_URL_Local = "https://localhost:7225/api/";
 const API_URL = "https://3522.somee.com/api/";
 
 const useRequestDataProvider = () => {
+    const [getUserDetails, setGetUserDetails] = useState([]);
+    const [updateUserDetails, setUpdateUserDetails] = useState({});
+    const [getProductId, setGetProductId] = useState({});
+
     const Navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [loadingProducts, setLoadingProducts] = useState(false);
     const [loadingCreateProduct, setLoadingCreateProduct] = useState(false);
+    const [LoadingUpdateProduct, setLoadingUpdateProduct] = useState(false);
     const [loadingDeleteProduct, setLoadingDeleteProduct] = useState(false);
     const [loadingByUser, setLoadingByUser] = useState(false);
+    const [loadingUpdateUser, setLoadingUpdateUser] = useState(false);
+    const [loadingDeleteAdmin, setLoadingDeleteAdmin] = useState(false);
     const [user, setUser] = useState({});
 
+    //! USER REGISTRATION
     const UserRegistration = async (registrationDetails) => {
         setLoading(true);
         try {
@@ -42,6 +50,9 @@ const useRequestDataProvider = () => {
             }
         }
     };
+    //! USER REGISTRATION
+
+    //! USER LOGIN
     const UserLogin = async (loginDetails) => {
         setLoading(true);
         try {
@@ -81,6 +92,8 @@ const useRequestDataProvider = () => {
             return null;
         }
     };
+    //! USER LOGIN
+
     const getProductByUser = (userId) => {
         setLoadingByUser(true);
         try {
@@ -141,6 +154,35 @@ const useRequestDataProvider = () => {
         }
     };
 
+    const productUpdateApi = async (productId, formData) => {
+        setLoadingUpdateProduct(true);
+        try {
+            const response = await axios.put(
+                API_URL + "Product/" + productId,
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                }
+            );
+            setLoadingUpdateProduct(false);
+            return response.data;
+        } catch (error) {
+            setLoadingUpdateProduct(false);
+            return { error: error.response.data, status: "error" };
+        }
+    };
+
+    const getProductById = async (productId) => {
+        try {
+            const response = await axios.get(API_URL + "Product/" + productId);
+            setGetProductId(response.data);
+            return response.data;
+        } catch (error) {
+            console.log(error);
+        }
+    };
     const productDelete = async (productId) => {
         setLoadingDeleteProduct(true);
         const url = API_URL + "Product/" + productId;
@@ -155,7 +197,7 @@ const useRequestDataProvider = () => {
         }
     };
     const userDetailsUpdate = async (userId, formData) => {
-        setLoading(true);
+        setLoadingUpdateUser(true);
         const config = {
             headers: {
                 "Content-Type": "multipart/form-data",
@@ -167,12 +209,12 @@ const useRequestDataProvider = () => {
                 formData,
                 config
             );
-            setLoading(false);
+            setLoadingUpdateUser(false);
             console.log("Profile updated successfully:", response.data);
-            alert("Profile updated successfully"); // Display success message
+
             return response.data;
         } catch (error) {
-            setLoading(false);
+            setLoadingUpdateUser(false);
             if (error.response) {
                 console.error("Error updating profile:", error.response.data);
                 alert("Error updating profile: " + error.response.data.message); // Display error message
@@ -182,11 +224,17 @@ const useRequestDataProvider = () => {
             }
         }
     };
-    const userDeleteById = async (id) => {
+    const userDeleteById = async (adminId, setGetUserDetails) => {
+        setLoadingDeleteAdmin(true);
         try {
-            const response = await axios.delete(API_URL + "User/" + id);
+            setLoadingDeleteAdmin(false);
+            const response = await axios.delete(API_URL + "User/" + adminId);
+            setGetUserDetails((currentDetails) =>
+                currentDetails.filter((userDetail) => userDetail.id !== adminId)
+            );
             return response.data;
         } catch (error) {
+            setLoadingDeleteAdmin(false);
             console.log(error);
         }
     };
@@ -199,8 +247,11 @@ const useRequestDataProvider = () => {
         loading,
         loadingProducts,
         loadingCreateProduct,
+        LoadingUpdateProduct,
         loadingDeleteProduct,
         loadingByUser,
+        loadingDeleteAdmin,
+        loadingUpdateUser,
         UserRegistration,
         UserLogin,
         UserApi,
@@ -209,10 +260,17 @@ const useRequestDataProvider = () => {
         userDetailsById,
         getUserAvatars,
         productCreateApi,
+        productUpdateApi,
+        getProductById,
+        getProductId,
         productDelete,
         getProductByUser,
         userDeleteById,
         capitalizeFirstLetter,
+        setGetUserDetails,
+        getUserDetails,
+        updateUserDetails,
+        setUpdateUserDetails,
     };
 };
 

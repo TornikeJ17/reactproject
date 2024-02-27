@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
-import Cards from "../../../Widgets/Cards/Cards";
 import cssStyles from "./Home.module.scss";
 import { buttonIcons, SVG } from "../../../Icons/Icons";
-// import Button from "../../../Widgets/Button/Button";
 import { Link } from "react-router-dom";
 import { Chart } from "primereact/chart";
 import { Button } from "primereact/button";
@@ -109,10 +107,61 @@ const Home = ({
         setChartDataAdmins(dataAdmins);
         setChartOptions(options);
     };
+    const responsiveOptions = [
+        {
+            breakpoint: "1400px",
+            numVisible: 2,
+            numScroll: 1,
+        },
+        {
+            breakpoint: "1199px",
+            numVisible: 3,
+            numScroll: 1,
+        },
+        {
+            breakpoint: "767px",
+            numVisible: 2,
+            numScroll: 1,
+        },
+        {
+            breakpoint: "575px",
+            numVisible: 1,
+            numScroll: 1,
+        },
+    ];
     useEffect(() => {
         chartFunction();
     }, [products, getUserDetails]);
 
+    const productTemplate = (product) => {
+        return (
+            <div>
+                <div>
+                    <Image
+                        width="250"
+                        height="250"
+                        style={{ borderRadius: "10px" }}
+                        src={`https://3522.somee.com${product.imageUrls}`}
+                        alt={product.name}
+                    />
+                </div>
+                <div>
+                    <h4>{product.name}</h4>
+                    <h6 className="mt-0 mb-3">${product.price}</h6>
+                    <div className="mt-5 flex flex-wrap gap-2 justify-content-center">
+                        <Button
+                            icon="pi pi-search"
+                            className="p-button p-button-rounded"
+                        />
+                        <Button
+                            icon="pi pi-star-fill"
+                            className="p-button-success p-button-rounded"
+                        />
+                    </div>
+                </div>
+            </div>
+        );
+    };
     return (
         <div className={cssStyles.MainContainer}>
             <div className={cssStyles.HomeContainer}>
@@ -250,14 +299,17 @@ const Home = ({
                     </Card>
                 </div>
                 <div className={cssStyles.MediumCardsContainerSecond}>
-                    <Card>
-                        <Chart
-                            type="bar"
-                            data={chartDataProducts}
-                            options={chartOptions}
-                            className={cssStyles.Chart}
-                        />
-                    </Card>
+                    <Card
+                        footer={
+                            <Chart
+                                type="line"
+                                data={chartDataProducts}
+                                options={chartOptions}
+                                className={cssStyles.Chart}
+                            />
+                        }
+                    />
+
                     <Card>
                         <Chart
                             type="line"

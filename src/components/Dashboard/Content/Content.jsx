@@ -17,13 +17,15 @@ import { Avatar } from "primereact/avatar";
 import { Menu } from "primereact/menu";
 import { Toast } from "primereact/toast";
 import { ConfirmDialog } from "primereact/confirmdialog";
+import ProductUpdate from "../../models/Menu/NavLinks/Products/ProductUpdate/ProductUpdate";
+
 const Content = ({ hide, setClick, handleLogout, user }) => {
     const toast = useRef(null);
     const [data, setData] = useState([]);
     const [productsByUser, setProductsByUser] = useState([]);
-    const [getUserDetails, setGetUserDetails] = useState([]);
     const [getUserDetailById, setGetUserDetailById] = useState({});
     const [getUserAvatarsImages, setGetUserAvatarsImages] = useState([]);
+    const [getUserAfterDelete, setGetUserAfterDelete] = useState([]);
     const menuLeft = useRef(null);
     const {
         UserLogin,
@@ -31,14 +33,22 @@ const Content = ({ hide, setClick, handleLogout, user }) => {
         userDetails,
         userDetailsById,
         userDetailsUpdate,
+        getProductById,
         productDelete,
         getProductByUser,
         getUserAvatars,
         userDeleteById,
+        setGetUserDetails,
+        getUserDetails,
+        getProductId,
         loading,
         loadingCreateProduct,
+        loadingDeleteAdmin,
         loadingProducts,
+        loadingUpdateUser,
         refetch,
+        updateUserDetails,
+        setUpdateUserDetails,
     } = useRequestDataProvider();
 
     const ProfileItem = [
@@ -102,6 +112,14 @@ const Content = ({ hide, setClick, handleLogout, user }) => {
     const addNewProduct = (newProduct) => {
         setData((prevProducts) => [...prevProducts, newProduct]);
     };
+    const updateProduct = (updatedProduct) => {
+        setData((prevProducts) =>
+            prevProducts.map((product) =>
+                product.id === updatedProduct.id ? updatedProduct : product
+            )
+        );
+    };
+
     return (
         <div className={cssStyles.Content}>
             <Toast ref={toast} />
@@ -155,9 +173,10 @@ const Content = ({ hide, setClick, handleLogout, user }) => {
                             products={data}
                             productsByUser={productsByUser}
                             getUserDetailById={getUserDetailById}
+                            setGetUserDetailById={setGetUserDetailById}
                             userDetailsUpdate={userDetailsUpdate}
                             getUserAvatarsImages={getUserAvatarsImages}
-                            loading={loading}
+                            loadingUpdateUser={loadingUpdateUser}
                         />
                     }
                 />
@@ -184,16 +203,36 @@ const Content = ({ hide, setClick, handleLogout, user }) => {
                     }
                 />
                 <Route
+                    path="/products/:productName/:id"
+                    element={
+                        <ProductUpdate
+                            updateProduct={updateProduct}
+                            getProductId={getProductId}
+                            user={user}
+                        />
+                    }
+                />
+                <Route
                     path="/products/:productName"
-                    element={<ProductPage products={data} />}
+                    element={
+                        <ProductPage
+                            products={data}
+                            getProductById={getProductById}
+                            productDelete={productDelete}
+                        />
+                    }
                 />
                 <Route path="/statistics" element={<Statistics />} />
                 <Route
                     path="/admins"
                     element={
                         <Admins
+                            user={user}
                             getUserDetails={getUserDetails}
+                            setGetUserDetails={setGetUserDetails}
                             userDeleteOnClick={userDeleteById}
+                            loadingDeleteAdmin={loadingDeleteAdmin}
+                            getUserAfterDelete={getUserAfterDelete}
                         />
                     }
                 />

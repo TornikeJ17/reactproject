@@ -96,11 +96,11 @@
 }
 .AvatarDialog {
     display: grid;
-    width: 75%;
-    height: 75%;
+    width: 50%;
+    height: 50%;
     :global .p-dialog-content {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(8%, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(10%, 1fr));
     }
 }
 .FormContainer {
@@ -133,4 +133,13 @@
 .fieldButton {
     display: flex;
     justify-content: end;
+}
+.AvatarInput {
+    display: flex;
+    input {
+        display: none;
+    }
+    label {
+        cursor: pointer;
+    }
 }

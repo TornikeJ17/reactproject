@@ -27,6 +27,7 @@ const App = () => {
 
     const handleLoginSuccess = (token, userDetails) => {
         localStorage.setItem("userToken", token);
+        localStorage.removeItem("userDetails");
         localStorage.setItem("userData", JSON.stringify(userDetails));
         setIsLoggedIn(true);
         setUser(userDetails);
@@ -35,6 +36,8 @@ const App = () => {
     const handleLogout = () => {
         localStorage.removeItem("userToken");
         localStorage.removeItem("userData");
+        localStorage.removeItem("userDetails");
+
         setIsLoggedIn(false);
         navigate("/");
     };

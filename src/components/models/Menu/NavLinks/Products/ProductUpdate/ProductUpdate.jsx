@@ -1,5 +1,5 @@
-﻿import React, { useRef, useState } from "react";
-import cssStyles from "./ProductCreate.module.scss";
+import React, { useEffect, useRef, useState } from "react";
+import cssStyles from "./ProductUpdate.module.scss";
 import { Card } from "primereact/card";
 import { buttonIcons, radioItems } from "../../../../Icons/Icons";
 import { Link, useNavigate } from "react-router-dom";
@@ -12,25 +12,17 @@ import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
 import { Toast } from "primereact/toast";
+import { Image } from "primereact/image";
+import { Badge } from "primereact/badge";
 
-const ProductCreate = ({ addNewProduct, user }) => {
-    const { productCreateApi } = useRequestDataProvider();
+const ProductUpdate = ({ updateProduct, user, getProductId }) => {
+    const { productUpdateApi } = useRequestDataProvider();
     const toastTopRight = useRef(null);
     const [selectedImages, setSelectedImages] = useState([]);
     const [publishShow, setPublishShow] = useState(false);
-    const [productCreate, setProductCreate] = useState({
-        UserId: user.id,
-        ProductName: "",
-        ProductPrice: "",
-        ProductCode: "",
-        ProductSKU: "",
-        ProductDescription: null,
-        ProductPublish: null,
-        ProductTags: null,
-        ProductCategory: null,
-        inStock: false,
-        ImageUrls: [],
-    });
+    const [productCreate, setProductCreate] = useState({});
+    const [existingImages, setExistingImages] = useState([]);
+
     const [validationErrors, setValidationErrors] = useState({
         ProductName: false,
         ProductPrice: false,
@@ -45,7 +37,6 @@ const ProductCreate = ({ addNewProduct, user }) => {
     const navigate = useNavigate();
 
     //dropdown
-
     const productPublish = [
         { name: "Draft", code: 0 },
         { name: "Published", code: 1 },
@@ -64,14 +55,18 @@ const ProductCreate = ({ addNewProduct, user }) => {
         { name: "Others", code: 4 },
     ];
 
-    const postProduct = async (e) => {
+    const postProduct = async () => {
         const formData = buildFormData();
+
         try {
-            const response = await productCreateApi(formData);
-            addNewProduct(response.data);
+            const updatedProduct = await productUpdateApi(
+                productCreate.Id,
+                formData
+            );
+            updateProduct(updatedProduct);
             navigate("/products");
         } catch (error) {
-            console.error("Error creating product:", error);
+            console.error("Error updating product:", error);
         }
     };
     const buildFormData = () => {
@@ -84,20 +79,17 @@ const ProductCreate = ({ addNewProduct, user }) => {
         });
         return formData;
     };
+
     const showValidationError = (fieldName) => {
         const messages = {
             ProductName: "Product name is required.",
             ProductPrice: "Product price is required.",
             ProductCode: "Product code is required.",
             ProductSKU: "Product SKU is required.",
-            ProductDescription: "Product description is required.",
             ProductPublish: "Product publish status is required.",
             ProductTags: "Product tags are required.",
             ProductCategory: "Product category is required.",
-            ImageUrls: "At least one product image is required.",
         };
-
-        showMessage(toastTopRight, "error", "Error", messages[fieldName]);
     };
     const validateFields = () => {
         const errors = {
@@ -112,15 +104,6 @@ const ProductCreate = ({ addNewProduct, user }) => {
 
         setValidationErrors(errors);
         return !Object.values(errors).includes(true);
-    };
-
-    const showMessage = (ref, severity, summary, detail) => {
-        ref.current.show({
-            severity: severity,
-            summary: summary,
-            detail: detail,
-            life: 3000,
-        });
     };
 
     const createFunction = (e) => {
@@ -138,8 +121,15 @@ const ProductCreate = ({ addNewProduct, user }) => {
         }
         postProduct();
     };
+
     const handleUpload = (event) => {
         setSelectedImages(event.files);
+        setValidationErrors((prev) => {
+            return {
+                ...prev,
+                ImageUrls: selectedImages.length === 0,
+            };
+        });
     };
     const handlePublishChange = (e) => {
         setProductCreate((prevState) => ({
@@ -147,6 +137,7 @@ const ProductCreate = ({ addNewProduct, user }) => {
             ProductPublish: e.value.code,
         }));
     };
+
     const handleDescriptionChange = (e) => {
         setProductCreate((prevState) => ({
             ...prevState,
@@ -176,13 +167,54 @@ const ProductCreate = ({ addNewProduct, user }) => {
             ...productCreate,
             ProductCategory: e.value.code,
         });
-        setValidationErrors((prev) => {
-            return {
-                ...prev,
-                ProductCategory: productCreate.ProductCategory === null,
-            };
-        });
     };
+    useEffect(() => {
+        if (getProductId?.imageUrls) {
+            setExistingImages(getProductId.imageUrls); // Set the initial state with existing images
+        }
+
+        setProductCreate({
+            UserId: user.id,
+            Id: getProductId?.id,
+            ProductName: getProductId?.productName,
+            ProductPrice: getProductId?.productPrice,
+            ProductCode: getProductId?.productCode,
+            ProductSKU: getProductId?.productSKU,
+            ProductDescription: getProductId?.productDescription,
+            ProductPublish: getProductId?.productPublish,
+            ProductTags: getProductId?.productTags,
+            ProductCategory: getProductId?.productCategory,
+            inStock: getProductId?.inStock,
+            ImageUrls: getProductId?.imageUrls,
+        });
+    }, [getProductId, productCreate.ImageUrls]);
+
+    const removeExistingImage = (imageToRemove) => {
+        setExistingImages(
+            existingImages.filter((image) => image !== imageToRemove)
+        );
+    };
+    const imageList = (
+        <div className={cssStyles.ImageList}>
+            {existingImages.map((imageUrl, index) => (
+                <div>
+                    <Image
+                        src={"https://3522.somee.com" + imageUrl}
+                        alt={`Product Image ${index}`}
+                        className={cssStyles.ProductImage}
+                    />
+
+                    <Badge
+                        size="normal"
+                        severity="danger"
+                        value={buttonIcons[25].icon}
+                        onClick={() => removeExistingImage(imageUrl)}
+                    />
+                </div>
+            ))}
+        </div>
+    );
+
     return (
         <div className={cssStyles.Container}>
             <Toast ref={toastTopRight} position="top-right"></Toast>
@@ -191,7 +223,7 @@ const ProductCreate = ({ addNewProduct, user }) => {
                 <Card>
                     <div className={cssStyles.TitleCreateProduct}>
                         <div className={cssStyles.ProductEditorTitle}>
-                            Create Product
+                            Update Product
                         </div>
                         <div className={cssStyles.BackButton}>
                             <Link to={"/products"}>{buttonIcons[14].icon}</Link>
@@ -204,15 +236,12 @@ const ProductCreate = ({ addNewProduct, user }) => {
                         <div className={cssStyles.firstBlockGrid}>
                             <span className="p-float-label">
                                 <InputText
+                                    value={productCreate.ProductName}
                                     onChange={(e) => {
                                         setProductCreate({
                                             ...productCreate,
                                             ProductName: e.target.value,
                                         });
-                                        setValidationErrors((prev) => ({
-                                            ...prev,
-                                            ProductName: false,
-                                        }));
                                     }}
                                     className={
                                         validationErrors.ProductName
@@ -326,18 +355,17 @@ const ProductCreate = ({ addNewProduct, user }) => {
                                     </div>
                                 </span>
                             </div>
+
                             <Editor
-                                style={{ height: "400px" }}
-                                className={
-                                    validationErrors.ProductPrice
-                                        ? "p-invalid"
-                                        : ""
-                                }
+                                style={{ height: "290px" }}
                                 value={productCreate.ProductDescription}
                                 onTextChange={handleDescriptionChange}
                             />
 
                             <div className="card">
+                                {existingImages.length > 0 && (
+                                    <Card>{imageList}</Card>
+                                )}
                                 <FileUpload
                                     name="imageFiles"
                                     customUpload={true}
@@ -350,11 +378,6 @@ const ProductCreate = ({ addNewProduct, user }) => {
                                         <p className="m-0">
                                             Drag and drop files here to upload.
                                         </p>
-                                    }
-                                    className={
-                                        validationErrors.ProductPrice
-                                            ? "p-invalid"
-                                            : ""
                                     }
                                 />
                             </div>
@@ -444,8 +467,9 @@ const ProductCreate = ({ addNewProduct, user }) => {
                                 </Link>
                                 <Button
                                     type={"submit"}
-                                    label={"Create"}
-                                    icon={buttonIcons[11].icon}
+                                    label={"Update"}
+                                    icon={buttonIcons[24].icon}
+                                    severity="warning"
                                 />
                             </div>
                         </div>
@@ -456,4 +480,4 @@ const ProductCreate = ({ addNewProduct, user }) => {
     );
 };
 
-export default ProductCreate;
+export default ProductUpdate;

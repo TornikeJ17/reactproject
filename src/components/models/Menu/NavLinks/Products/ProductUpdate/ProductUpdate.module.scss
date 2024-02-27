@@ -1,4 +1,4 @@
-﻿.Container {
+.Container {
     display: grid;
     grid-template-rows: 1fr 0fr;
     :global .p-fileupload-buttonbar {
@@ -17,7 +17,6 @@
 }
 .ProductEditorContainer {
     display: grid;
-    height: 100vh;
     grid-template-columns: 3fr 1fr;
     padding: 20px;
     gap: 30px;
@@ -222,5 +221,30 @@
         color: #ffffff;
         border-color: #475569;
         cursor: pointer;
+    }
+}
+:global .card {
+    display: grid;
+    gap: 20px;
+}
+.ImageList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    div {
+        position: relative;
+        :global .p-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            cursor: pointer;
+        }
+    }
+}
+.ProductImage {
+    img {
+        width: 100px;
+        height: 100px;
+        border-radius: 10px;
     }
 }

@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Cards from "../../../Widgets/Cards/Cards";
-import { ordersItems } from "../../../../api/order";
 import cssStyles from "./Products.module.scss";
 import { Button } from "primereact/button";
 import { buttonIcons } from "../../../Icons/Icons";
 import { Link, useNavigate } from "react-router-dom";
-import { getResponsiveItemCount } from "../../../Widgets/Responsive/Responsive";
 import { TabView, TabPanel } from "primereact/tabview";
 import { Skeleton } from "primereact/skeleton";
 import { Card } from "primereact/card";
@@ -13,7 +10,6 @@ import { Paginator } from "primereact/paginator";
 import { Image } from "primereact/image";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { InputSwitch } from "primereact/inputswitch";
 import { Tag } from "primereact/tag";
 
 const Products = ({
@@ -51,7 +47,6 @@ const Products = ({
         setAllProducts(products.filter((i) => i.productPublish === 1));
         setDrafts(products.filter((i) => i.productPublish === 0));
     }, [products]);
-    products.filter((i) => console.log(i.productPublish, "i.productPublish"));
     const currentItemsAllProducts = allProducts?.slice(
         firstAllProducts,
         firstAllProducts + rowsAllProducts
@@ -65,10 +60,15 @@ const Products = ({
             navigate("/products/" + encodeURIComponent(rowData.productName));
         };
         const imageBodyTemplate = (rowData) => {
+            const baseUrl = "https://3522.somee.com";
+            const defaultImageUrl =
+                "https://t4.ftcdn.net/jpg/04/70/29/97/360_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg";
+
+            // Use the first image URL if it exists, otherwise, use the default image URL.
             const imageUrl =
-                rowData.imageUrls && rowData.imageUrls.length > 0
-                    ? `https://3522.somee.com${rowData.imageUrls[0]}`
-                    : "default-image-url"; // Replace 'default-image-url' with the URL to a default image
+                rowData.imageUrls?.[0] && rowData.imageUrls[0] !== "undefined"
+                    ? `${baseUrl}${rowData.imageUrls[0]}`
+                    : defaultImageUrl;
 
             return (
                 <Image
@@ -148,7 +148,7 @@ const Products = ({
     return (
         <Card className={cssStyles.CardContainer}>
             <TabView activeIndex={0}>
-                <TabPanel header={`All Products(${allProducts?.length})`}>
+                <TabPanel header={`Published(${allProducts?.length})`}>
                     <div className={cssStyles.ProductItemContainer}>
                         {listProduct(currentItemsAllProducts)}
                     </div>
