@@ -1,9 +1,10 @@
 .LoginContainer {
-    width: 40%;
+    max-width: 100%;
 }
 .LoginForm {
     display: grid;
     gap: 20px;
+    width: 400px;
     h1 {
         font-family: "DM Sans", sans-serif;
         font-size: 24px;
@@ -18,4 +19,12 @@
     display: flex;
     flex-flow: column;
     gap: 10px;
+}
+:global .p-card-content {
+    display: grid;
+    gap: 20px;
+}
+.toggleAuthButton {
+    cursor: pointer;
+    color: #757575;
 }

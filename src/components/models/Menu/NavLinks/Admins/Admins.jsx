@@ -5,18 +5,13 @@ import { Column } from "primereact/column";
 import { Button } from "primereact/button";
 import { buttonIcons } from "../../../Icons/Icons";
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
-import { useLocation, useNavigate } from "react-router-dom";
 const Admins = ({
     user,
     getUserDetails,
     setGetUserDetails,
     userDeleteOnClick,
     loadingDeleteAdmin,
-    getUserAfterDelete,
 }) => {
-    const navigate = useNavigate();
-    const location = useLocation();
-
     const getUserAvatar = (data) => {
         return (
             data.imageUrls && (
@@ -49,6 +44,8 @@ const Admins = ({
         );
     };
     const deleteAdminConfirm = (data) => {
+        console.log(data);
+
         const user = getUserDetails
             .filter((i) => i.id === data)
             .map((u) => u.email);

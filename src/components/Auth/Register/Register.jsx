@@ -70,14 +70,14 @@ const Register = ({ onLoginSuccess, setShowLogin, showLogin }) => {
                 />
                 <Button label="Register" />
             </form>
-            <button
+            <div
                 onClick={() => handleInputChangelogin()}
                 className={cssStyles.toggleAuthButton}
             >
                 {!showLogin
                     ? "Need an account? Register"
-                    : "Have an account? Login"}
-            </button>
+                    : "I am already member"}
+            </div>
         </Card>
     );
 };

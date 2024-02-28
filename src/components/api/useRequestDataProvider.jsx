@@ -235,7 +235,7 @@ const useRequestDataProvider = () => {
             return response.data;
         } catch (error) {
             setLoadingDeleteAdmin(false);
-            console.log(error);
+            alert(error.response.data);
         }
     };
     const capitalizeFirstLetter = (string) => {
